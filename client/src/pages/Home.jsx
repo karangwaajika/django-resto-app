@@ -1,9 +1,12 @@
-import "../assets/App.css";
+import "../assets/Home.css";
+import LoginForm from "../components/LoginForm";
+import NavbarHome from "../components/NavbarHome";
 
 function App() {
   return (
     <div className="app-container">
-      <p>Home</p>
+      <NavbarHome />
+      <LoginForm />
     </div>
   );
 }
