@@ -76,6 +76,25 @@ form {
   row-gap: 10px;
 }
 
+button.btn-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  background-color: #4285f4;
+  padding: 0px;
+}
+.btn-loading.primary {
+  background: #4285f4;
+  border: 1px solid #4285f4;
+  color: #ffffff;
+}
+button .btn-img {
+  width: 50px;
+  height: 30px;
+  border-radius: 50%;
+  display: block;
+}
 button {
   padding: 8px 36px;
   border-radius: 3px;
@@ -87,7 +106,7 @@ button.btn-primary {
   border: 1px solid #4285f4;
   color: #ffffff;
 }
-button.btn-primary:hover {
+/* button.btn-primary:hover {
   background: #ffffff;
   border: 1px solid #4285f4;
   color: black;
@@ -96,14 +115,14 @@ button.btn-primary:active {
   background: #4285f4;
   border: 1px solid #4285f4;
   color: #ffffff;
-}
+} */
 
 button.btn-success {
   background: #00c851;
   border: 1px solid #00c851;
   color: #ffffff;
 }
-button.btn-success:hover {
+/* button.btn-success:hover {
   background: #ffffff;
   border: 1px solid #00c851;
   color: black;
@@ -112,14 +131,14 @@ button.btn-success:active {
   background: #00c851;
   border: 1px solid #00c851;
   color: #ffffff;
-}
+} */
 
 button.btn-warning {
   background: #ffbb33;
   border: 1px solid #ffbb33;
   color: black;
 }
-button.btn-warning:hover {
+/* button.btn-warning:hover {
   background: #ffffff;
   border: 1px solid #ffbb33;
   color: black;
@@ -128,14 +147,14 @@ button.btn-warning:active {
   background: #ffbb33;
   border: 1px solid #ffbb33;
   color: #ffffff;
-}
+} */
 
 button.btn-danger {
   background: #ff3547;
   border: 1px solid #ff3547;
   color: #ffffff;
 }
-button.btn-danger:hover {
+/* button.btn-danger:hover {
   background: #ffffff;
   border: 1px solid #ff3547;
   color: black;
@@ -144,14 +163,14 @@ button.btn-danger:active {
   background: #ff3547;
   border: 1px solid #ff3547;
   color: #ffffff;
-}
+} */
 
 button.btn-dark {
   background: #212121;
   border: 1px solid #212121;
   color: #ffffff;
 }
-button.btn-dark:hover {
+/* button.btn-dark:hover {
   background: #ffffff;
   border: 1px solid #212121;
   color: black;
@@ -160,14 +179,14 @@ button.btn-dark:active {
   background: #212121;
   border: 1px solid #212121;
   color: #ffffff;
-}
+} */
 
 button.btn-light {
   background: #e0e0e0;
   border: 1px solid #e0e0e0;
   color: #ffffff;
 }
-button.btn-light:hover {
+/* button.btn-light:hover {
   background: #ffffff;
   border: 1px solid #e0e0e0;
   color: black;
@@ -176,4 +195,30 @@ button.btn-light:active {
   background: #e0e0e0;
   border: 1px solid #e0e0e0;
   color: #ffffff;
+} */
+
+.success-message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(149, 233, 149);
+  color: black;
+  border-radius: 5px;
+  padding: 10px;
+}
+.error-message {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ff3547;
+  color: white;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.remove-message {
+  cursor: pointer;
+}
+.remove-message:active {
+  color: white;
 }
