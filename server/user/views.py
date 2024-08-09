@@ -1,9 +1,15 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import (
+    api_view,
+    authentication_classes,
+    permission_classes,
+)
 from rest_framework.response import Response
 from rest_framework import status
 from .models import *
 from .serializers import UserSerializer
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import SessionAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
@@ -37,3 +43,10 @@ def login(request):
             "user": serializer.data,
         }
     )
+
+
+@api_view(["GET"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def protect_page(request):
+    return Response("the user with email {} is authenticated".format(request.user.email))
