@@ -75,3 +75,69 @@ article p {
   text-align: center;
   font-size: 12px;
 }
+
+/* right-top navigation bar */
+.right-side {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.right-side .right-nav {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  background: linear-gradient(#996a23ee, #e0e4e4ee);
+  box-shadow: 1px 3px 3px rgb(104, 102, 102);
+  color: black;
+  min-height: 50px;
+  padding: 0 10px;
+}
+.right-side .right-nav .right-ul {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+}
+.right-side .right-ul a {
+  text-decoration: none;
+  border-right: 1px solid white;
+  width: 100px;
+  padding: 13px;
+  color: black;
+}
+
+.right-side .profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+.right-side .profile button {
+  height: 30px;
+}
+
+/* dropdown */
+.dropdown {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+  width: 250px;
+}
+.dropdown .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.dropdown .btn-light {
+  color: black;
+  border: 1px solid rgb(104, 102, 102);
+}
+.dropdown .btn-light:hover,
+.dropdown .btn-dark:hover {
+  background: #ffffff;
+  border: 1px solid #212121;
+  color: black;
+}
+.caret-down .fa:hover {
+  color: white;
+  cursor: pointer;
+}
