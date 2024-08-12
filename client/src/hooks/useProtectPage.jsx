@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 export default function useProtectPage() {
   const token = localStorage.getItem("token");
   let [isAuthenticated, setIsAuthenticated] = useState({});
+  const [userInfo, setUserInfo] = useState({});
   useEffect(() => {
     const cancelToken = axios.CancelToken.source();
     axios
@@ -15,16 +16,17 @@ export default function useProtectPage() {
       })
       .then((res) => {
         setIsAuthenticated({
-            status:true
+          status: true,
         });
+        setUserInfo(res.data.user);
       })
       .catch((err) => {
-        setIsAuthenticated({status:false});
+        setIsAuthenticated({ status: false });
       });
     return () => {
       cancelToken.cancel();
     };
   }, []);
 
-  return { isAuthenticated };
+  return { isAuthenticated, userInfo };
 }

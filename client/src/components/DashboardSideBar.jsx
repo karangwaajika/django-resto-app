@@ -1,5 +1,8 @@
 import { NavLink } from "react-router-dom";
+import { userContext } from "../pages/Dashboard";
+import { useContext } from "react";
 export default function DashboardSideBar() {
+  const user = useContext(userContext);
   return (
     <div className="left-nav">
       <article>
@@ -10,69 +13,71 @@ export default function DashboardSideBar() {
             width={200}
             height={200}
           />
-          <figcaption>Ajika karangwa</figcaption>
+          <figcaption style={{ color: "white" }}>
+            {user.first_name + " " + user.last_name}
+          </figcaption>
         </figure>
-        <p>ajika ajika@yahoo.fr</p>
+        <p>{user.first_name + " " + user.email}</p>
       </article>
 
       <nav>
         <ul className="left-ul">
           <li>
-            <NavLink to="/dashboard" className="link">
+            <NavLink to="/dashboard/home" className="link">
               <i className="fa fa-home "></i>
               Home
             </NavLink>
           </li>
           <li>
-            <NavLink to="/add-tea" className="link">
+            <NavLink to="/dashboard/add-tea" className="link">
               <i className="fa fa-home "></i>
               Add Hot Drink
             </NavLink>
           </li>
           <li>
-            <NavLink to="/view-teas" className="link">
+            <NavLink to="/dashboard/view-teas" className="link">
               <i className="fa fa-home "></i>
               View Hot Drinks
             </NavLink>
           </li>
           <li>
-            <NavLink to="/add-meal" className="link">
+            <NavLink to="/dashboard/add-meal" className="link">
               <i className="fa fa-home "></i>
               Add Meal
             </NavLink>
           </li>
           <li>
-            <NavLink to="/view-meals" className="link">
+            <NavLink to="/dashboard/view-meals" className="link">
               <i className="fa fa-home "></i>
               View Meal
             </NavLink>
           </li>
           <li>
-            <NavLink to="/add-beverage" className="link">
+            <NavLink to="/dashboard/add-beverage" className="link">
               <i className="fa fa-home "></i>
               Add Beverage
             </NavLink>
           </li>
           <li>
-            <NavLink to="/purchase-beverage" className="link">
+            <NavLink to="/dashboard/purchase-beverage" className="link">
               <i className="fa fa-home "></i>
               Purchase Beverage
             </NavLink>
           </li>
           <li>
-            <NavLink to="/view-beverages" className="link">
+            <NavLink to="/dashboard/view-beverages" className="link">
               <i className="fa fa-home "></i>
               View Beverages
             </NavLink>
           </li>
           <li>
-            <NavLink to="/add-waiter" className="link">
+            <NavLink to="/dashboard/add-waiter" className="link">
               <i className="fa fa-home "></i>
               Add Waiter
             </NavLink>
           </li>
           <li>
-            <NavLink to="/view-waiters" className="link">
+            <NavLink to="/dashboard/view-waiters" className="link">
               <i className="fa fa-home "></i>
               View Waiters
             </NavLink>

@@ -49,4 +49,11 @@ def login(request):
 @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def protect_page(request):
-    return Response("the user with email {} is authenticated".format(request.user.email))
+    serializer_user = UserSerializer(request.user)
+    return Response(
+        {
+            "success": True,
+            "message": "Successfuly added",
+            "user": serializer_user.data,
+        }
+    )

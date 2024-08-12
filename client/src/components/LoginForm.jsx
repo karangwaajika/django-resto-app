@@ -38,7 +38,7 @@ export default function LoginForm() {
       .then((res) => {
         if (res.data.success) {
           localStorage.setItem("token", res.data.token); //store the token in a local storage
-          navigate("/dashboard");
+          navigate("/dashboard/home");
         } else {
           console.log(res.data);
           setMessage(res.data);

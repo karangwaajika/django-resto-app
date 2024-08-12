@@ -44,7 +44,10 @@
   background-color: white;
   color: black;
 }
-
+.left-side .left-ul li a.active{
+  background-color: white;
+  color: black;
+}
 /* admin profile */
 article,
 figure {
