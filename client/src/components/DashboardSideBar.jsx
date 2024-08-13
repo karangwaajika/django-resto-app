@@ -31,13 +31,13 @@ export default function DashboardSideBar() {
           <li>
             <NavLink to="/dashboard/add-tea" className="link">
               <i className="fa fa-home "></i>
-              Add Hot Drink
+              Add Tea/Coffee
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/view-teas" className="link">
               <i className="fa fa-home "></i>
-              View Hot Drinks
+              View Tea/Coffees
             </NavLink>
           </li>
           <li>

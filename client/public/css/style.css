@@ -106,80 +106,85 @@ button.btn-primary {
   border: 1px solid #4285f4;
   color: #ffffff;
 }
-/* button.btn-primary:hover {
+button.btn-primary-outline {
   background: #ffffff;
   border: 1px solid #4285f4;
   color: black;
 }
-button.btn-primary:active {
+button.btn-primary-outline:hover,
+button.btn-primary-outline:active {
   background: #4285f4;
   border: 1px solid #4285f4;
   color: #ffffff;
-} */
+}
 
 button.btn-success {
   background: #00c851;
   border: 1px solid #00c851;
   color: #ffffff;
 }
-/* button.btn-success:hover {
+button.btn-success-outline {
   background: #ffffff;
   border: 1px solid #00c851;
   color: black;
 }
-button.btn-success:active {
+button.btn-success-outline:hover,
+button.btn-success-outline:active {
   background: #00c851;
   border: 1px solid #00c851;
   color: #ffffff;
-} */
+}
 
 button.btn-warning {
   background: #ffbb33;
   border: 1px solid #ffbb33;
   color: black;
 }
-/* button.btn-warning:hover {
+button.btn-warning-outline {
   background: #ffffff;
   border: 1px solid #ffbb33;
   color: black;
 }
-button.btn-warning:active {
+button.btn-warning-outline:hover,
+button.btn-warning-outline:active {
   background: #ffbb33;
   border: 1px solid #ffbb33;
   color: #ffffff;
-} */
+}
 
 button.btn-danger {
   background: #ff3547;
   border: 1px solid #ff3547;
   color: #ffffff;
 }
-/* button.btn-danger:hover {
+button.btn-danger-outline {
   background: #ffffff;
   border: 1px solid #ff3547;
   color: black;
 }
-button.btn-danger:active {
+button.btn-danger-outline:hover,
+button.btn-danger-outline:active {
   background: #ff3547;
   border: 1px solid #ff3547;
   color: #ffffff;
-} */
+}
 
 button.btn-dark {
   background: #212121;
   border: 1px solid #212121;
   color: #ffffff;
 }
-/* button.btn-dark:hover {
+button.btn-dark-outline {
   background: #ffffff;
   border: 1px solid #212121;
   color: black;
 }
-button.btn-dark:active {
+button.btn-dark-outline:hover,
+button.btn-dark-outline:active {
   background: #212121;
   border: 1px solid #212121;
   color: #ffffff;
-} */
+}
 
 button.btn-light {
   background: #e0e0e0;

@@ -144,3 +144,11 @@ article p {
   color: white;
   cursor: pointer;
 }
+
+/* main content */
+
+.main-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
