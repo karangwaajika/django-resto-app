@@ -1,54 +1,17 @@
 import Button from "./ui/Button";
 import InputField from "./ui/InputField";
-import { useState } from "react";
-import axios from "axios";
 import ButtonLoading from "./ui/ButtonLoading";
 import FlashMessage from "./ui/FlashMessage";
 import loadingImg from "/images/n-loading.gif";
 
-export default function TeaForm() {
-  const [message, setMessage] = useState();
-  const clearMessage = () => {
-    setMessage();
-  };
-  const [isLoading, setIsLoading] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    price: 0,
-    tea_type: "",
-  });
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((oldForm) => {
-      return { ...oldForm, [name]: value };
-    });
-  };
-  const submitForm = (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    axios
-      .post(import.meta.env.VITE_REACT_APP_ADD_TEA_API, {
-        name: form.name,
-        price: form.price,
-        tea_type: form.tea_type,
-      })
-      .then((res) => {
-        if (res.data.success) {
-          setMessage(res.data);
-        } else {
-          setMessage(res.data);
-        }
-      })
-      .catch((err) => {
-        setMessage({
-          success: false,
-          message: err.message,
-        });
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  };
+export default function TeaForm({
+  message,
+  isLoading,
+  form,
+  handleChange,
+  submitForm,
+  clearMessage,
+}) {
   return (
     <div className="tea-form">
       <div
