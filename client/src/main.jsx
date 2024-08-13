@@ -14,11 +14,13 @@ import ViewBeverages from "./pages/ViewBeverages.jsx";
 import AddWaiter from "./pages/AddWaiter.jsx";
 import ViewWaiters from "./pages/ViewWaiters.jsx";
 import HomeDashboard from "./pages/HomeDashboard.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    errorElement: <NotFoundPage />,
   },
   {
     element: <ProtectPage />,
