@@ -11,6 +11,7 @@ export default function TeaForm({
   handleChange,
   submitForm,
   clearMessage,
+  fieldError,
 }) {
   return (
     <div className="tea-form">
@@ -28,27 +29,38 @@ export default function TeaForm({
         )}
         <div className="card-body">
           <form onSubmit={submitForm}>
+            {fieldError.name && <i className="error-text">{fieldError.name}</i>}
             <InputField
               type="text"
               name="name"
               id="name"
+              errorField={fieldError.name && "error-field"}
               label="Name"
               icon="fa-solid fa-coffee"
               placeholder="Name"
               handleChange={handleChange}
               value={form.name}
             />
+            {fieldError.price && (
+              <i className="error-text">{fieldError.price}</i>
+            )}
             <InputField
               type="number"
               name="price"
               id="price"
+              errorField={fieldError.price && "error-field"}
               label="Price"
               icon="fa fa-euro"
               placeholder="Price"
               handleChange={handleChange}
               value={form.price}
             />
-            <div className="input-group">
+            {fieldError.tea_type && (
+              <i className="error-text">{fieldError.tea_type}</i>
+            )}
+            <div
+              className={`input-group ${fieldError.tea_type && "error-field"}`}
+            >
               <span className="input-icon">
                 <i className="fa-solid fa-list"></i>
               </span>
@@ -56,6 +68,7 @@ export default function TeaForm({
                 name="tea_type"
                 value={form.tea_type}
                 onChange={handleChange}
+                errorField={fieldError.name && "error-field"}
                 id="tea_type"
                 className="input-field"
               >

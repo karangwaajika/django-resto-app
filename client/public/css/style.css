@@ -227,3 +227,14 @@ button.btn-light:active {
 .remove-message:active {
   color: white;
 }
+
+/* input field error */
+.error-field {
+  border: 1px solid #ff3547;
+  color: #ff3547;
+}
+.error-text {
+  color: #dd2e2e;
+  font-size: 13px;
+  font-weight: bold;
+}

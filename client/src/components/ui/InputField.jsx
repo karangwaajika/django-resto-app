@@ -7,9 +7,10 @@ export default function InputField({
   value,
   handleChange,
   icon,
+  errorField,
 }) {
   return (
-    <div className="input-group">
+    <div className={`input-group ${errorField && "error-field"}`}>
       <span className="input-icon">
         <i className={icon}></i>
       </span>

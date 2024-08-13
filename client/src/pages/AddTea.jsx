@@ -2,6 +2,7 @@ import "../assets/AddTea.css";
 import TeaForm from "../components/TeaForm";
 import { useState } from "react";
 import axios from "axios";
+import fieldValidation from "../utils/fieldValidation.mjs";
 
 export default function AddTea() {
   const [message, setMessage] = useState();
@@ -15,6 +16,22 @@ export default function AddTea() {
     tea_type: "",
   });
 
+  // handle form input error
+  const [fieldError, setFieldError] = useState({});
+  const validateSubmitForm = async (e) => {
+    e.preventDefault();
+    const inputFields = {
+      name: form.name,
+      price: form.price,
+      tea_type: form.tea_type,
+    };
+    const validatedFields = fieldValidation(inputFields);
+    setFieldError(validatedFields);
+
+    if (Object.keys(validatedFields).length == 0) {
+      submitForm();
+    }
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((oldForm) => {
@@ -22,7 +39,6 @@ export default function AddTea() {
     });
   };
   const submitForm = (e) => {
-    e.preventDefault();
     setIsLoading(true);
     axios
       .post(import.meta.env.VITE_REACT_APP_ADD_TEA_API, {
@@ -60,8 +76,9 @@ export default function AddTea() {
         isLoading={isLoading}
         form={form}
         handleChange={handleChange}
-        submitForm={submitForm}
+        submitForm={validateSubmitForm}
         clearMessage={clearMessage}
+        fieldError={fieldError}
       />
     </div>
   );
