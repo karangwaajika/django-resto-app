@@ -6,7 +6,10 @@ import FlashMessage from "../components/ui/FlashMessage";
 import loaderPicture from "/images/loading-3.gif";
 import { useState, createContext } from "react";
 import EditTeaModal from "../components/EditTeaModal";
+import DeleteTeaModal from "../components/DeleteTeaModal";
+
 export const updateTeaContext = createContext();
+
 export default function ViewTeas() {
   // to trigger fetch data when tea is updated to re-render the component
   const [refreshData, setRefreshData] = useState(false);
@@ -17,9 +20,11 @@ export default function ViewTeas() {
     import.meta.env.VITE_REACT_APP_VIEW_TEAS_API,
     refreshData
   );
-  const [rowToEdit, setrowToEdit] = useState(null);
 
   const [animation, setAnimation] = useState("");
+
+  // handle update
+  const [rowToEdit, setrowToEdit] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
   const handleEditModal = (index) => {
     // get targeted tea information
@@ -28,6 +33,15 @@ export default function ViewTeas() {
     setTimeout(() => {
       setOpenEditModal((oldModalState) => !oldModalState);
     }, 1000);
+  };
+  // handle delete
+  const [rowToDelete, setrowToDelete] = useState(null);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const handleDeleteModal = (index) => {
+    // get targeted tea information
+    setrowToDelete(index);
+    setOpenDeleteModal((oldModalState) => !oldModalState);
+    
   };
 
   return (
@@ -53,13 +67,27 @@ export default function ViewTeas() {
           <img src={loaderPicture} width={100} height={100} />
         </div>
       )}
-      <TeaTable teas={data} openEditModal={handleEditModal} />
+      <TeaTable
+        teas={data}
+        openEditModal={handleEditModal}
+        openDeleteModal={handleDeleteModal}
+      />
+
       <updateTeaContext.Provider value={handleRefreshData}>
         {openEditModal && (
           <EditTeaModal
             closeModal={handleEditModal}
             animation={animation}
             tea={rowToEdit >= 0 && data[rowToEdit]}
+          />
+        )}
+      </updateTeaContext.Provider>
+
+      <updateTeaContext.Provider value={handleRefreshData}>
+        {openDeleteModal && (
+          <DeleteTeaModal
+            closeModal={handleDeleteModal}
+            tea={rowToDelete >= 0 && data[rowToDelete]}
           />
         )}
       </updateTeaContext.Provider>

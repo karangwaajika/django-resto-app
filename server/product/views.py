@@ -52,3 +52,13 @@ def update_tea(request, tea_id):
     tea.tea_type = request.data["tea_type"]
     tea.save()
     return Response({"success": True, "message": "Tea Successfully updated!"})
+
+
+@api_view(["DELETE"])
+def delete_tea(request, tea_id):
+    try:
+        tea = Tea.objects.get(pk=tea_id)
+    except Tea.DoesNotExist:
+        return Response({"success": False, "message": "Tea doesn't exist"})
+    tea.delete()
+    return Response({"success": False, "message": "Tea Successfully Deleted!"})

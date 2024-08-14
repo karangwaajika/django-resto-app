@@ -324,3 +324,24 @@ th {
 .modal-close-button:active {
   color: #7a8888ee;
 }
+
+/* delete modal */
+.delete-modal .modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.delete-modal .info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+.delete-modal .modal-footer {
+  margin-top: 30px;
+  border-top: 1px solid #707474ee;
+  padding-top: 30px;
+}
+.delete-modal .delete-options{
+  display: flex;
+  justify-content: space-between;
+}

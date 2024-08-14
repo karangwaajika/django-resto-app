@@ -1,6 +1,6 @@
 import { formatToDateString } from "../utils/dateFormat.mjs";
 import { addComma } from "../utils/addComma.mjs";
-export default function TeaTable({ teas, openEditModal }) {
+export default function TeaTable({ teas, openEditModal, openDeleteModal }) {
   return (
     <table className="tea-table">
       {/* <caption>Tea/Coffe List</caption> */}
@@ -29,7 +29,10 @@ export default function TeaTable({ teas, openEditModal }) {
                     className="fa fa-pencil"
                     onClick={() => openEditModal(index)}
                   ></i>
-                  <i className="fa fa-trash-can"></i>
+                  <i
+                    className="fa fa-trash-can"
+                    onClick={() => openDeleteModal(index)}
+                  ></i>
                 </td>
               </tr>
             );
