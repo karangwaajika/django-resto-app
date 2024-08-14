@@ -27,3 +27,14 @@ table.tea-table th {
 tr:nth-of-type(2n) {
   background-color: #f3f3f3fb;
 }
+
+/* action buttons */
+.tea-table .fa:hover {
+  cursor: pointer;
+}
+.tea-table .fa:active {
+  color: white;
+}
+.tea-table .fa-trash-can {
+  color: red;
+}

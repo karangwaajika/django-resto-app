@@ -1,6 +1,6 @@
 import { formatToDateString } from "../utils/dateFormat.mjs";
 import { addComma } from "../utils/addComma.mjs";
-export default function TeaTable({ teas }) {
+export default function TeaTable({ teas, openEditModal }) {
   return (
     <table className="tea-table">
       {/* <caption>Tea/Coffe List</caption> */}
@@ -25,8 +25,11 @@ export default function TeaTable({ teas }) {
                 <td data-cell="Price">{addComma(tea.price)}</td>
                 <td data-cell="Date">{formatToDateString(tea.created_at)}</td>
                 <td data-cell="Action">
-                  <i className="fa fa-pencil"></i>
-                  <i className="fa fa-trash-can" style={{ color: "red" }}></i>
+                  <i
+                    className="fa fa-pencil"
+                    onClick={() => openEditModal(index)}
+                  ></i>
+                  <i className="fa fa-trash-can"></i>
                 </td>
               </tr>
             );

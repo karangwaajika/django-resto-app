@@ -3,28 +3,40 @@ import InputField from "./ui/InputField";
 import ButtonLoading from "./ui/ButtonLoading";
 import FlashMessage from "./ui/FlashMessage";
 import loadingImg from "/images/n-loading.gif";
+import useEditTea from "../hooks/useEditTea";
+export default function EditTeaModal({ closeModal, animation, tea }) {
+  const {
+    isLoading,
+    form,
+    fieldError,
+    message,
+    clearMessage,
+    handleChange,
+    validateSubmitForm: submitForm,
+  } = useEditTea(tea);
 
-export default function TeaForm({
-  message,
-  isLoading,
-  form,
-  handleChange,
-  submitForm,
-  clearMessage,
-  fieldError,
-}) {
+  const handleCloseModal = (e) => {
+    if (e.target.className == "modal animated fadeIn") {
+      closeModal();
+    }
+  };
   return (
-    <div className="tea-form">
-      <div className="card" style={{ width: "70%", border: "1px solid black" }}>
-        <div className="card-header">Tea Form</div>
-        {message && (
-          <FlashMessage
-            message={message.message}
-            isSuccess={message.success}
-            clearMessage={clearMessage}
-          />
-        )}
-        <div className="card-body">
+    <div className={`modal ${animation}`} onClick={handleCloseModal}>
+      <div className="modal-content ">
+        <div className="modal-header">
+          <h2>Update Subject</h2>
+          {message && (
+            <FlashMessage
+              message={message.message}
+              isSuccess={message.success}
+              clearMessage={clearMessage}
+            />
+          )}
+          <div className="modal-close-button" onClick={closeModal}>
+            <i className="fa fa-rectangle-xmark"></i>
+          </div>
+        </div>
+        <div className="modal-body">
           <form onSubmit={submitForm}>
             {fieldError.name && <i className="error-text">{fieldError.name}</i>}
             <InputField
@@ -69,7 +81,7 @@ export default function TeaForm({
                 id="tea_type"
                 className="input-field"
               >
-                <option value="">Select type</option>
+                <option value={form.tea_type}>{form.tea_type}</option>
                 <option key={1} value="Tea">
                   Tea
                 </option>
@@ -93,7 +105,7 @@ export default function TeaForm({
             )}
           </form>
         </div>
-        <div className="card-footer"></div>
+        <div className="modal-footer"></div>
       </div>
     </div>
   );
