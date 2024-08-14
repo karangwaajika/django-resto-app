@@ -4,12 +4,18 @@ import InputField from "../components/ui/InputField";
 import useFetchData from "../hooks/useFetchData";
 import FlashMessage from "../components/ui/FlashMessage";
 import loaderPicture from "/images/loading-3.gif";
-import { useState } from "react";
+import { useState, createContext } from "react";
 import EditTeaModal from "../components/EditTeaModal";
-
+export const updateTeaContext = createContext();
 export default function ViewTeas() {
+  // to trigger fetch data when tea is updated to re-render the component
+  const [refreshData, setRefreshData] = useState(false);
+  const handleRefreshData = () => {
+    setRefreshData((oldstate) => !oldstate);
+  };
   const { data, isLoading, message } = useFetchData(
-    import.meta.env.VITE_REACT_APP_VIEW_TEAS_API
+    import.meta.env.VITE_REACT_APP_VIEW_TEAS_API,
+    refreshData
   );
   const [rowToEdit, setrowToEdit] = useState(null);
 
@@ -48,13 +54,15 @@ export default function ViewTeas() {
         </div>
       )}
       <TeaTable teas={data} openEditModal={handleEditModal} />
-      {openEditModal && (
-        <EditTeaModal
-          closeModal={handleEditModal}
-          animation={animation}
-          tea={rowToEdit >= 0 && data[rowToEdit]}
-        />
-      )}
+      <updateTeaContext.Provider value={handleRefreshData}>
+        {openEditModal && (
+          <EditTeaModal
+            closeModal={handleEditModal}
+            animation={animation}
+            tea={rowToEdit >= 0 && data[rowToEdit]}
+          />
+        )}
+      </updateTeaContext.Provider>
     </div>
   );
 }

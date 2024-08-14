@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-export default function useFetchData(url) {
+export default function useFetchData(url, refreshData) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
@@ -26,7 +26,7 @@ export default function useFetchData(url) {
     return () => {
       cancelToken.cancel();
     };
-  }, []);
+  }, [refreshData]);
 
   return { data, isLoading, message };
 }

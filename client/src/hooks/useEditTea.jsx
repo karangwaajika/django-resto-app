@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import fieldValidation from "../utils/fieldValidation.mjs";
+import { updateTeaContext } from "../pages/ViewTeas";
 export default function useEditTea(tea) {
+  const setUpdateTea = useContext(updateTeaContext);
   const [message, setMessage] = useState();
   const clearMessage = () => {
     setMessage();
@@ -44,7 +46,26 @@ export default function useEditTea(tea) {
     });
   };
   const submitForm = (e) => {
-    // todo:: update tea
+    setIsLoading(true);
+    axios
+      .post(import.meta.env.VITE_REACT_APP_UPDATE_TEA_API + "/" + tea.id, {
+        name: form.name,
+        price: form.price,
+        tea_type: form.tea_type,
+      })
+      .then((res) => {
+        setMessage(res.data);
+        setUpdateTea();
+      })
+      .catch((err) => {
+        setMessage({
+          success: false,
+          message: err.message,
+        });
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
   return {
     fieldError,

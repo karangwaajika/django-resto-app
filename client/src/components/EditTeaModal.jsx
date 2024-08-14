@@ -25,17 +25,17 @@ export default function EditTeaModal({ closeModal, animation, tea }) {
       <div className="modal-content ">
         <div className="modal-header">
           <h2>Update Subject</h2>
-          {message && (
-            <FlashMessage
-              message={message.message}
-              isSuccess={message.success}
-              clearMessage={clearMessage}
-            />
-          )}
           <div className="modal-close-button" onClick={closeModal}>
             <i className="fa fa-rectangle-xmark"></i>
           </div>
         </div>
+        {message && (
+          <FlashMessage
+            message={message.message}
+            isSuccess={message.success}
+            clearMessage={clearMessage}
+          />
+        )}
         <div className="modal-body">
           <form onSubmit={submitForm}>
             {fieldError.name && <i className="error-text">{fieldError.name}</i>}
