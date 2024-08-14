@@ -15,10 +15,7 @@ export default function TeaForm({
 }) {
   return (
     <div className="tea-form">
-      <div
-        className="card"
-        style={{ width: "600px", border: "1px solid black" }}
-      >
+      <div className="card" style={{ width: "70%", border: "1px solid black" }}>
         <div className="card-header">Tea Form</div>
         {message && (
           <FlashMessage
@@ -92,7 +89,7 @@ export default function TeaForm({
                 img={loadingImg}
               />
             ) : (
-              <Button text="Login" className="btn-dark-outline" />
+              <Button text="Login" className="btn-dark" />
             )}
           </form>
         </div>

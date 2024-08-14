@@ -44,7 +44,7 @@
   background-color: white;
   color: black;
 }
-.left-side .left-ul li a.active{
+.left-side .left-ul li a.active {
   background-color: white;
   color: black;
 }
@@ -147,8 +147,7 @@ article p {
 
 /* main content */
 
-.main-content{
+.main-content {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
 }

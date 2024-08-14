@@ -1,0 +1,29 @@
+.add-tea-content,
+.view-tea-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.add-tea-content {
+  padding: 0 100px;
+}
+.view-tea-content {
+  padding: 0 50px;
+}
+
+.search-btn {
+  width: 100%;
+}
+
+table.tea-table {
+  background-color: #d1d6d6ee;
+}
+table.tea-table caption,
+table.tea-table th {
+  background-color: #4e5050ee;
+  color: white;
+  border-bottom: 1px solid #707474ee;
+}
+tr:nth-of-type(2n) {
+  background-color: #f3f3f3fb;
+}

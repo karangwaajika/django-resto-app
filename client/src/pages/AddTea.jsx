@@ -1,4 +1,4 @@
-import "../assets/AddTea.css";
+import "../assets/Tea.css";
 import TeaForm from "../components/TeaForm";
 import { useState } from "react";
 import axios from "axios";
@@ -65,7 +65,7 @@ export default function AddTea() {
   };
   return (
     <div className="add-tea-content">
-      <div className="tea-header">
+      <div className="tea-header" style={{ textAlign: "center" }}>
         <h2>Add Tea/Coffee</h2>
         <p style={{ fontSize: "14px" }}>
           Add Tea, Coffee and Drinks such as Juice, Ice Cream and Smoothies

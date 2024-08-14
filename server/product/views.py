@@ -13,6 +13,7 @@ from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 
+
 @api_view(["POST"])
 def add_tea(request):
     tea_serializer = TeaSerializer(data=request.data)
@@ -30,3 +31,10 @@ def add_tea(request):
             "message": "Field Validation Error",
         }
     )
+
+
+@api_view(["GET"])
+def view_teas(request):
+    teas = Tea.objects.all().order_by("-id")
+    tea_serializer = TeaSerializer(teas, many=True)
+    return Response({"success": True, "data": tea_serializer.data})

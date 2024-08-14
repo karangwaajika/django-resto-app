@@ -238,3 +238,48 @@ button.btn-light:active {
   font-size: 13px;
   font-weight: bold;
 }
+/* loading image */
+.loader {
+  width: 40%;
+  position: absolute;
+  top: 32%;
+  left: 25%;
+}
+.loader img {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.5;
+  border-radius: 80%;
+}
+
+/* table */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+caption,
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+caption {
+  text-align: center;
+}
+caption,
+th {
+  font-weight: 700;
+}
+@media (max-width: 650px) {
+  th {
+    display: none;
+  }
+  td {
+    display: block;
+  }
+  td::before {
+    content: attr(data-cell) ": ";
+  }
+}
