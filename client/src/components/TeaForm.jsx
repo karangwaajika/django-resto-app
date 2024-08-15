@@ -15,7 +15,7 @@ export default function TeaForm({
 }) {
   return (
     <div className="tea-form">
-      <div className="card" style={{ width: "70%", border: "1px solid black" }}>
+      <div className="card" style={{ width: "60%", border: "1px solid black" }}>
         <div className="card-header">Tea Form</div>
         {message && (
           <FlashMessage
