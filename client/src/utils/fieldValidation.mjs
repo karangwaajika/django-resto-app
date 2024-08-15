@@ -1,4 +1,10 @@
-export default function fieldValidation({ name, email, price, tea_type }) {
+export default function fieldValidation({
+  name,
+  email,
+  price,
+  tea_type,
+  meal_type,
+}) {
   const errorsValidation = {};
   if (!name.trim()) {
     errorsValidation.name = "Name is required";
@@ -15,8 +21,11 @@ export default function fieldValidation({ name, email, price, tea_type }) {
   } else if (!/^[0-9]+$/.test(price)) {
     errorsValidation.price = "Only digits are allowed";
   }
-  if (!tea_type) {
+  if (tea_type == "") {
     errorsValidation.tea_type = "Tea type wasn't provided";
+  }
+  if (meal_type == "") {
+    errorsValidation.meal_type = "Meal type wasn't provided";
   }
 
   return errorsValidation;

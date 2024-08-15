@@ -1,0 +1,6 @@
+.add-meal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 50px;
+}

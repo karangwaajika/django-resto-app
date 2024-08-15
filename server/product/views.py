@@ -73,3 +73,22 @@ def delete_tea(request, tea_id):
         return Response({"success": False, "message": "Tea doesn't exist"})
     tea.delete()
     return Response({"success": False, "message": "Tea Successfully Deleted!"})
+
+
+@api_view(["POST"])
+def add_meal(request):
+    meal_serializer = MealSerializer(data=request.data)
+    if meal_serializer.is_valid():
+        meal_serializer.save()
+        return Response(
+            {
+                "success": True,
+                "message": "Successfuly added",
+            }
+        )
+    return Response(
+        {
+            "success": False,
+            "message": "Field Validation Error",
+        }
+    )
