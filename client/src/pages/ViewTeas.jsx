@@ -7,6 +7,7 @@ import loaderPicture from "/images/loading-3.gif";
 import { useState, createContext } from "react";
 import EditTeaModal from "../components/EditTeaModal";
 import DeleteTeaModal from "../components/DeleteTeaModal";
+import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
 
 export const updateTeaContext = createContext();
 
@@ -16,8 +17,11 @@ export default function ViewTeas() {
   const handleRefreshData = () => {
     setRefreshData((oldstate) => !oldstate);
   };
-  const { data, isLoading, message } = useFetchData(
+  // handle fetch auto complete
+  const [search, setSearch] = useState("");
+  const { data, isLoading, message } = useFetchAutoComplete(
     import.meta.env.VITE_REACT_APP_VIEW_TEAS_API,
+    search,
     refreshData
   );
 
@@ -41,7 +45,6 @@ export default function ViewTeas() {
     // get targeted tea information
     setrowToDelete(index);
     setOpenDeleteModal((oldModalState) => !oldModalState);
-    
   };
 
   return (
@@ -60,6 +63,7 @@ export default function ViewTeas() {
           label="Search"
           icon="fa-solid fa-search"
           placeholder="Search ... "
+          handleChange={(e) => setSearch(e.target.value)}
         />
       </div>
       {isLoading && (

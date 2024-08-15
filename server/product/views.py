@@ -10,6 +10,7 @@ from .serializers import *
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.db.models import Q
 
 # Create your views here.
 
@@ -33,8 +34,18 @@ def add_tea(request):
     )
 
 
-@api_view(["GET"])
+@api_view(["GET", "POST"])
 def view_teas(request):
+    if request.method == "POST":
+        search_fields = (
+            Q(name__contains=request.data["search"])
+            | Q(tea_type__contains=request.data["search"])
+            | Q(price__contains=request.data["search"])
+        )
+        tea = Tea.objects.filter(search_fields).order_by("-id")
+        tea_serializer = TeaSerializer(tea, many=True)
+        return Response({"success": False, "data": tea_serializer.data})
+
     teas = Tea.objects.all().order_by("-id")
     tea_serializer = TeaSerializer(teas, many=True)
     return Response({"success": True, "data": tea_serializer.data})
