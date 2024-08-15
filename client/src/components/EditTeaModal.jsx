@@ -96,12 +96,12 @@ export default function EditTeaModal({ closeModal, animation, tea }) {
             </div>
             {isLoading ? (
               <ButtonLoading
-                text="Login"
+                text="Submit"
                 className="btn-dark"
                 img={loadingImg}
               />
             ) : (
-              <Button text="Login" className="btn-dark" />
+              <Button text="Submit" className="btn-dark" />
             )}
           </form>
         </div>

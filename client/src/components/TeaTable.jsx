@@ -29,6 +29,7 @@ export default function TeaTable({ teas, openEditModal, openDeleteModal }) {
                     className="fa fa-pencil"
                     onClick={() => openEditModal(index)}
                   ></i>
+                  {' '}
                   <i
                     className="fa fa-trash-can"
                     onClick={() => openDeleteModal(index)}
