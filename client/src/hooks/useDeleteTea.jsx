@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { updateTeaContext } from "../pages/ViewTeas";
-export default function useDeleteTea(tea) {
+export default function useDeleteTea(tea, closeModal) {
   const setUpdateTea = useContext(updateTeaContext);
   const [message, setMessage] = useState();
   const clearMessage = () => {
@@ -17,6 +17,7 @@ export default function useDeleteTea(tea) {
       .then((res) => {
         setMessage(res.data);
         setUpdateTea();
+        closeModal();
       })
       .catch((err) => {
         setMessage({

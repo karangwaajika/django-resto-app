@@ -6,7 +6,7 @@ import { formatToDateString } from "../utils/dateFormat.mjs";
 import loadingImg from "/images/r-loading.gif";
 import FlashMessage from "./ui/FlashMessage";
 export default function DeleteTeaModal({ closeModal, tea }) {
-  const { isLoading, message, clearMessage, submitForm } = useDeleteTea(tea);
+  const { isLoading, message, clearMessage, submitForm } = useDeleteTea(tea, closeModal);
 
   const handleCloseModal = (e) => {
     if (e.target.className == "modal animated fadeIn") {
