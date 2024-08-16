@@ -13,3 +13,9 @@ class MealSerializer(serializers.ModelSerializer):
     class Meta:
         model = Meal
         fields = "__all__"
+
+
+class BeverageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Beverage
+        fields = "__all__"

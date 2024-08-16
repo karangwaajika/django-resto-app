@@ -16,3 +16,10 @@ class MealAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Meal, MealAdmin)
+
+
+class BeverageAdmin(admin.ModelAdmin):
+    list_display = ("name", "beverage_type")
+
+
+admin.site.register(Beverage, BeverageAdmin)

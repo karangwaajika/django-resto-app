@@ -1,0 +1,17 @@
+.add-beverage-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 50px;
+}
+
+.beverage-forms {
+  display: flex;
+  gap: 10px;
+}
+.beverage-add-form {
+  width: 40%;
+}
+.beverage-purchase-form {
+  width: 60%;
+}

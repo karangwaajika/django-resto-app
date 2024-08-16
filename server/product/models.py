@@ -47,3 +47,20 @@ class Meal(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Beverage(models.Model):
+    class BeverageType(models.TextChoices):
+
+        WATER = "Water", "Water"
+        BEER = "Beer", "Beer"
+        SODA = "Soda", "Soda"
+        WINE = "Wine", "Wine"
+
+    name = models.CharField(max_length=150, unique=True)
+    beverage_type = models.CharField(max_length=50, choices=BeverageType.choices)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
