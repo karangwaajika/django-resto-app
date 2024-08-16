@@ -64,3 +64,15 @@ class Beverage(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class BeverageStock(models.Model):
+    beverage = models.ForeignKey(Beverage, on_delete=models.CASCADE)
+    price = models.IntegerField(default=0)
+    qty = models.IntegerField(default=0)
+    purchase_date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.beverage.name

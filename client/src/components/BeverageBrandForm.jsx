@@ -54,7 +54,7 @@ export default function BeverageBrandForm({
                 name="beverage_type"
                 value={form.beverage_type}
                 onChange={handleChange}
-                errorfield={fieldError.name && "error-field"}
+                errorfield={fieldError.beverage_type && "error-field"}
                 id="beverage_type"
                 className="input-field"
               >

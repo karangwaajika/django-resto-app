@@ -145,3 +145,19 @@ def add_beverage(request):
         )
 
     return Response({"success": False, "message": "Field Validation Error"})
+
+
+@api_view(["POST", "GET"])
+def purchase_beverage(request):
+    if request.method == "POST":
+        beverage_serializer = BeverageStockSerializer(data=request.data)
+        if beverage_serializer.is_valid():
+            beverage_serializer.save()
+            return Response(
+                {"success": True, "message": "Beverage Stock Successfully Added!"}
+            )
+
+        return Response({"success": False, "message": "Field Validation Error"})
+
+    beverage = Beverage.objects.values("id", "name").all().order_by("-id")
+    return Response({"success": True, "data": beverage})

@@ -65,7 +65,7 @@ export default function MealForm({
                 name="meal_type"
                 value={form.meal_type}
                 onChange={handleChange}
-                errorfield={fieldError.name && "error-field"}
+                errorfield={fieldError.meal_type && "error-field"}
                 id="meal_type"
                 className="input-field"
               >

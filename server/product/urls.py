@@ -11,4 +11,5 @@ urlpatterns = [
     path("update_meal/<int:meal_id>", views.update_meal, name="update_meal"),
     path("delete_meal/<int:meal_id>", views.delete_meal, name="delete_meal"),
     path("add_beverage", views.add_beverage, name="add_beverage"),
+    path("purchase_beverage", views.purchase_beverage, name="purchase_beverage"),
 ]

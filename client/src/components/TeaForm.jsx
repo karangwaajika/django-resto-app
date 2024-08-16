@@ -65,7 +65,7 @@ export default function TeaForm({
                 name="tea_type"
                 value={form.tea_type}
                 onChange={handleChange}
-                errorfield={fieldError.name && "error-field"}
+                errorfield={fieldError.tea_type && "error-field"}
                 id="tea_type"
                 className="input-field"
               >

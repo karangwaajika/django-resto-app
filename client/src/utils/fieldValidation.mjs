@@ -5,6 +5,9 @@ export default function fieldValidation({
   tea_type,
   meal_type,
   beverage_type,
+  qty,
+  beverage,
+  purchase_date,
 }) {
   const errorsValidation = {};
   if (name !== undefined) {
@@ -39,6 +42,26 @@ export default function fieldValidation({
   if (beverage_type !== undefined) {
     if (beverage_type == "") {
       errorsValidation.beverage_type = "Beverage type wasn't provided";
+    }
+  }
+  if (purchase_date !== undefined) {
+    if (purchase_date == "") {
+      errorsValidation.purchase_date = "Date is required";
+    }
+  }
+  if (beverage !== undefined) {
+    if (beverage == "") {
+      errorsValidation.beverage = "Beverage is required";
+    }
+  }
+
+  if (qty !== undefined) {
+    if (qty == 0) {
+      errorsValidation.qty = "qty is required";
+    } else if (qty < 0) {
+      errorsValidation.qty = "qty can't be less than 100";
+    } else if (!/^[0-9]+$/.test(qty)) {
+      errorsValidation.qty = "Only digits are allowed";
     }
   }
 

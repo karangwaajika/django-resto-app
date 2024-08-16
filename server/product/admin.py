@@ -23,3 +23,10 @@ class BeverageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Beverage, BeverageAdmin)
+
+
+class BeverageStockAdmin(admin.ModelAdmin):
+    list_display = ("beverage", "price", "qty")
+
+
+admin.site.register(BeverageStock, BeverageStockAdmin)
