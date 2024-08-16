@@ -7,4 +7,5 @@ urlpatterns = [
     path("update_tea/<int:tea_id>", views.update_tea, name="update_tea"),
     path("delete_tea/<int:tea_id>", views.delete_tea, name="delete_tea"),
     path("add_meal", views.add_meal, name="add_meal"),
+    path("view_meals", views.view_meals, name="view_meals"),
 ]

@@ -1,6 +1,34 @@
-.add-meal-content {
+.add-meal-content,
+.view-meal-content {
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 0 50px;
+}
+.search-btn {
+  width: 100%;
+}
+
+table.meal-table {
+  background-color: #d1d6d6ee;
+}
+table.meal-table caption,
+table.meal-table th {
+  background-color: #4e5050ee;
+  color: white;
+  border-bottom: 1px solid #707474ee;
+}
+tr:nth-of-type(2n) {
+  background-color: #f3f3f3fb;
+}
+
+/* action buttons */
+.meal-table .fa:hover {
+  cursor: pointer;
+}
+.meal-table .fa:active {
+  color: white;
+}
+.meal-table .fa-trash-can {
+  color: red;
 }

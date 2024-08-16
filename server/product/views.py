@@ -92,3 +92,22 @@ def add_meal(request):
             "message": "Field Validation Error",
         }
     )
+
+
+@api_view(["GET", "POST"])
+def view_meals(request):
+    if request.method == "POST":
+        search_fields = (
+            Q(name__contains=request.data["search"])
+            | Q(meal_type__contains=request.data["search"])
+            | Q(price__contains=request.data["search"])
+        )
+        meal = Meal.objects.filter(search_fields).order_by("-id")
+        meal_serializer = MealSerializer(meal, many=True)
+        return Response({"success": False, "data": meal_serializer.data})
+
+    meals = Meal.objects.all().order_by("-id")
+    meal_serializer = MealSerializer(meals, many=True)
+    return Response({"success": True, "data": meal_serializer.data})
+
+
