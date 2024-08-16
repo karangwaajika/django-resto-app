@@ -3,10 +3,18 @@ import MealTable from "../components/MealTable";
 import InputField from "../components/ui/InputField";
 import FlashMessage from "../components/ui/FlashMessage";
 import loaderPicture from "/images/loading-3.gif";
-import { useState } from "react";
+import { useState, createContext } from "react";
+import EditMealModal from "../components/EditMealModal";
 import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
 
+export const updateMealContext = createContext();
+
 export default function ViewMeals() {
+  // to trigger fetch data when meal is updated to re-render the component
+  const [refreshData, setRefreshData] = useState(false);
+  const handleRefreshData = () => {
+    setRefreshData((oldstate) => !oldstate);
+  };
   // handle fetch auto complete
   const [search, setSearch] = useState("");
   const { data, isLoading, message } = useFetchAutoComplete(
@@ -16,6 +24,18 @@ export default function ViewMeals() {
   );
 
   const [animation, setAnimation] = useState("");
+
+  // handle update
+  const [rowToEdit, setrowToEdit] = useState(null);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const handleEditModal = (index) => {
+    // get targeted meal information
+    setrowToEdit(index);
+    setAnimation(openEditModal ? "animated fadeOut" : "animated fadeIn");
+    setTimeout(() => {
+      setOpenEditModal((oldModalState) => !oldModalState);
+    }, 1000);
+  };
 
   return (
     <div className="view-meal-content">
@@ -43,7 +63,18 @@ export default function ViewMeals() {
       )}
       <MealTable
         meals={data}
+        openEditModal={handleEditModal}
       />
+
+      <updateMealContext.Provider value={handleRefreshData}>
+        {openEditModal && (
+          <EditMealModal
+            closeModal={handleEditModal}
+            animation={animation}
+            meal={rowToEdit >= 0 && data[rowToEdit]}
+          />
+        )}
+      </updateMealContext.Provider>
     </div>
   );
 }

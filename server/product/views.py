@@ -111,3 +111,17 @@ def view_meals(request):
     return Response({"success": True, "data": meal_serializer.data})
 
 
+@api_view(["POST"])
+def update_meal(request, meal_id):
+    try:
+        meal = Meal.objects.get(pk=meal_id)
+    except Meal.DoesNotExist:
+        return Response({"success": False, "message": "Meal doesn't exist"})
+
+    meal.name = request.data["name"]
+    meal.price = request.data["price"]
+    meal.meal_type = request.data["meal_type"]
+    meal.save()
+    return Response({"success": True, "message": "Meal Successfully updated!"})
+
+
