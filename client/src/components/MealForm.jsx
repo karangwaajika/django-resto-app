@@ -15,7 +15,7 @@ export default function MealForm({
 }) {
   return (
     <div className="meal-form">
-      <div className="card" style={{ width: "60%", border: "1px solid black" }}>
+      <div className="card" style={{ border: "1px solid black" }}>
         <div className="card-header">Meal/Dish Form</div>
         {message && (
           <FlashMessage

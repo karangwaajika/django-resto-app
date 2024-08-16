@@ -14,7 +14,9 @@
 .search-btn {
   width: 100%;
 }
-
+.tea-form {
+  width: 60%;
+}
 table.tea-table {
   background-color: #d1d6d6ee;
 }
