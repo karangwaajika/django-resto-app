@@ -5,6 +5,7 @@ import FlashMessage from "../components/ui/FlashMessage";
 import loaderPicture from "/images/loading-3.gif";
 import { useState, createContext } from "react";
 import EditMealModal from "../components/EditMealModal";
+import DeleteMealModal from "../components/DeleteMealModal";
 import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
 
 export const updateMealContext = createContext();
@@ -36,6 +37,14 @@ export default function ViewMeals() {
       setOpenEditModal((oldModalState) => !oldModalState);
     }, 1000);
   };
+  // handle delete
+  const [rowToDelete, setrowToDelete] = useState(null);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const handleDeleteModal = (index) => {
+    // get targeted meal information
+    setrowToDelete(index);
+    setOpenDeleteModal((oldModalState) => !oldModalState);
+  };
 
   return (
     <div className="view-meal-content">
@@ -64,6 +73,7 @@ export default function ViewMeals() {
       <MealTable
         meals={data}
         openEditModal={handleEditModal}
+        openDeleteModal={handleDeleteModal}
       />
 
       <updateMealContext.Provider value={handleRefreshData}>
@@ -72,6 +82,15 @@ export default function ViewMeals() {
             closeModal={handleEditModal}
             animation={animation}
             meal={rowToEdit >= 0 && data[rowToEdit]}
+          />
+        )}
+      </updateMealContext.Provider>
+
+      <updateMealContext.Provider value={handleRefreshData}>
+        {openDeleteModal && (
+          <DeleteMealModal
+            closeModal={handleDeleteModal}
+            meal={rowToDelete >= 0 && data[rowToDelete]}
           />
         )}
       </updateMealContext.Provider>

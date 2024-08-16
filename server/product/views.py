@@ -125,3 +125,11 @@ def update_meal(request, meal_id):
     return Response({"success": True, "message": "Meal Successfully updated!"})
 
 
+@api_view(["DELETE"])
+def delete_meal(request, meal_id):
+    try:
+        meal = Meal.objects.get(pk=meal_id)
+    except Meal.DoesNotExist:
+        return Response({"success": False, "message": "Meal doesn't exist"})
+    meal.delete()
+    return Response({"success": False, "message": "Meal Successfully Deleted!"})
