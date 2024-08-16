@@ -51,7 +51,7 @@ export default function ViewMeals() {
       <div className="meal-header">
         <h2>List of all kind of Meals</h2>
         <p style={{ fontSize: "14px" }}>
-          Search by name or category to retrieve the desired drinks
+          Search by name or category to retrieve the desired meals
         </p>
       </div>
       <div className="search-btn">

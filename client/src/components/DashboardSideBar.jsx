@@ -30,55 +30,55 @@ export default function DashboardSideBar() {
           </li>
           <li>
             <NavLink to="/dashboard/add-tea" className="link">
-              <i className="fa fa-home "></i>
+              <i className="fa fa-coffee "></i>
               Add Tea/Coffee
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/view-teas" className="link">
-              <i className="fa fa-home "></i>
+              <i className="fa fa-mug-hot "></i>
               View Tea/Coffees
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/add-meal" className="link">
-              <i className="fa fa-home "></i>
+              <i className="fa fa-pizza-slice "></i>
               Add Meal
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/view-meals" className="link">
-              <i className="fa fa-home "></i>
+              <i className="fa-solid fa-burger"></i>
               View Meal
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/add-beverage" className="link">
-              <i className="fa fa-home "></i>
+              <i className="fa fa-wine-glass "></i>
               Add Beverage
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/purchase-beverage" className="link">
-              <i className="fa fa-home "></i>
+              <i className="fa fa-wine-bottle "></i>
               Purchase Beverage
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/view-beverages" className="link">
-              <i className="fa fa-home "></i>
+              <i className="fa fa-champagne-glasses "></i>
               View Beverages
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/add-waiter" className="link">
-              <i className="fa fa-home "></i>
+              <i className="fa fa-user-plus "></i>
               Add Waiter
             </NavLink>
           </li>
           <li>
             <NavLink to="/dashboard/view-waiters" className="link">
-              <i className="fa fa-home "></i>
+              <i className="fa fa-users "></i>
               View Waiters
             </NavLink>
           </li>
