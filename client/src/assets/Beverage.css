@@ -1,4 +1,5 @@
-.add-beverage-content {
+.add-beverage-content,
+.view-beverage-content {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -14,4 +15,27 @@
 }
 .beverage-purchase-form {
   width: 60%;
+}
+table.beverage-table {
+  background-color: #d1d6d6ee;
+}
+table.beverage-table caption,
+table.beverage-table th {
+  background-color: #4e5050ee;
+  color: white;
+  border-bottom: 1px solid #707474ee;
+}
+tr:nth-of-type(2n) {
+  background-color: #f3f3f3fb;
+}
+
+/* action buttons */
+.beverage-table .fa:hover {
+  cursor: pointer;
+}
+.beverage-table .fa:active {
+  color: white;
+}
+.beverage-table .fa-trash-can {
+  color: red;
 }

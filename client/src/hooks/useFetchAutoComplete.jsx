@@ -7,7 +7,6 @@ export default function useFetchAutoComplete(url, search, refreshData) {
   useEffect(() => {
     const cancelToken = axios.CancelToken.source();
     setIsLoading(true);
-    console.log(search)
     axios
       .post(
         url,

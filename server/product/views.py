@@ -170,3 +170,17 @@ def purchase_beverage(request):
 
     beverage = Beverage.objects.values("id", "name").all().order_by("-id")
     return Response({"success": True, "data": beverage})
+
+
+@api_view(["POST"])
+def view_beverages(request):
+    search_fields = (
+        Q(beverage__name__contains=request.data["search"])
+        | Q(beverage__beverage_type__contains=request.data["search"])
+        | Q(price__contains=request.data["search"])
+        | Q(qty__contains=request.data["search"])
+    )
+    beverage_stocks = BeverageStock.objects.filter(search_fields).reverse()
+    beverage_stock_serializer = BeverageStockSerializer(beverage_stocks, many=True)
+
+    return Response({"success": True, "data": beverage_stock_serializer.data})
