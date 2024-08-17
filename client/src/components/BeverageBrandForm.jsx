@@ -33,7 +33,7 @@ export default function BeverageBrandForm({
               id="name"
               errorfield={fieldError.name && "error-field"}
               label="Name"
-              icon="fa-solid fa-coffee"
+              icon="fa-solid fa-wine-bottle"
               placeholder="Name"
               handleChange={handleChange}
               value={form.name}

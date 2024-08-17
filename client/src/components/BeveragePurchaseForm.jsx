@@ -65,7 +65,7 @@ export default function BeveragePurchaseForm({
               id="price"
               errorfield={fieldError.price && "error-field"}
               label="Price"
-              icon="fa-solid fa-weight-scale"
+              icon="fa-solid fa-euro"
               placeholder="Price"
               handleChange={handleChange}
               value={form.price}
@@ -77,7 +77,7 @@ export default function BeveragePurchaseForm({
               id="qty"
               errorfield={fieldError.qty && "error-field"}
               label="Qty"
-              icon="fa-solid fa-coffee"
+              icon="fa-solid fa-weight-scale"
               placeholder="Qty"
               handleChange={handleChange}
               value={form.qty}
