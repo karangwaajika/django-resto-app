@@ -67,7 +67,7 @@ class Beverage(models.Model):
 
 
 class BeverageStock(models.Model):
-    beverage = models.ForeignKey(Beverage, on_delete=models.CASCADE)
+    beverage = models.OneToOneField(Beverage, on_delete=models.CASCADE)
     price = models.IntegerField(default=0)
     qty = models.IntegerField(default=0)
     purchase_date = models.DateField()

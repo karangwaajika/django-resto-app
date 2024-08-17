@@ -156,8 +156,17 @@ def purchase_beverage(request):
             return Response(
                 {"success": True, "message": "Beverage Stock Successfully Added!"}
             )
-
-        return Response({"success": False, "message": "Field Validation Error"})
+        # if a beverage is already in the database, add qty to old one and update price
+        try:
+            beverage_stock = BeverageStock.objects.get(
+                beverage=request.data["beverage"]
+            )
+            beverage_stock.qty += int(request.data["qty"])
+            beverage_stock.price = request.data["price"]
+            beverage_stock.save()
+            return Response({"success": True, "message": "Stock Updated Successfully!"})
+        except BeverageStock.DoesNotExist:
+            return Response({"success": False, "message": "Field Validation Error"})
 
     beverage = Beverage.objects.values("id", "name").all().order_by("-id")
     return Response({"success": True, "data": beverage})
