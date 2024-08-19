@@ -22,6 +22,7 @@ class BeverageSerializer(serializers.ModelSerializer):
 
 
 class BeverageStockSerializer(serializers.ModelSerializer):
+    beverage = BeverageSerializer()
     class Meta:
         model = BeverageStock
         fields = "__all__"

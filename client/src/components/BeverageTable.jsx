@@ -24,8 +24,8 @@ export default function BeverageTable({
             return (
               <tr key={index + 1}>
                 <td data-cell="#">{index + 1}</td>
-                <td data-cell="Name">{beverage.beverage__name}</td>
-                <td data-cell="Category">{beverage.beverage__beverage_type}</td>
+                <td data-cell="Name">{beverage.beverage.name}</td>
+                <td data-cell="Category">{beverage.beverage.beverage_type}</td>
                 <td data-cell="Price">{addComma(beverage.price)}</td>
                 <td data-cell="Qty">{addComma(beverage.qty)}</td>
                 <td data-cell="Date">
