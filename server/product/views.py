@@ -202,3 +202,14 @@ def update_beverage(request, beverage_id):
 
     except Beverage.DoesNotExist:
         return Response({"success": False, "message": "Beverage doesn't exist"})
+
+
+@api_view(["DELETE"])
+def delete_beverage(request, beverage_id):
+    try:
+        beverage = Beverage.objects.get(pk = beverage_id)
+        beverage.delete()
+        return Response({"success": False, "message": "Beverage Deleted Successfuly"})
+    
+    except Beverage.DoesNotExist:
+        return Response({"success": False, "message": "Beverage doesn't exist"})    

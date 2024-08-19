@@ -5,6 +5,7 @@ import FlashMessage from "../components/ui/FlashMessage";
 import loaderPicture from "/images/loading-3.gif";
 import { useState, createContext } from "react";
 import EditBeverageModal from "../components/EditBeverageModal";
+import DeleteBeverageModal from "../components/DeleteBeverageModal";
 import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
 
 export const updateBeverageContext = createContext();
@@ -36,6 +37,14 @@ export default function ViewBeverages() {
       setOpenEditModal((oldModalState) => !oldModalState);
     }, 1000);
   };
+  // handle delete
+  const [rowToDelete, setrowToDelete] = useState(null);
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const handleDeleteModal = (index) => {
+    // get targeted meal information
+    setrowToDelete(index);
+    setOpenDeleteModal((oldModalState) => !oldModalState);
+  };
 
   return (
     <div className="view-beverage-content">
@@ -64,6 +73,7 @@ export default function ViewBeverages() {
       <BeverageTable
         beverages={data}
         openEditModal={handleEditModal}
+        openDeleteModal={handleDeleteModal}
       />
 
       <updateBeverageContext.Provider value={handleRefreshData}>
@@ -76,6 +86,14 @@ export default function ViewBeverages() {
         )}
       </updateBeverageContext.Provider>
 
+      <updateBeverageContext.Provider value={handleRefreshData}>
+        {openDeleteModal && (
+          <DeleteBeverageModal
+            closeModal={handleDeleteModal}
+            beverage={rowToDelete >= 0 && data[rowToDelete]}
+          />
+        )}
+      </updateBeverageContext.Provider>
     </div>
   );
 }
