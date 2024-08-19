@@ -150,13 +150,7 @@ def add_beverage(request):
 @api_view(["POST", "GET"])
 def purchase_beverage(request):
     if request.method == "POST":
-        beverage_serializer = BeverageStockSerializer(data=request.data)
-        if beverage_serializer.is_valid():
-            beverage_serializer.save()
-            return Response(
-                {"success": True, "message": "Beverage Stock Successfully Added!"}
-            )
-        # if a beverage is already in the database, add qty to old one and update price
+        # if a beverage brand is already in the Stock, add qty to the old one and update price
         try:
             beverage_stock = BeverageStock.objects.get(
                 beverage=request.data["beverage"]
@@ -166,7 +160,17 @@ def purchase_beverage(request):
             beverage_stock.save()
             return Response({"success": True, "message": "Stock Updated Successfully!"})
         except BeverageStock.DoesNotExist:
-            return Response({"success": False, "message": "Field Validation Error"})
+            # add new brand beverage to the stock
+            beverage = Beverage.objects.get(pk=request.data["beverage"])
+            BeverageStock.objects.create(
+                beverage=beverage,
+                price=request.data["price"],
+                qty=request.data["qty"],
+                purchase_date=request.data["purchase_date"],
+            )
+            return Response(
+                {"success": True, "message": "Beverage Stock inserted Successfully"}
+            )
 
     beverage = Beverage.objects.values("id", "name").all().order_by("-id")
     return Response({"success": True, "data": beverage})
@@ -207,9 +211,9 @@ def update_beverage(request, beverage_id):
 @api_view(["DELETE"])
 def delete_beverage(request, beverage_id):
     try:
-        beverage = Beverage.objects.get(pk = beverage_id)
+        beverage = Beverage.objects.get(pk=beverage_id)
         beverage.delete()
         return Response({"success": False, "message": "Beverage Deleted Successfuly"})
-    
+
     except Beverage.DoesNotExist:
-        return Response({"success": False, "message": "Beverage doesn't exist"})    
+        return Response({"success": False, "message": "Beverage doesn't exist"})
