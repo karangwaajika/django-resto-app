@@ -14,6 +14,7 @@
   display: flex;
   border: 1px solid #808080;
   border-radius: 5px;
+  font-size: 14px;
 }
 .input-field {
   border: none;
@@ -342,7 +343,7 @@ th {
   border-top: 1px solid #707474ee;
   padding-top: 30px;
 }
-.delete-modal .delete-options{
+.delete-modal .delete-options {
   display: flex;
   justify-content: space-between;
 }

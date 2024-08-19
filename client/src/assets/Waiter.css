@@ -1,0 +1,20 @@
+.add-waiter-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 50px;
+}
+.waiter-header {
+  width: 60%;
+  margin: auto;
+}
+.radio-fieldset {
+  width: 300px;
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
+}
+.list-group {
+  font-size: 15px;
+  padding-left: 5px;
+}
