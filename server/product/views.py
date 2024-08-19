@@ -184,3 +184,21 @@ def view_beverages(request):
     beverage_stock_serializer = BeverageStockSerializer(beverage_stocks, many=True)
 
     return Response({"success": True, "data": beverage_stock_serializer.data})
+
+
+@api_view(["POST"])
+def update_beverage(request, beverage_id):
+    try:
+        beverage = Beverage.objects.get(pk=beverage_id)
+        beverage.name = request.data["name"]
+        beverage.beverage_type = request.data["beverage_type"]
+        beverage.save()
+
+        beverage_stock = BeverageStock.objects.get(beverage=beverage_id)
+        beverage_stock.qty = request.data["qty"]
+        beverage_stock.price = request.data["price"]
+        beverage_stock.save()
+        return Response({"success": True, "message": "Beverage Updated Successfully"})
+
+    except Beverage.DoesNotExist:
+        return Response({"success": False, "message": "Beverage doesn't exist"})

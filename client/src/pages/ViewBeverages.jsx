@@ -3,8 +3,11 @@ import BeverageTable from "../components/BeverageTable";
 import InputField from "../components/ui/InputField";
 import FlashMessage from "../components/ui/FlashMessage";
 import loaderPicture from "/images/loading-3.gif";
-import { useState } from "react";
+import { useState, createContext } from "react";
+import EditBeverageModal from "../components/EditBeverageModal";
 import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
+
+export const updateBeverageContext = createContext();
 
 export default function ViewBeverages() {
   // to trigger fetch data when meal is updated to re-render the component
@@ -20,6 +23,19 @@ export default function ViewBeverages() {
     refreshData
   );
 
+  const [animation, setAnimation] = useState("");
+
+  // handle update
+  const [rowToEdit, setrowToEdit] = useState(null);
+  const [openEditModal, setOpenEditModal] = useState(false);
+  const handleEditModal = (index) => {
+    // get targeted meal information
+    setrowToEdit(index);
+    setAnimation(openEditModal ? "animated fadeOut" : "animated fadeIn");
+    setTimeout(() => {
+      setOpenEditModal((oldModalState) => !oldModalState);
+    }, 1000);
+  };
 
   return (
     <div className="view-beverage-content">
@@ -47,7 +63,18 @@ export default function ViewBeverages() {
       )}
       <BeverageTable
         beverages={data}
+        openEditModal={handleEditModal}
       />
+
+      <updateBeverageContext.Provider value={handleRefreshData}>
+        {openEditModal && (
+          <EditBeverageModal
+            closeModal={handleEditModal}
+            animation={animation}
+            beverage={rowToEdit >= 0 && data[rowToEdit]}
+          />
+        )}
+      </updateBeverageContext.Provider>
 
     </div>
   );
