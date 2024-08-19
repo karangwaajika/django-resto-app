@@ -1,8 +1,6 @@
 import "../assets/Tea.css";
 import TeaTable from "../components/TeaTable";
 import InputField from "../components/ui/InputField";
-import useFetchData from "../hooks/useFetchData";
-import FlashMessage from "../components/ui/FlashMessage";
 import loaderPicture from "/images/loading-3.gif";
 import { useState, createContext } from "react";
 import EditTeaModal from "../components/EditTeaModal";

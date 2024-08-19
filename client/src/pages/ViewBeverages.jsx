@@ -1,7 +1,6 @@
 import "../assets/Meal.css";
 import BeverageTable from "../components/BeverageTable";
 import InputField from "../components/ui/InputField";
-import FlashMessage from "../components/ui/FlashMessage";
 import loaderPicture from "/images/loading-3.gif";
 import { useState, createContext } from "react";
 import EditBeverageModal from "../components/EditBeverageModal";
