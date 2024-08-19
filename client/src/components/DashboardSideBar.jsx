@@ -59,12 +59,6 @@ export default function DashboardSideBar() {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/dashboard/purchase-beverage" className="link">
-              <i className="fa fa-wine-bottle "></i>
-              Purchase Beverage
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/dashboard/view-beverages" className="link">
               <i className="fa fa-champagne-glasses "></i>
               View Beverages

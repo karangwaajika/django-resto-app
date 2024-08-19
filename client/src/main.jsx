@@ -9,7 +9,6 @@ import ViewTeas from "./pages/ViewTeas.jsx";
 import AddMeal from "./pages/AddMeal.jsx";
 import ViewMeals from "./pages/ViewMeals.jsx";
 import AddBeverage from "./pages/AddBeverage.jsx";
-import PurchaseBeverage from "./pages/PurchaseBeverage.jsx";
 import ViewBeverages from "./pages/ViewBeverages.jsx";
 import AddWaiter from "./pages/AddWaiter.jsx";
 import ViewWaiters from "./pages/ViewWaiters.jsx";
@@ -47,10 +46,6 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/view-meals",
             element: <ViewMeals />,
-          },
-          {
-            path: "/dashboard/purchase-beverage",
-            element: <PurchaseBeverage />,
           },
           {
             path: "/dashboard/add-beverage",
