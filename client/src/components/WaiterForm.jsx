@@ -96,14 +96,14 @@ export default function WaiterForm({
             </div>
 
             <div className="username">
-              {fieldError.userName && (
-                <i className="error-text">{fieldError.userName}</i>
+              {fieldError.username && (
+                <i className="error-text">{fieldError.username}</i>
               )}
               <InputField
-                type="number"
-                name="userName"
-                id="userName"
-                errorfield={fieldError.userName && "error-field"}
+                type="text"
+                name="username"
+                id="username"
+                errorfield={fieldError.username && "error-field"}
                 label="username"
                 icon="fa fa-user"
                 placeholder="username"
@@ -120,7 +120,6 @@ export default function WaiterForm({
                     id="Bartender"
                     name="task"
                     value="1"
-                    hecked={form.task == "1"}
                     onChange={handleChange}
                   />
                   <label htmlFor="Bartender">Bartender</label>

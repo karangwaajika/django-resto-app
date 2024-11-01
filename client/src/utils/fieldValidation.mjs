@@ -77,6 +77,34 @@ export default function fieldValidation({
       errorsValidation.firstName = "Use letters only";
     }
   }
+  if (arg.lastName !== undefined) {
+    if (!arg.lastName.trim()) {
+      errorsValidation.lastName = "lastName is required";
+    } else if (arg.lastName.length < 3) {
+      errorsValidation["lastName"] = "Characters should be greater than 3";
+    } else if (!/^[a-zA-Z ]+$/.test(arg.lastName)) {
+      errorsValidation.lastName = "Use letters only";
+    }
+  }
+  if (arg.username !== undefined) {
+    if (!arg.username.trim()) {
+      errorsValidation.username = "username is required";
+    } else if (arg.username.length < 3) {
+      errorsValidation["username"] = "Characters should be greater than 3";
+    }
+  }
+  
+  if (arg.password !== undefined) {
+    if (!arg.password.trim()) {
+      errorsValidation.password = "password is required";
+    } else if (arg.password.length < 3) {
+      errorsValidation["password"] = "Characters should be greater than 3";
+    }
+  }
+
+  if (arg.password !== arg.confirmPassword) {
+    errorsValidation["password"] = "Passwords do not match";
+  }
 
   return errorsValidation;
 }

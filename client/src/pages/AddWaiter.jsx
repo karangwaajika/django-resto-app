@@ -2,6 +2,7 @@ import "../assets/Waiter.css";
 import WaiterForm from "../components/WaiterForm";
 import { useState } from "react";
 import fieldValidation from "../utils/fieldValidation.mjs";
+import axios from "axios";
 export default function AddWaiter() {
   const [message, setMessage] = useState();
   const clearMessage = () => {
@@ -15,10 +16,9 @@ export default function AddWaiter() {
     username: "",
     password: "",
     confirmPassword: "",
-    task: "",
+    task: 0,
   });
   const handleChange = (e) => {
-    console.log(form)
     const { name, value } = e.target;
     setForm((oldForm) => {
       return { ...oldForm, [name]: value };
@@ -48,12 +48,11 @@ export default function AddWaiter() {
   const submitForm = (e) => {
     setIsLoading(true);
     axios
-      .post(import.meta.env.VITE_REACT_APP_ADD_TEA_API, {
+      .post(import.meta.env.VITE_REACT_APP_ADD_EMPLOYEE_API, {
         firstName: form.firstName,
         lastName: form.lastName,
         username: form.username,
         password: form.password,
-        confirmPassword: form.confirmPassword,
         isStaff: form.task,
       })
       .then((res) => {
@@ -97,25 +96,25 @@ export default function AddWaiter() {
           <h3>Account Rules</h3>
         </div>
         <div className="card-body">
-          <ul class="list-group">
-            <li class="list-group-item">
+          <ul className="list-group">
+            <li className="list-group-item">
               Username Required. 150 characters or fewer. Letters, digits and
               @/./+/-/_ only.
             </li>
-            <li class="list-group-item">
+            <li className="list-group-item">
               Your password can’t be too similar to your other personal
               information.
             </li>
-            <li class="list-group-item">
+            <li className="list-group-item">
               Your password must contain at least 8 characters.
             </li>
-            <li class="list-group-item">
+            <li className="list-group-item">
               Your password can’t be a commonly used password.
             </li>
-            <li class="list-group-item">
+            <li className="list-group-item">
               Your password can’t be entirely numeric.
             </li>
-            <li class="list-group-item">
+            <li className="list-group-item">
               Enter the same password as before, for verification.
             </li>
           </ul>
