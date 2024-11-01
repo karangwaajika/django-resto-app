@@ -10,6 +10,7 @@ from .serializers import UserSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 
 # Create your views here.
 
@@ -55,5 +56,32 @@ def protect_page(request):
             "success": True,
             "message": "Successfuly added",
             "user": serializer_user.data,
+        }
+    )
+
+
+@api_view(["POST"])
+def add_employee(request):
+    serializer = UserSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        user = User.objects.get(username=request.data["username"])
+        user.set_password(request.data["password"])
+        user.save()
+        token = Token.objects.create(user=user)
+
+        return Response(
+            {
+                "success": True,
+                "message": "Successfuly added",
+                "token": token.key,
+                "user": serializer.data,
+            }
+        )
+    return Response(
+        {
+            "success": False,
+            "message": "Errors",
+            "user": serializer.errors,
         }
     )

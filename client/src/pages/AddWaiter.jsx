@@ -1,6 +1,7 @@
 import "../assets/Waiter.css";
 import WaiterForm from "../components/WaiterForm";
 import { useState } from "react";
+import fieldValidation from "../utils/fieldValidation.mjs";
 export default function AddWaiter() {
   const [message, setMessage] = useState();
   const clearMessage = () => {
@@ -17,6 +18,7 @@ export default function AddWaiter() {
     task: "",
   });
   const handleChange = (e) => {
+    console.log(form)
     const { name, value } = e.target;
     setForm((oldForm) => {
       return { ...oldForm, [name]: value };

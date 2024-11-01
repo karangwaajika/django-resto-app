@@ -8,6 +8,7 @@ export default function fieldValidation({
   qty,
   beverage,
   purchase_date,
+  ...arg
 }) {
   const errorsValidation = {};
   if (name !== undefined) {
@@ -62,6 +63,18 @@ export default function fieldValidation({
       errorsValidation.qty = "qty can't be less than 100";
     } else if (!/^[0-9]+$/.test(qty)) {
       errorsValidation.qty = "Only digits are allowed";
+    }
+  }
+
+  // waiter form input
+
+  if (arg.firstName !== undefined) {
+    if (!arg.firstName.trim()) {
+      errorsValidation.firstName = "firstName is required";
+    } else if (arg.firstName.length < 3) {
+      errorsValidation["firstName"] = "Characters should be greater than 3";
+    } else if (!/^[a-zA-Z ]+$/.test(arg.firstName)) {
+      errorsValidation.firstName = "Use letters only";
     }
   }
 
