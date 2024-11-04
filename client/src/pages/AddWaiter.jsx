@@ -49,11 +49,11 @@ export default function AddWaiter() {
     setIsLoading(true);
     axios
       .post(import.meta.env.VITE_REACT_APP_ADD_EMPLOYEE_API, {
-        firstName: form.firstName,
-        lastName: form.lastName,
+        first_name: form.firstName,
+        last_name: form.lastName,
         username: form.username,
         password: form.password,
-        isStaff: form.task,
+        is_staff: form.task,
       })
       .then((res) => {
         if (res.data.success) {
