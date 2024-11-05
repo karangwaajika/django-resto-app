@@ -22,10 +22,10 @@ MIDDLEWARE = [
 ]
 
 # frontend url
-CORS_ALLOWED_ORIGINS = [
-    'https://django-resto-app-hcl1.onrender.com'
-]
-
+# CORS_ALLOWED_ORIGINS = [
+#     'https://django-resto-app-hcl1.onrender.com/*'
+# ]
+CORS_ORIGIN_ALLOW_ALL = True
 STORAGES = {
     "default":{
         "BACKEND" : "django.core.files.storage.FileSystemStorage",
