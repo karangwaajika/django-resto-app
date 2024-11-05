@@ -38,9 +38,9 @@ def add_tea(request):
 def view_teas(request):
     if request.method == "POST":
         search_fields = (
-            Q(name__contains=request.data["search"])
-            | Q(tea_type__contains=request.data["search"])
-            | Q(price__contains=request.data["search"])
+            Q(name__icontains=request.data["search"])
+            | Q(tea_type__icontains=request.data["search"])
+            | Q(price__icontains=request.data["search"])
         )
         tea = Tea.objects.filter(search_fields).order_by("-id")
         tea_serializer = TeaSerializer(tea, many=True)
