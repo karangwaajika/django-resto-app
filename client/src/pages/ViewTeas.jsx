@@ -22,7 +22,7 @@ export default function ViewTeas() {
       ? import.meta.env.VITE_REACT_APP_VIEW_TEAS_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_VIEW_TEAS_API;
   const { data, isLoading, message } = useFetchAutoComplete(
-    import.meta.env.VITE_REACT_APP_VIEW_TEAS_API,
+    url,
     search,
     refreshData
   );
