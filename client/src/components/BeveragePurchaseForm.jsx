@@ -15,10 +15,11 @@ export default function BeveragePurchaseForm({
   fieldError,
   refreshData,
 }) {
-  const { data } = useFetchData(
-    import.meta.env.VITE_REACT_APP_PURCHASE_BEVERAGE_API,
-    refreshData
-  );
+  const isDevelopment = import.meta.env.MODE === "production";
+  const url = isDevelopment
+    ? import.meta.env.VITE_REACT_APP_PURCHASE_BEVERAGE_API_DEPLOY
+    : import.meta.env.VITE_REACT_APP_PURCHASE_BEVERAGE_API;
+  const { data } = useFetchData(url, refreshData);
   return (
     <div className="beverage-purchase-form">
       <div className="card" style={{ border: "1px solid black" }}>

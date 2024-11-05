@@ -12,8 +12,12 @@ export default function useDeleteMeal(meal, closeModal) {
   const submitForm = (e) => {
     e.preventDefault();
     setIsLoading(true);
+    const isDevelopment = import.meta.env.MODE === "production";
+    const url = isDevelopment
+      ? import.meta.env.VITE_REACT_APP_DELETE_MEAL_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_DELETE_MEAL_API;
     axios
-      .delete(import.meta.env.VITE_REACT_APP_DELETE_MEAL_API + "/" + meal.id)
+      .delete(url + "/" + meal.id)
       .then((res) => {
         setMessage(res.data);
         setUpdateMeal();

@@ -9,7 +9,7 @@ export default function usePurchaseBeverage() {
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
     price: 0,
-    beverage: '',
+    beverage: "",
     qty: 0,
     purchase_date: "",
   });
@@ -39,8 +39,12 @@ export default function usePurchaseBeverage() {
   };
   const submitForm = (e) => {
     setIsLoading(true);
+    const isDevelopment = import.meta.env.MODE === "production";
+    const url = isDevelopment
+      ? import.meta.env.VITE_REACT_APP_PURCHASE_BEVERAGE_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_PURCHASE_BEVERAGE_API;
     axios
-      .post(import.meta.env.VITE_REACT_APP_PURCHASE_BEVERAGE_API, {
+      .post(url, {
         qty: form.qty,
         beverage: form.beverage,
         price: form.price,

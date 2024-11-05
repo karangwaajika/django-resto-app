@@ -47,8 +47,12 @@ export default function useEditMeal(meal) {
   };
   const submitForm = (e) => {
     setIsLoading(true);
+    const isDevelopment = import.meta.env.MODE === "production";
+    const url = isDevelopment
+      ? import.meta.env.VITE_REACT_APP_UPDATE_MEAL_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_UPDATE_MEAL_API;
     axios
-      .post(import.meta.env.VITE_REACT_APP_UPDATE_MEAL_API + "/" + meal.id, {
+      .post(url + "/" + meal.id, {
         name: form.name,
         price: form.price,
         meal_type: form.meal_type,

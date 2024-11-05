@@ -40,8 +40,12 @@ export default function AddTea() {
   };
   const submitForm = (e) => {
     setIsLoading(true);
+    const isDevelopment = import.meta.env.MODE === "production";
+    const url = isDevelopment
+      ? import.meta.env.VITE_REACT_APP_ADD_TEA_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_ADD_TEA_API;
     axios
-      .post(import.meta.env.VITE_REACT_APP_ADD_TEA_API, {
+      .post(url, {
         name: form.name,
         price: form.price,
         tea_type: form.tea_type,

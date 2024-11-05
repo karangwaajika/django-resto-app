@@ -47,8 +47,12 @@ export default function useEditTea(tea) {
   };
   const submitForm = (e) => {
     setIsLoading(true);
+    const isDevelopment = import.meta.env.MODE === "production";
+    const url = isDevelopment
+      ? import.meta.env.VITE_REACT_APP_UPDATE_TEA_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_UPDATE_TEA_API;
     axios
-      .post(import.meta.env.VITE_REACT_APP_UPDATE_TEA_API + "/" + tea.id, {
+      .post(url + "/" + tea.id, {
         name: form.name,
         price: form.price,
         tea_type: form.tea_type,

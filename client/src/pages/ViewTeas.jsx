@@ -17,6 +17,10 @@ export default function ViewTeas() {
   };
   // handle fetch auto complete
   const [search, setSearch] = useState("");
+  const isDevelopment = import.meta.env.MODE === "production";
+    const url = isDevelopment
+      ? import.meta.env.VITE_REACT_APP_VIEW_TEAS_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_VIEW_TEAS_API;
   const { data, isLoading, message } = useFetchAutoComplete(
     import.meta.env.VITE_REACT_APP_VIEW_TEAS_API,
     search,

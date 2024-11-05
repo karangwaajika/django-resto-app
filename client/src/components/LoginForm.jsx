@@ -30,8 +30,12 @@ export default function LoginForm() {
   const submitForm = (e) => {
     e.preventDefault();
     setIsLoading(true);
+    const isDevelopment = import.meta.env.MODE === "production";
+    const url = isDevelopment
+      ? import.meta.env.VITE_REACT_APP_LOGIN_USER_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_LOGIN_USER_API;
     axios
-      .post(import.meta.env.VITE_REACT_APP_LOGIN_USER_API, {
+      .post(url, {
         username: form.username,
         password: form.password,
       })

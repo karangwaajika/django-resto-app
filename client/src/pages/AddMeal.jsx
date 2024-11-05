@@ -40,8 +40,12 @@ export default function AddMeal() {
   };
   const submitForm = () => {
     setIsLoading(true);
+    const isDevelopment = import.meta.env.MODE === "production";
+    const url = isDevelopment
+      ? import.meta.env.VITE_REACT_APP_ADD_MEAL_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_ADD_MEAL_API;
     axios
-      .post(import.meta.env.VITE_REACT_APP_ADD_MEAL_API, {
+      .post(url, {
         name: form.name,
         price: form.price,
         meal_type: form.meal_type,

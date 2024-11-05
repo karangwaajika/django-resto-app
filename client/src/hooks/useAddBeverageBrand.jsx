@@ -35,8 +35,12 @@ export default function useAddBeverageBrand(setBeverageRefresher) {
   };
   const submitBrandForm = (e) => {
     setIsBrandLoading(true);
+    const isDevelopment = import.meta.env.MODE === "production";
+    const url = isDevelopment
+      ? import.meta.env.VITE_REACT_APP_ADD_BEVERAGE_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_ADD_BEVERAGE_API;
     axios
-      .post(import.meta.env.VITE_REACT_APP_ADD_BEVERAGE_API, {
+      .post(url, {
         name: brandForm.name,
         beverage_type: brandForm.beverage_type,
       })

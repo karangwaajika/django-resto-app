@@ -47,8 +47,12 @@ export default function AddWaiter() {
 
   const submitForm = (e) => {
     setIsLoading(true);
+    const isDevelopment = import.meta.env.MODE === "production";
+    const url = isDevelopment
+      ? import.meta.env.VITE_REACT_APP_ADD_EMPLOYEE_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_ADD_EMPLOYEE_API;
     axios
-      .post(import.meta.env.VITE_REACT_APP_ADD_EMPLOYEE_API, {
+      .post(url, {
         first_name: form.firstName,
         last_name: form.lastName,
         username: form.username,

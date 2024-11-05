@@ -17,8 +17,12 @@ export default function ViewBeverages() {
   };
   // handle fetch auto complete
   const [search, setSearch] = useState("");
+  const isDevelopment = import.meta.env.MODE === "production";
+  const url = isDevelopment
+    ? import.meta.env.VITE_REACT_APP_VIEW_BEVERAGES_API_DEPLOY
+    : import.meta.env.VITE_REACT_APP_VIEW_BEVERAGES_API;
   const { data, isLoading, message } = useFetchAutoComplete(
-    import.meta.env.VITE_REACT_APP_VIEW_BEVERAGES_API,
+    url,
     search,
     refreshData
   );

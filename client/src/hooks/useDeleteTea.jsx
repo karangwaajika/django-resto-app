@@ -12,8 +12,12 @@ export default function useDeleteTea(tea, closeModal) {
   const submitForm = (e) => {
     e.preventDefault();
     setIsLoading(true);
+    const isDevelopment = import.meta.env.MODE === "production";
+    const url = isDevelopment
+      ? import.meta.env.VITE_REACT_APP_DELETE_TEA_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_DELETE_TEA_API;
     axios
-      .delete(import.meta.env.VITE_REACT_APP_DELETE_TEA_API + "/" + tea.id)
+      .delete(url + "/" + tea.id)
       .then((res) => {
         setMessage(res.data);
         setUpdateTea();

@@ -7,8 +7,12 @@ export default function useProtectPage() {
   const [userInfo, setUserInfo] = useState({});
   useEffect(() => {
     const cancelToken = axios.CancelToken.source();
+    const isDevelopment = import.meta.env.MODE === "production";
+    const url = isDevelopment
+      ? import.meta.env.VITE_REACT_APP_PROTECT_PAGE_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_PROTECT_PAGE_API;
     axios
-      .get(import.meta.env.VITE_REACT_APP_PROTECT_PAGE_API, {
+      .get(url, {
         headers: {
           Authorization: "Token " + token,
         },
