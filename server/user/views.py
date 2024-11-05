@@ -81,6 +81,6 @@ def add_employee(request):
     return Response(
         {
             "success": False,
-            "message": "Username exist already",
+            "message": serializer.errors,
         }
     )

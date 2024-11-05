@@ -215,8 +215,7 @@ button.btn-light:active {
 }
 .error-message {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   background-color: #ff3547;
   color: white;
   border-radius: 5px;

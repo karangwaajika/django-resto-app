@@ -29,7 +29,7 @@ def add_tea(request):
     return Response(
         {
             "success": False,
-            "message": "Field Validation Error",
+            "message": tea_serializer.errors,
         }
     )
 
@@ -89,7 +89,7 @@ def add_meal(request):
     return Response(
         {
             "success": False,
-            "message": "Field Validation Error",
+            "message": meal_serializer.errors,
         }
     )
 
