@@ -98,9 +98,9 @@ def add_meal(request):
 def view_meals(request):
     if request.method == "POST":
         search_fields = (
-            Q(name__contains=request.data["search"])
-            | Q(meal_type__contains=request.data["search"])
-            | Q(price__contains=request.data["search"])
+            Q(name__icontains=request.data["search"])
+            | Q(meal_type__icontains=request.data["search"])
+            | Q(price__icontains=request.data["search"])
         )
         meal = Meal.objects.filter(search_fields).order_by("-id")
         meal_serializer = MealSerializer(meal, many=True)
@@ -179,10 +179,10 @@ def purchase_beverage(request):
 @api_view(["POST"])
 def view_beverages(request):
     search_fields = (
-        Q(beverage__name__contains=request.data["search"])
-        | Q(beverage__beverage_type__contains=request.data["search"])
-        | Q(price__contains=request.data["search"])
-        | Q(qty__contains=request.data["search"])
+        Q(beverage__name__icontains=request.data["search"])
+        | Q(beverage__beverage_type__icontains=request.data["search"])
+        | Q(price__icontains=request.data["search"])
+        | Q(qty__icontains=request.data["search"])
     )
     beverage_stocks = BeverageStock.objects.filter(search_fields).reverse()
     beverage_stock_serializer = BeverageStockSerializer(beverage_stocks, many=True)
