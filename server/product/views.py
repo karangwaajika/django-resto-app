@@ -144,7 +144,7 @@ def add_beverage(request):
             {"success": True, "message": "Beverage Brand Successfully Added!"}
         )
 
-    return Response({"success": False, "message": "Field Validation Error"})
+    return Response({"success": False, "message": beverage_serializer.errors})
 
 
 @api_view(["POST", "GET"])
