@@ -8,7 +8,7 @@ export default function NavbarHome() {
           <img src={logo} alt="resto-logo" width={100} height={100} />
         </div>
         <div className="text">
-          <h5>El-momento Restaurant</h5>
+          <h5>lol Resto-Bar</h5>
         </div>
       </div>
       <div className="right-info">
@@ -16,7 +16,7 @@ export default function NavbarHome() {
           <img src={logo} alt="resto-logo" width={100} height={100} />
         </div>
         <div className="text">
-          <h5>El-momento Restaurant</h5>
+          <h5>lol Resto-Bar</h5>
         </div>
       </div>
     </nav>

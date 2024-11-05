@@ -3,7 +3,7 @@ import InputField from "./ui/InputField";
 import { useState } from "react";
 import axios from "axios";
 import ButtonLoading from "./ui/ButtonLoading";
-import loadingImg from "/images/b-loading2.gif";
+import loadingImg from "/images/n-loading.gif";
 import { useNavigate } from "react-router-dom";
 import FlashMessage from "./ui/FlashMessage";
 
@@ -62,7 +62,7 @@ export default function LoginForm() {
     <div className="login-container">
       <div className="overlay">
         <div className="login-form">
-          <div className="card" style={{ width: "600px" }}>
+          <div className="card" style={{opacity:.8}}>
             <div className="card-header">Sign in</div>
             {message && (
               <FlashMessage
@@ -94,11 +94,11 @@ export default function LoginForm() {
                 {isLoading ? (
                   <ButtonLoading
                     text="Login"
-                    className="btn-primary"
+                    className="btn-dark"
                     img={loadingImg}
                   />
                 ) : (
-                  <Button text="Login" className="btn-primary" />
+                  <Button text="Login" className="btn-dark" />
                 )}
               </form>
             </div>
