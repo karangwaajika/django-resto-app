@@ -23,7 +23,7 @@ MIDDLEWARE = [
 
 # frontend url
 CORS_ALLOWED_ORIGINS = [
-    'https://django-resto-app-hcl1.onrender.com/'
+    'https://django-resto-app-hcl1.onrender.com'
 ]
 
 STORAGES = {
