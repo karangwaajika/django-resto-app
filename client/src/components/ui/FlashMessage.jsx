@@ -1,3 +1,5 @@
+import ProgressBar from "./ProgressBar";
+
 export default function FlashMessage({ isSuccess, message, clearMessage }) {
   const className = isSuccess
     ? "success-message animated bounce"
@@ -30,14 +32,14 @@ export default function FlashMessage({ isSuccess, message, clearMessage }) {
 
   return (
     <div className={className}>
-      {isSuccess ? (
-        <>
-          <p>{message}</p>
-          <i className="fa fa-times remove-message" onClick={clearMessage}></i>
-        </>
-      ) : (
-        errors
-      )}
+      <div style={{ padding: "5px" }}>
+        {isSuccess ? <p>{message}</p> : errors}
+      </div>
+
+      <ProgressBar
+        color={isSuccess ? "#b16e0a" : "#665252c7"}
+        clearMessage={clearMessage}
+      />
     </div>
   );
 }
