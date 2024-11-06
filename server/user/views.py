@@ -11,6 +11,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.db.models import Q
 
 # Create your views here.
 
@@ -84,3 +85,17 @@ def add_employee(request):
             "message": serializer.errors,
         }
     )
+
+
+@api_view(["POST"])
+def view_employees(request):
+    search_fields = (
+        Q(username__icontains=request.data["search"])
+        | Q(first_name__icontains=request.data["search"])
+        | Q(last_name__icontains=request.data["search"])
+        | Q(email__icontains=request.data["search"])
+    )
+    users = User.objects.filter(search_fields).reverse()
+    serializer = UserSerializer(users, many=True)
+
+    return Response({"success": True, "data": serializer.data})
