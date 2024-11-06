@@ -3,6 +3,7 @@ import loaderPicture from "/images/loading-3.gif";
 import { useState } from "react";
 import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
 import EmployeeTable from "../components/EmployeeTable";
+import WaiterRoleModal from "../components/WaiterRoleModal";
 
 export default function ViewBeverages() {
   // handle fetch auto complete
@@ -11,7 +12,27 @@ export default function ViewBeverages() {
   const url = isDevelopment
     ? import.meta.env.VITE_REACT_APP_VIEW_EMPLOYEES_API_DEPLOY
     : import.meta.env.VITE_REACT_APP_VIEW_EMPLOYEES_API;
-  const { data, isLoading, message } = useFetchAutoComplete(url, search);
+  const { data, isLoading, message, setData } = useFetchAutoComplete(
+    url,
+    search
+  );
+
+  // handle modals
+  const [animation, setAnimation] = useState("animated fadeIn");
+
+  const [clickedRow, setClickedRow] = useState(null);
+  const [openRoleModal, setOpenRoleModal] = useState(false);
+  const handleModal = (employeeIndex, typeOfModal) => {
+    // get targeted employee id
+    setClickedRow(employeeIndex);
+
+    if (typeOfModal == "role") {
+      setAnimation(openRoleModal ? "animated fadeOut" : "animated fadeIn");
+      setTimeout(() => {
+        setOpenRoleModal((oldModalState) => !oldModalState);
+      }, 1000);
+    }
+  };
 
   return (
     <div className="view-beverage-content">
@@ -37,7 +58,17 @@ export default function ViewBeverages() {
           <img src={loaderPicture} width={100} height={100} />
         </div>
       )}
-      <EmployeeTable employees={data} />
+      <EmployeeTable employees={data} openModal={handleModal} />
+
+      {openRoleModal && (
+        <WaiterRoleModal
+          allEmployees={data}
+          setEmployees={setData}
+          employeeIndex={clickedRow}
+          closeModal={handleModal}
+          animate={animation}
+        />
+      )}
     </div>
   );
 }

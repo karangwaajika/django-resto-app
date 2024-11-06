@@ -33,5 +33,5 @@ export default function useFetchAutoComplete(url, search, refreshData) {
     };
   }, [search, refreshData]);
 
-  return { data, isLoading, message };
+  return { data, isLoading, message, setData };
 }

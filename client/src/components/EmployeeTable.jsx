@@ -1,5 +1,5 @@
 import { formatToDateString } from "../utils/dateFormat.mjs";
-export default function EmployeeTable({ employees }) {
+export default function EmployeeTable({ employees, openModal }) {
   return (
     <table className="waiter-table">
       <thead>
@@ -26,7 +26,10 @@ export default function EmployeeTable({ employees }) {
                 </td>
                 <td data-cell="Role">
                   {employee.is_staff ? "Bartender" : "Waiter"}{" "}
-                  <i className="fa fa-pen-to-square text-warning"></i>
+                  <i
+                    className="fa fa-pen-to-square text-warning"
+                    onClick={() => openModal(index, "role")}
+                  ></i>
                 </td>
                 <td data-cell="Active" style={{ textAlign: "center" }}>
                   {employee.is_active ? (
