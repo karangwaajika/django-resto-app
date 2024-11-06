@@ -46,9 +46,9 @@
   height: 60vh;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  padding-left: 5px;
+  padding-right: 100px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
 }
 .lolImg{
