@@ -1,6 +1,6 @@
 import Button from "./ui/Button";
 import ButtonLoading from "./ui/ButtonLoading";
-import useDeleteBeverage from "../hooks/useDeleteBeverage";
+import useUpdateEmployeeRole from "../hooks/useUpdateEmployeeRole";
 import { formatToDateString } from "../utils/dateFormat.mjs";
 import loadingImg from "/images/r-loading.gif";
 import FlashMessage from "./ui/FlashMessage";
@@ -12,20 +12,15 @@ export default function WaiterRoleModal({
   animate,
 }) {
   const employee = allEmployees[employeeIndex];
-  const { isLoading, message, clearMessage, submitForm } = useDeleteBeverage(
-    employee,
-    closeModal
-  );
+  const { isLoading, message, clearMessage, submitForm } =
+    useUpdateEmployeeRole(employee.id);
 
   const closeModalByClickingOutSideModal = (e) => {
     if (e.target.className == "modal " + animate) {
       closeModal(employeeIndex, "role");
     }
   };
-  const handleSubmitForm = () => {
-    closeModal(employeeIndex, "role");
-    submitForm();
-  };
+
   return (
     <div
       className={`modal ${animate}`}
@@ -84,7 +79,7 @@ export default function WaiterRoleModal({
               <Button
                 text="Switch Role"
                 className="btn-primary"
-                onClick={handleSubmitForm}
+                onClick={submitForm}
               />
             )}
           </div>
