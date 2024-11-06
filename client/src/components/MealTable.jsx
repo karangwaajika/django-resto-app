@@ -25,7 +25,7 @@ export default function mealTable({ meals, openEditModal, openDeleteModal }) {
                 <td data-cell="Date">{formatToDateString(meal.created_at)}</td>
                 <td data-cell="Action">
                   <i
-                    className="fa fa-pencil"
+                    className="fa fa-pen-to-square text-primary"
                     onClick={() => openEditModal(index)}
                   ></i>{" "}
                   <i

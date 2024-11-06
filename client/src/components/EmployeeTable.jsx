@@ -26,7 +26,7 @@ export default function EmployeeTable({ employees }) {
                 </td>
                 <td data-cell="Role">
                   {employee.is_staff ? "Bartender" : "Waiter"}{" "}
-                  <i className="fa fa-pencil"></i>
+                  <i className="fa fa-pen-to-square text-warning"></i>
                 </td>
                 <td data-cell="Active" style={{ textAlign: "center" }}>
                   {employee.is_active ? (
@@ -34,10 +34,10 @@ export default function EmployeeTable({ employees }) {
                   ) : (
                     <i className="fa fa-square-xmax text-danger"></i>
                   )}{" "}
-                  <i className="fa fa-pencil"></i>
+                  <i className="fa fa-pen-to-square"></i>
                 </td>
                 <td data-cell="Password">
-                  <i className="fa fa-pencil"></i>
+                  <i className="fa fa-pencil text-primary"></i>
                 </td>
               </tr>
             );

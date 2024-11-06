@@ -26,7 +26,7 @@ export default function TeaTable({ teas, openEditModal, openDeleteModal }) {
                 <td data-cell="Date">{formatToDateString(tea.created_at)}</td>
                 <td data-cell="Action">
                   <i
-                    className="fa fa-pencil"
+                    className="fa fa-pen-to-square text-primary"
                     onClick={() => openEditModal(index)}
                   ></i>
                   {' '}

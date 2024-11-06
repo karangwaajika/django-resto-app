@@ -74,6 +74,24 @@
 .text-success {
   color: #00c851;
 }
+.text-warning {
+  color: #b47b10;
+}
+.text-primary {
+  color: #3c5df1;
+}
+.fa-pen-to-square {
+  cursor: pointer;
+}
+.fa-pen-to-square:active {
+  color: white;
+}
+.fa-pencil {
+  cursor: pointer;
+}
+.fa-pencil:active {
+  color: white;
+}
 form {
   display: grid;
   grid-template-columns: 1fr;
