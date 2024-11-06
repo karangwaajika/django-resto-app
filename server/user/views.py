@@ -90,10 +90,10 @@ def add_employee(request):
 @api_view(["POST"])
 def view_employees(request):
     search_fields = (
-        Q(username__icontains=request.data["search"])
-        | Q(first_name__icontains=request.data["search"])
-        | Q(last_name__icontains=request.data["search"])
-        | Q(email__icontains=request.data["search"])
+        Q(username__icontains=request.data["search"], is_superuser = False)
+        | Q(first_name__icontains=request.data["search"], is_superuser = False)
+        | Q(last_name__icontains=request.data["search"], is_superuser = False)
+        | Q(email__icontains=request.data["search"], is_superuser = False)
     )
     users = User.objects.filter(search_fields).reverse()
     serializer = UserSerializer(users, many=True)
