@@ -90,12 +90,23 @@ def add_employee(request):
 @api_view(["POST"])
 def view_employees(request):
     search_fields = (
-        Q(username__icontains=request.data["search"], is_superuser = False)
-        | Q(first_name__icontains=request.data["search"], is_superuser = False)
-        | Q(last_name__icontains=request.data["search"], is_superuser = False)
-        | Q(email__icontains=request.data["search"], is_superuser = False)
+        Q(username__icontains=request.data["search"], is_superuser=False)
+        | Q(first_name__icontains=request.data["search"], is_superuser=False)
+        | Q(last_name__icontains=request.data["search"], is_superuser=False)
+        | Q(email__icontains=request.data["search"], is_superuser=False)
     )
     users = User.objects.filter(search_fields).reverse()
     serializer = UserSerializer(users, many=True)
 
     return Response({"success": True, "data": serializer.data})
+
+
+@api_view(["GET"])
+def update_role(request, employee_id):
+    try:
+        user = User.objects.get(pk=employee_id)
+        user.is_staff = not (user.is_staff)
+        user.save()
+        return Response({"success": True, "message": "Role updated successfuly"})
+    except User.DoesNotExist:
+        return Response({"success": False, "message": "User doesn't exist"})
