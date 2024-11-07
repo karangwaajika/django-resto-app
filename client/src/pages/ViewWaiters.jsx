@@ -5,14 +5,9 @@ import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
 import EmployeeTable from "../components/EmployeeTable";
 import WaiterRoleModal from "../components/WaiterRoleModal";
 
-export const updateWaiterContext = createContext();
+export const employeesDataContext = createContext();
 
 export default function ViewBeverages() {
-  // to trigger fetch data when meal is updated to re-render the component
-  const [refreshData, setRefreshData] = useState(false);
-  const handleRefreshData = () => {
-    setRefreshData((oldstate) => !oldstate);
-  };
   // handle fetch auto complete
   const [search, setSearch] = useState("");
   const isDevelopment = import.meta.env.MODE === "production";
@@ -66,17 +61,16 @@ export default function ViewBeverages() {
         </div>
       )}
       <EmployeeTable employees={data} openModal={handleModal} />
-      <updateWaiterContext.Provider value={handleRefreshData}>
+      <employeesDataContext.Provider value={{ setData, data }}>
         {openRoleModal && (
           <WaiterRoleModal
             allEmployees={data}
-            setEmployees={setData}
             employeeIndex={clickedRow}
             closeModal={handleModal}
             animate={animation}
           />
         )}
-      </updateWaiterContext.Provider>
+      </employeesDataContext.Provider>
     </div>
   );
 }

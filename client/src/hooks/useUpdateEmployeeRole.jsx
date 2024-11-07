@@ -1,8 +1,9 @@
 import { useState, useContext } from "react";
 import axios from "axios";
-import { updateWaiterContext } from "../pages/ViewWaiters";
+import { employeesDataContext } from "../pages/ViewWaiters";
 export default function useUpdateEmployeeRole(employeeId) {
-  const setUpdateWaiter = useContext(updateWaiterContext);
+  const employees = useContext(employeesDataContext);
+
   const [message, setMessage] = useState();
   const clearMessage = () => {
     setMessage();
@@ -19,8 +20,18 @@ export default function useUpdateEmployeeRole(employeeId) {
     axios
       .get(url + "/" + employeeId)
       .then((res) => {
-        setMessage(res.data);
-        setUpdateWaiter();
+        // update employeeList
+        employees.setData((oldData) => {
+          const newEmployeesList = oldData.map((item) => {
+            if (item.id === employeeId) {
+              item.is_staff = !item.is_staff;
+              return item;
+            } else {
+              return item;
+            }
+          });
+          return newEmployeesList;
+        });
       })
       .catch((err) => {
         setMessage({

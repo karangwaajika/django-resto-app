@@ -4,9 +4,9 @@ import useUpdateEmployeeRole from "../hooks/useUpdateEmployeeRole";
 import { formatToDateString } from "../utils/dateFormat.mjs";
 import loadingImg from "/images/r-loading.gif";
 import FlashMessage from "./ui/FlashMessage";
+
 export default function WaiterRoleModal({
   closeModal,
-  setEmployees,
   allEmployees,
   employeeIndex,
   animate,
