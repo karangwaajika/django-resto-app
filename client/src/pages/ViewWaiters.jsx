@@ -4,7 +4,9 @@ import { useState, createContext } from "react";
 import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
 import EmployeeTable from "../components/EmployeeTable";
 import WaiterRoleModal from "../components/WaiterRoleModal";
+import FlashMessage from "../components/ui/FlashMessage";
 
+// for importiing employees data and states to make parent component rerender
 export const employeesDataContext = createContext();
 
 export default function ViewBeverages() {
@@ -14,14 +16,18 @@ export default function ViewBeverages() {
   const url = isDevelopment
     ? import.meta.env.VITE_REACT_APP_VIEW_EMPLOYEES_API_DEPLOY
     : import.meta.env.VITE_REACT_APP_VIEW_EMPLOYEES_API;
-  const { data, isLoading, message, setData } = useFetchAutoComplete(
-    url,
-    search
-  );
+  const {
+    data,
+    isLoading,
+    message,
+    setData,
+    setMessage,
+    setIsLoading,
+    clearMessage,
+  } = useFetchAutoComplete(url, search);
 
   // handle modals
   const [animation, setAnimation] = useState("animated fadeIn");
-
   const [clickedRow, setClickedRow] = useState(null);
   const [openRoleModal, setOpenRoleModal] = useState(false);
   const handleModal = (employeeIndex, typeOfModal) => {
@@ -43,6 +49,13 @@ export default function ViewBeverages() {
         <p style={{ fontSize: "14px" }}>
           Search by names to retrieve the desired information
         </p>
+        {message && (
+          <FlashMessage
+            message={message.message}
+            isSuccess={message.success}
+            clearMessage={clearMessage}
+          />
+        )}
       </div>
       <div className="search-btn">
         <InputField
@@ -61,7 +74,9 @@ export default function ViewBeverages() {
         </div>
       )}
       <EmployeeTable employees={data} openModal={handleModal} />
-      <employeesDataContext.Provider value={{ setData, data }}>
+      <employeesDataContext.Provider
+        value={{ setData, setIsLoading, setMessage }}
+      >
         {openRoleModal && (
           <WaiterRoleModal
             allEmployees={data}

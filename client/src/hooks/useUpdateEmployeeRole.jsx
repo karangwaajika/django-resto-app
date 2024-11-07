@@ -1,18 +1,21 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { employeesDataContext } from "../pages/ViewWaiters";
-export default function useUpdateEmployeeRole(employeeId) {
+export default function useUpdateEmployeeRole(
+  employeeId,
+  closeModal,
+  employeeIndex
+) {
   const employees = useContext(employeesDataContext);
-
-  const [message, setMessage] = useState();
-  const clearMessage = () => {
-    setMessage();
-  };
-  const [isLoading, setIsLoading] = useState(false);
 
   const submitForm = (e) => {
     e.preventDefault();
-    setIsLoading(true);
+    // close the modal when button clicked
+    closeModal(employeeIndex, "role");
+
+    // display loading icon
+    employees.setIsLoading(true);
+
     const isDevelopment = import.meta.env.MODE === "production";
     const url = isDevelopment
       ? import.meta.env.VITE_REACT_APP_UPDATE_ROLE_API_DEPLOY
@@ -20,7 +23,9 @@ export default function useUpdateEmployeeRole(employeeId) {
     axios
       .get(url + "/" + employeeId)
       .then((res) => {
-        // update employeeList
+        // display response message
+        employees.setMessage(res.data);
+        //update employee's List
         employees.setData((oldData) => {
           const newEmployeesList = oldData.map((item) => {
             if (item.id === employeeId) {
@@ -34,13 +39,13 @@ export default function useUpdateEmployeeRole(employeeId) {
         });
       })
       .catch((err) => {
-        setMessage({
+        employees.setMessage({
           success: false,
           message: err.message,
         });
       })
       .finally(() => {
-        setIsLoading(false);
+        employees.setIsLoading(false);
       });
   };
   return {

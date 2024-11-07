@@ -4,6 +4,9 @@ export default function useFetchAutoComplete(url, search, refreshData) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const clearMessage = () => {
+    setMessage();
+  };
   useEffect(() => {
     const cancelToken = axios.CancelToken.source();
     setIsLoading(true);
@@ -33,5 +36,5 @@ export default function useFetchAutoComplete(url, search, refreshData) {
     };
   }, [search, refreshData]);
 
-  return { data, isLoading, message, setData };
+  return { data, isLoading, message, setData, setIsLoading, setMessage, clearMessage };
 }

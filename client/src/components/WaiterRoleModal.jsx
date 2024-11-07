@@ -13,7 +13,7 @@ export default function WaiterRoleModal({
 }) {
   const employee = allEmployees[employeeIndex];
   const { isLoading, message, clearMessage, submitForm } =
-    useUpdateEmployeeRole(employee.id);
+    useUpdateEmployeeRole(employee.id, closeModal, employeeIndex);
 
   const closeModalByClickingOutSideModal = (e) => {
     if (e.target.className == "modal " + animate) {
