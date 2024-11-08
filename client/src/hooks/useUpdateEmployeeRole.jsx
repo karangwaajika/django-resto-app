@@ -49,9 +49,6 @@ export default function useUpdateEmployeeRole(
       });
   };
   return {
-    message,
-    clearMessage,
-    isLoading,
     submitForm,
   };
 }

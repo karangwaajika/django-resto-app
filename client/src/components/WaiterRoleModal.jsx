@@ -1,9 +1,6 @@
 import Button from "./ui/Button";
-import ButtonLoading from "./ui/ButtonLoading";
 import useUpdateEmployeeRole from "../hooks/useUpdateEmployeeRole";
 import { formatToDateString } from "../utils/dateFormat.mjs";
-import loadingImg from "/images/r-loading.gif";
-import FlashMessage from "./ui/FlashMessage";
 
 export default function WaiterRoleModal({
   closeModal,
@@ -12,8 +9,11 @@ export default function WaiterRoleModal({
   animate,
 }) {
   const employee = allEmployees[employeeIndex];
-  const { isLoading, message, clearMessage, submitForm } =
-    useUpdateEmployeeRole(employee.id, closeModal, employeeIndex);
+  const { submitForm } = useUpdateEmployeeRole(
+    employee.id,
+    closeModal,
+    employeeIndex
+  );
 
   const closeModalByClickingOutSideModal = (e) => {
     if (e.target.className == "modal " + animate) {
@@ -36,13 +36,7 @@ export default function WaiterRoleModal({
             <i className="fa fa-rectangle-xmark"></i>
           </div>
         </div>
-        {message && (
-          <FlashMessage
-            message={message.message}
-            isSuccess={message.success}
-            clearMessage={clearMessage}
-          />
-        )}
+
         <div className="modal-body">
           <div className="info">
             <span style={{ fontWeight: "bold" }}>Firstname</span>
@@ -69,19 +63,11 @@ export default function WaiterRoleModal({
               onClick={() => closeModal(employeeIndex, "role")}
             />
 
-            {isLoading ? (
-              <ButtonLoading
-                text="Switch Role"
-                className="btn-primary"
-                img={loadingImg}
-              />
-            ) : (
-              <Button
-                text="Switch Role"
-                className="btn-primary"
-                onClick={submitForm}
-              />
-            )}
+            <Button
+              text="Switch Role"
+              className="btn-primary"
+              onClick={submitForm}
+            />
           </div>
         </div>
       </div>
