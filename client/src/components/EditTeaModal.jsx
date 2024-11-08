@@ -1,25 +1,34 @@
 import Button from "./ui/Button";
 import InputField from "./ui/InputField";
 import useEditTea from "../hooks/useEditTea";
-export default function EditTeaModal({ closeModal, animation, tea }) {
+export default function EditTeaModal({
+  closeModal,
+  allTeas,
+  teaIndex,
+  animate,
+}) {
+  const tea = allTeas[teaIndex];
   const {
     form,
     fieldError,
     handleChange,
     validateSubmitForm: submitForm,
-  } = useEditTea(tea, closeModal);
+  } = useEditTea(tea, closeModal, teaIndex);
 
   const handleCloseModal = (e) => {
-    if (e.target.className == "modal animated fadeIn") {
-      closeModal();
+    if (e.target.className == `modal ${animate}`) {
+      closeModal(teaIndex, "edit");
     }
   };
   return (
-    <div className={`modal ${animation}`} onClick={handleCloseModal}>
+    <div className={`modal ${animate}`} onClick={handleCloseModal}>
       <div className="modal-content ">
         <div className="modal-header">
           <h2>Update Subject</h2>
-          <div className="modal-close-button" onClick={closeModal}>
+          <div
+            className="modal-close-button"
+            onClick={() => closeModal(teaIndex, "edit")}
+          >
             <i className="fa fa-rectangle-xmark"></i>
           </div>
         </div>

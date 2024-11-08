@@ -27,26 +27,28 @@ export default function ViewBeverages() {
     clearMessage,
   } = useFetchAutoComplete(url, search);
 
-  const [animation, setAnimation] = useState("");
+  // handle modals
+  const [animation, setAnimation] = useState("animated fadeIn");
+  const [clickedRow, setClickedRow] = useState(null);
 
-  // handle update
-  const [rowToEdit, setrowToEdit] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const handleEditModal = (index) => {
-    // get targeted meal information
-    setrowToEdit(index);
-    setAnimation(openEditModal ? "animated fadeOut" : "animated fadeIn");
-    setTimeout(() => {
-      setOpenEditModal((oldModalState) => !oldModalState);
-    }, 1000);
-  };
-  // handle delete
-  const [rowToDelete, setrowToDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const handleDeleteModal = (index) => {
-    // get targeted meal information
-    setrowToDelete(index);
-    setOpenDeleteModal((oldModalState) => !oldModalState);
+
+  const handleModal = (index, typeOfModal) => {
+    // get the targeted item id
+    setClickedRow(index);
+
+    if (typeOfModal == "edit") {
+      setAnimation(openEditModal ? "animated fadeOut" : "animated fadeIn");
+      setTimeout(() => {
+        setOpenEditModal((oldModalState) => !oldModalState);
+      }, 1000);
+    } else {
+      setAnimation(openDeleteModal ? "animated fadeOut" : "animated fadeIn");
+      setTimeout(() => {
+        setOpenDeleteModal((oldModalState) => !oldModalState);
+      }, 1000);
+    }
   };
 
   return (
@@ -82,25 +84,32 @@ export default function ViewBeverages() {
       )}
       <BeverageTable
         beverages={data}
-        openEditModal={handleEditModal}
-        openDeleteModal={handleDeleteModal}
+        openEditModal={handleModal}
+        openDeleteModal={handleModal}
       />
 
-      <updateBeverageContext.Provider value={{ setData, setIsLoading, setMessage }}>
+      <updateBeverageContext.Provider
+        value={{ setData, setIsLoading, setMessage }}
+      >
         {openEditModal && (
           <EditBeverageModal
-            closeModal={handleEditModal}
-            animation={animation}
-            beverage={rowToEdit >= 0 && data[rowToEdit]}
+            allBeverages={data}
+            beverageIndex={clickedRow}
+            closeModal={handleModal}
+            animate={animation}
           />
         )}
       </updateBeverageContext.Provider>
 
-      <updateBeverageContext.Provider value={{ setData, setIsLoading, setMessage }}>
+      <updateBeverageContext.Provider
+        value={{ setData, setIsLoading, setMessage }}
+      >
         {openDeleteModal && (
           <DeleteBeverageModal
-            closeModal={handleDeleteModal}
-            beverage={rowToDelete >= 0 && data[rowToDelete]}
+            allBeverages={data}
+            beverageIndex={clickedRow}
+            closeModal={handleModal}
+            animate={animation}
           />
         )}
       </updateBeverageContext.Provider>

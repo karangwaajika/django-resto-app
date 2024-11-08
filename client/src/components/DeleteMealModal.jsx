@@ -3,21 +3,30 @@ import useDeleteMeal from "../hooks/useDeleteMeal";
 import { addComma } from "../utils/addComma.mjs";
 import { formatToDateString } from "../utils/dateFormat.mjs";
 
-export default function DeleteMealModal({ closeModal, meal }) {
-  const { submitForm } = useDeleteMeal(meal, closeModal);
+export default function DeleteMealModal({
+  closeModal,
+  allMeals,
+  mealIndex,
+  animate,
+}) {
+  const meal = allMeals[mealIndex];
+  const { submitForm } = useDeleteMeal(meal, closeModal, mealIndex);
 
   const handleCloseModal = (e) => {
-    if (e.target.className == "modal animated fadeIn") {
-      closeModal();
+    if (e.target.className == `modal ${animate}`) {
+      closeModal(mealIndex, "delete");
     }
   };
 
   return (
-    <div className="modal animated fadeIn" onClick={handleCloseModal}>
+    <div className={`modal ${animate}`} onClick={handleCloseModal}>
       <div className="modal-content delete-modal">
         <div className="modal-header">
           <h2>{meal.name}</h2>
-          <div className="modal-close-button" onClick={closeModal}>
+          <div
+            className="modal-close-button"
+            onClick={() => closeModal(mealIndex, "delete")}
+          >
             <i className="fa fa-rectangle-xmark"></i>
           </div>
         </div>
@@ -45,7 +54,7 @@ export default function DeleteMealModal({ closeModal, meal }) {
             <Button
               text="Cancel"
               className="btn-danger-outline"
-              onClick={closeModal}
+              onClick={() => closeModal(mealIndex, "delete")}
             />
 
             <Button text="Delete" className="btn-danger" onClick={submitForm} />

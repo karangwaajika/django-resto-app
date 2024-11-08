@@ -27,12 +27,11 @@ export default function TeaTable({ teas, openEditModal, openDeleteModal }) {
                 <td data-cell="Action">
                   <i
                     className="fa fa-pen-to-square text-primary"
-                    onClick={() => openEditModal(index)}
-                  ></i>
-                  {' '}
+                    onClick={() => openEditModal(index, "edit")}
+                  ></i>{" "}
                   <i
                     className="fa fa-trash-can"
-                    onClick={() => openDeleteModal(index)}
+                    onClick={() => openDeleteModal(index, "delete")}
                   ></i>
                 </td>
               </tr>

@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { updateTeaContext } from "../pages/ViewTeas";
-export default function useDeleteTea(tea, closeModal) {
+export default function useDeleteTea(tea, closeModal, teaIndex) {
   const teas = useContext(updateTeaContext);
 
   const submitForm = (e) => {
     e.preventDefault();
-    closeModal();
+    closeModal(teaIndex, "delete");
     teas.setIsLoading(true);
     const isDevelopment = import.meta.env.MODE === "production";
     const url = isDevelopment

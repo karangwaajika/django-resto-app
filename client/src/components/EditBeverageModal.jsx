@@ -1,25 +1,34 @@
 import Button from "./ui/Button";
 import InputField from "./ui/InputField";
 import useEditBeverage from "../hooks/useEditBeverage";
-export default function EditBeverageModal({ closeModal, animation, beverage }) {
+export default function EditBeverageModal({
+  closeModal,
+  allBeverages,
+  beverageIndex,
+  animate,
+}) {
+  const beverage = allBeverages[beverageIndex];
   const {
     form,
     fieldError,
     handleChange,
     validateSubmitForm: submitForm,
-  } = useEditBeverage(beverage, closeModal);
+  } = useEditBeverage(beverage, closeModal, beverageIndex);
 
   const handleCloseModal = (e) => {
-    if (e.target.className == "modal animated fadeIn") {
-      closeModal();
+    if (e.target.className == `modal ${animate}`) {
+      closeModal(beverageIndex, "edit");
     }
   };
   return (
-    <div className={`modal ${animation}`} onClick={handleCloseModal}>
+    <div className={`modal ${animate}`} onClick={handleCloseModal}>
       <div className="modal-content ">
         <div className="modal-header">
           <h2>Update Beverage</h2>
-          <div className="modal-close-button" onClick={closeModal}>
+          <div
+            className="modal-close-button"
+            onClick={() => closeModal(beverageIndex, "edit")}
+          >
             <i className="fa fa-rectangle-xmark"></i>
           </div>
         </div>

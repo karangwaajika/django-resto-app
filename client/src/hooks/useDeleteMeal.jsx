@@ -1,12 +1,12 @@
 import { useState, useContext } from "react";
 import axios from "axios";
 import { updateMealContext } from "../pages/ViewMeals";
-export default function useDeleteMeal(meal, closeModal) {
+export default function useDeleteMeal(meal, closeModal, mealIndex) {
   const meals = useContext(updateMealContext);
 
   const submitForm = (e) => {
     e.preventDefault();
-    closeModal();
+    closeModal(mealIndex, "delete");
     meals.setIsLoading(true);
     const isDevelopment = import.meta.env.MODE === "production";
     const url = isDevelopment

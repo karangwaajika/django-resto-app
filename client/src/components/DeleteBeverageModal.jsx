@@ -1,21 +1,30 @@
 import Button from "./ui/Button";
 import useDeleteBeverage from "../hooks/useDeleteBeverage";
 import { addComma } from "../utils/addComma.mjs";
-export default function DeleteBeverageModal({ closeModal, beverage }) {
-  const { submitForm } = useDeleteBeverage(beverage, closeModal);
+export default function DeleteBeverageModal({
+  closeModal,
+  allBeverages,
+  beverageIndex,
+  animate,
+}) {
+  const beverage = allBeverages[beverageIndex];
+  const { submitForm } = useDeleteBeverage(beverage, closeModal, beverageIndex);
 
   const handleCloseModal = (e) => {
-    if (e.target.className == "modal animated fadeIn") {
-      closeModal();
+    if (e.target.className == `modal ${animate}`) {
+      closeModal(beverageIndex, "delete");
     }
   };
 
   return (
-    <div className="modal animated fadeIn" onClick={handleCloseModal}>
+    <div className={`modal ${animate}`} onClick={handleCloseModal}>
       <div className="modal-content delete-modal">
         <div className="modal-header">
           <h2>{beverage.beverage.name}</h2>
-          <div className="modal-close-button" onClick={closeModal}>
+          <div
+            className="modal-close-button"
+            onClick={() => closeModal(beverageIndex, "delete")}
+          >
             <i className="fa fa-rectangle-xmark"></i>
           </div>
         </div>
@@ -43,7 +52,7 @@ export default function DeleteBeverageModal({ closeModal, beverage }) {
             <Button
               text="Cancel"
               className="btn-danger-outline"
-              onClick={closeModal}
+              onClick={() => closeModal(beverageIndex, "delete")}
             />
             <Button text="Delete" className="btn-danger" onClick={submitForm} />
           </div>

@@ -3,21 +3,30 @@ import useDeleteTea from "../hooks/useDeleteTea";
 import { addComma } from "../utils/addComma.mjs";
 import { formatToDateString } from "../utils/dateFormat.mjs";
 
-export default function DeleteTeaModal({ closeModal, tea }) {
-  const { submitForm } = useDeleteTea(tea, closeModal);
+export default function DeleteTeaModal({
+  closeModal,
+  allTeas,
+  teaIndex,
+  animate,
+}) {
+  const tea = allTeas[teaIndex];
+  const { submitForm } = useDeleteTea(tea, closeModal, teaIndex);
 
   const handleCloseModal = (e) => {
-    if (e.target.className == "modal animated fadeIn") {
-      closeModal();
+    if (e.target.className == `modal ${animate}`) {
+      closeModal(teaIndex, "delete");
     }
   };
 
   return (
-    <div className="modal animated fadeIn" onClick={handleCloseModal}>
+    <div className={`modal ${animate}`} onClick={handleCloseModal}>
       <div className="modal-content delete-modal">
         <div className="modal-header">
           <h2>{tea.name}</h2>
-          <div className="modal-close-button" onClick={closeModal}>
+          <div
+            className="modal-close-button"
+            onClick={() => closeModal(teaIndex, "delete")}
+          >
             <i className="fa fa-rectangle-xmark"></i>
           </div>
         </div>
@@ -45,7 +54,7 @@ export default function DeleteTeaModal({ closeModal, tea }) {
             <Button
               text="Cancel"
               className="btn-danger-outline"
-              onClick={closeModal}
+              onClick={() => closeModal(teaIndex, "delete")}
             />
 
             <Button text="Delete" className="btn-danger" onClick={submitForm} />

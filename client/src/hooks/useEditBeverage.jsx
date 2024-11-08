@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import fieldValidation from "../utils/fieldValidation.mjs";
 import { updateBeverageContext } from "../pages/ViewBeverages";
-export default function useEditBeverage(beverage, closeModal) {
+export default function useEditBeverage(beverage, closeModal, beverageIndex) {
   const beverages = useContext(updateBeverageContext);
 
   const [form, setForm] = useState(
@@ -46,7 +46,7 @@ export default function useEditBeverage(beverage, closeModal) {
   };
   const submitForm = (e) => {
     // close the modal when button clicked
-    closeModal();
+    closeModal(beverageIndex, "edit");
 
     // display loading icon
     beverages.setIsLoading(true);

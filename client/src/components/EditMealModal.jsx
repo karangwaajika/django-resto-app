@@ -1,25 +1,34 @@
 import Button from "./ui/Button";
 import InputField from "./ui/InputField";
 import useEditMeal from "../hooks/useEditMeal";
-export default function EditMealModal({ closeModal, animation, meal }) {
+export default function EditMealModal({
+  closeModal,
+  allMeals,
+  mealIndex,
+  animate,
+}) {
+  const meal = allMeals[mealIndex];
   const {
     form,
     fieldError,
     handleChange,
     validateSubmitForm: submitForm,
-  } = useEditMeal(meal, closeModal);
+  } = useEditMeal(meal, closeModal, mealIndex);
 
   const handleCloseModal = (e) => {
-    if (e.target.className == "modal animated fadeIn") {
-      closeModal();
+    if (e.target.className == `modal ${animate}`) {
+      closeModal(mealIndex, "edit");
     }
   };
   return (
-    <div className={`modal ${animation}`} onClick={handleCloseModal}>
+    <div className={`modal ${animate}`} onClick={handleCloseModal}>
       <div className="modal-content ">
         <div className="modal-header">
           <h2>Update Subject</h2>
-          <div className="modal-close-button" onClick={closeModal}>
+          <div
+            className="modal-close-button"
+            onClick={() => closeModal(mealIndex, "edit")}
+          >
             <i className="fa fa-rectangle-xmark"></i>
           </div>
         </div>

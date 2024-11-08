@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import fieldValidation from "../utils/fieldValidation.mjs";
 import { updateMealContext } from "../pages/ViewMeals";
-export default function useEditMeal(meal, closeModal) {
+export default function useEditMeal(meal, closeModal, mealIndex) {
   const meals = useContext(updateMealContext);
 
   const [form, setForm] = useState(
@@ -43,7 +43,7 @@ export default function useEditMeal(meal, closeModal) {
   };
   const submitForm = (e) => {
     // close the modal when button clicked
-    closeModal();
+    closeModal(mealIndex, "edit");
 
     // display loading icon
     meals.setIsLoading(true);

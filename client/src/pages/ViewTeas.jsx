@@ -27,27 +27,30 @@ export default function ViewTeas() {
     clearMessage,
   } = useFetchAutoComplete(url, search);
 
-  const [animation, setAnimation] = useState("");
+  // handle modals
+  const [animation, setAnimation] = useState("animated fadeIn");
+  const [clickedRow, setClickedRow] = useState(null);
 
-  // handle update
-  const [rowToEdit, setrowToEdit] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const handleEditModal = (index) => {
-    // get targeted tea information
-    setrowToEdit(index);
-    setAnimation(openEditModal ? "animated fadeOut" : "animated fadeIn");
-    setTimeout(() => {
-      setOpenEditModal((oldModalState) => !oldModalState);
-    }, 1000);
-  };
-  // handle delete
-  const [rowToDelete, setrowToDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const handleDeleteModal = (index) => {
-    // get targeted tea information
-    setrowToDelete(index);
-    setOpenDeleteModal((oldModalState) => !oldModalState);
+
+  const handleModal = (index, typeOfModal) => {
+    // get the targeted item id
+    setClickedRow(index);
+
+    if (typeOfModal == "edit") {
+      setAnimation(openEditModal ? "animated fadeOut" : "animated fadeIn");
+      setTimeout(() => {
+        setOpenEditModal((oldModalState) => !oldModalState);
+      }, 1000);
+    } else {
+      setAnimation(openDeleteModal ? "animated fadeOut" : "animated fadeIn");
+      setTimeout(() => {
+        setOpenDeleteModal((oldModalState) => !oldModalState);
+      }, 1000);
+    }
   };
+
 
   return (
     <div className="view-tea-content">
@@ -82,16 +85,17 @@ export default function ViewTeas() {
       )}
       <TeaTable
         teas={data}
-        openEditModal={handleEditModal}
-        openDeleteModal={handleDeleteModal}
+        openEditModal={handleModal}
+        openDeleteModal={handleModal}
       />
 
       <updateTeaContext.Provider value={{ setData, setIsLoading, setMessage }}>
         {openEditModal && (
           <EditTeaModal
-            closeModal={handleEditModal}
-            animation={animation}
-            tea={rowToEdit >= 0 && data[rowToEdit]}
+            allTeas={data}
+            teaIndex={clickedRow}
+            closeModal={handleModal}
+            animate={animation}
           />
         )}
       </updateTeaContext.Provider>
@@ -99,8 +103,10 @@ export default function ViewTeas() {
       <updateTeaContext.Provider value={{ setData, setIsLoading, setMessage }}>
         {openDeleteModal && (
           <DeleteTeaModal
-            closeModal={handleDeleteModal}
-            tea={rowToDelete >= 0 && data[rowToDelete]}
+            allTeas={data}
+            teaIndex={clickedRow}
+            closeModal={handleModal}
+            animate={animation}
           />
         )}
       </updateTeaContext.Provider>

@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import fieldValidation from "../utils/fieldValidation.mjs";
 import { updateTeaContext } from "../pages/ViewTeas";
-export default function useEditTea(tea, closeModal) {
+export default function useEditTea(tea, closeModal, teaIndex) {
   const teas = useContext(updateTeaContext);
 
   const [form, setForm] = useState(
@@ -46,7 +46,7 @@ export default function useEditTea(tea, closeModal) {
 
   const submitForm = (e) => {
     // close the modal when button clicked
-    closeModal();
+    closeModal(teaIndex, "edit");
 
     // display loading icon
     teas.setIsLoading(true);

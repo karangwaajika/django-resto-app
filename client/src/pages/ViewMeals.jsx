@@ -27,26 +27,28 @@ export default function ViewMeals() {
     clearMessage,
   } = useFetchAutoComplete(url, search);
 
-  const [animation, setAnimation] = useState("");
+  // handle modals
+  const [animation, setAnimation] = useState("animated fadeIn");
+  const [clickedRow, setClickedRow] = useState(null);
 
-  // handle update
-  const [rowToEdit, setrowToEdit] = useState(null);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const handleEditModal = (index) => {
-    // get targeted meal information
-    setrowToEdit(index);
-    setAnimation(openEditModal ? "animated fadeOut" : "animated fadeIn");
-    setTimeout(() => {
-      setOpenEditModal((oldModalState) => !oldModalState);
-    }, 1000);
-  };
-  // handle delete
-  const [rowToDelete, setrowToDelete] = useState(null);
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const handleDeleteModal = (index) => {
-    // get targeted meal information
-    setrowToDelete(index);
-    setOpenDeleteModal((oldModalState) => !oldModalState);
+
+  const handleModal = (index, typeOfModal) => {
+    // get the targeted item id
+    setClickedRow(index);
+
+    if (typeOfModal == "edit") {
+      setAnimation(openEditModal ? "animated fadeOut" : "animated fadeIn");
+      setTimeout(() => {
+        setOpenEditModal((oldModalState) => !oldModalState);
+      }, 1000);
+    } else {
+      setAnimation(openDeleteModal ? "animated fadeOut" : "animated fadeIn");
+      setTimeout(() => {
+        setOpenDeleteModal((oldModalState) => !oldModalState);
+      }, 1000);
+    }
   };
 
   return (
@@ -82,16 +84,17 @@ export default function ViewMeals() {
       )}
       <MealTable
         meals={data}
-        openEditModal={handleEditModal}
-        openDeleteModal={handleDeleteModal}
+        openEditModal={handleModal}
+        openDeleteModal={handleModal}
       />
 
       <updateMealContext.Provider value={{ setData, setIsLoading, setMessage }}>
         {openEditModal && (
           <EditMealModal
-            closeModal={handleEditModal}
-            animation={animation}
-            meal={rowToEdit >= 0 && data[rowToEdit]}
+            allMeals={data}
+            mealIndex={clickedRow}
+            closeModal={handleModal}
+            animate={animation}
           />
         )}
       </updateMealContext.Provider>
@@ -99,8 +102,10 @@ export default function ViewMeals() {
       <updateMealContext.Provider value={{ setData, setIsLoading, setMessage }}>
         {openDeleteModal && (
           <DeleteMealModal
-            closeModal={handleDeleteModal}
-            meal={rowToDelete >= 0 && data[rowToDelete]}
+            allMeals={data}
+            mealIndex={clickedRow}
+            closeModal={handleModal}
+            animate={animation}
           />
         )}
       </updateMealContext.Provider>
