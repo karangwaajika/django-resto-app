@@ -2,13 +2,9 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import fieldValidation from "../utils/fieldValidation.mjs";
 import { updateBeverageContext } from "../pages/ViewBeverages";
-export default function useEditBeverage(beverage) {
-  const setUpdateBeverage = useContext(updateBeverageContext);
-  const [message, setMessage] = useState();
-  const clearMessage = () => {
-    setMessage();
-  };
-  const [isLoading, setIsLoading] = useState(false);
+export default function useEditBeverage(beverage, closeModal) {
+  const beverages = useContext(updateBeverageContext);
+
   const [form, setForm] = useState(
     beverage
       ? {
@@ -49,7 +45,11 @@ export default function useEditBeverage(beverage) {
     });
   };
   const submitForm = (e) => {
-    setIsLoading(true);
+    // close the modal when button clicked
+    closeModal();
+
+    // display loading icon
+    beverages.setIsLoading(true);
     const isDevelopment = import.meta.env.MODE === "production";
     const url = isDevelopment
       ? import.meta.env.VITE_REACT_APP_UPDATE_BEVERAGE_API_DEPLOY
@@ -62,26 +62,38 @@ export default function useEditBeverage(beverage) {
         qty: form.qty,
       })
       .then((res) => {
-        setMessage(res.data);
-        setUpdateBeverage();
+        // display response message
+        beverages.setMessage(res.data);
+        //update beverages' List
+        beverages.setData((oldData) => {
+          const newBeveragesList = oldData.map((item) => {
+            if (item.id === beverage.id) {
+              item.beverage.name = form.name;
+              item.price = form.price;
+              item.beverage.beverage_type = form.beverage_type;
+              item.qty = form.qty;
+              return item;
+            } else {
+              return item;
+            }
+          });
+          return newBeveragesList;
+        });
       })
       .catch((err) => {
-        setMessage({
+        beverages.setMessage({
           success: false,
           message: err.message,
         });
       })
       .finally(() => {
-        setIsLoading(false);
+        beverages.setIsLoading(false);
       });
   };
   return {
     fieldError,
     form,
     handleChange,
-    message,
-    clearMessage,
-    isLoading,
     validateSubmitForm,
   };
 }

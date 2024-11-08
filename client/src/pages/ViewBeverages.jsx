@@ -6,26 +6,26 @@ import { useState, createContext } from "react";
 import EditBeverageModal from "../components/EditBeverageModal";
 import DeleteBeverageModal from "../components/DeleteBeverageModal";
 import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
+import FlashMessage from "../components/ui/FlashMessage";
 
 export const updateBeverageContext = createContext();
 
 export default function ViewBeverages() {
-  // to trigger fetch data when meal is updated to re-render the component
-  const [refreshData, setRefreshData] = useState(false);
-  const handleRefreshData = () => {
-    setRefreshData((oldstate) => !oldstate);
-  };
   // handle fetch auto complete
   const [search, setSearch] = useState("");
   const isDevelopment = import.meta.env.MODE === "production";
   const url = isDevelopment
     ? import.meta.env.VITE_REACT_APP_VIEW_BEVERAGES_API_DEPLOY
     : import.meta.env.VITE_REACT_APP_VIEW_BEVERAGES_API;
-  const { data, isLoading, message } = useFetchAutoComplete(
-    url,
-    search,
-    refreshData
-  );
+  const {
+    data,
+    isLoading,
+    message,
+    setData,
+    setMessage,
+    setIsLoading,
+    clearMessage,
+  } = useFetchAutoComplete(url, search);
 
   const [animation, setAnimation] = useState("");
 
@@ -56,6 +56,13 @@ export default function ViewBeverages() {
         <p style={{ fontSize: "14px" }}>
           Search by name or category to retrieve the desired beverages
         </p>
+        {message && (
+          <FlashMessage
+            message={message.message}
+            isSuccess={message.success}
+            clearMessage={clearMessage}
+          />
+        )}
       </div>
       <div className="search-btn">
         <InputField
@@ -79,7 +86,7 @@ export default function ViewBeverages() {
         openDeleteModal={handleDeleteModal}
       />
 
-      <updateBeverageContext.Provider value={handleRefreshData}>
+      <updateBeverageContext.Provider value={{ setData, setIsLoading, setMessage }}>
         {openEditModal && (
           <EditBeverageModal
             closeModal={handleEditModal}
@@ -89,7 +96,7 @@ export default function ViewBeverages() {
         )}
       </updateBeverageContext.Provider>
 
-      <updateBeverageContext.Provider value={handleRefreshData}>
+      <updateBeverageContext.Provider value={{ setData, setIsLoading, setMessage }}>
         {openDeleteModal && (
           <DeleteBeverageModal
             closeModal={handleDeleteModal}

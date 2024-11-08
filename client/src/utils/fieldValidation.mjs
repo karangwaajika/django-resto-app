@@ -16,7 +16,7 @@ export default function fieldValidation({
       errorsValidation.name = "Name is required";
     } else if (name.length < 3) {
       errorsValidation["name"] = "Characters should be greater than 3";
-    } else if (!/^[a-zA-Z ]+$/.test(name)) {
+    } else if (!/^[a-zA-Z -]+$/.test(name)) {
       errorsValidation.name = "Use letters only";
     }
   }
@@ -93,7 +93,7 @@ export default function fieldValidation({
       errorsValidation["username"] = "Characters should be greater than 3";
     }
   }
-  
+
   if (arg.password !== undefined) {
     if (!arg.password.trim()) {
       errorsValidation.password = "password is required";
