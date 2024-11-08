@@ -121,3 +121,14 @@ def activate_user(request, employee_id):
         return Response({"success": True, "message": "Activation updated successfuly"})
     except User.DoesNotExist:
         return Response({"success": False, "message": "User doesn't exist"})
+
+
+@api_view(["POST"])
+def change_password(request):
+    try:
+        user = User.objects.get(pk=request.data["employeeId"])
+        user.set_password(request.data["password"])
+        user.save()
+        return Response({"success": True, "message": "Password updated successfuly"})
+    except User.DoesNotExist:
+        return Response({"success": False, "message": "User doesn't exist"})
