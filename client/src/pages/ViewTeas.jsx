@@ -6,26 +6,26 @@ import { useState, createContext } from "react";
 import EditTeaModal from "../components/EditTeaModal";
 import DeleteTeaModal from "../components/DeleteTeaModal";
 import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
+import FlashMessage from "../components/ui/FlashMessage";
 
 export const updateTeaContext = createContext();
 
 export default function ViewTeas() {
-  // to trigger fetch data when tea is updated to re-render the component
-  const [refreshData, setRefreshData] = useState(false);
-  const handleRefreshData = () => {
-    setRefreshData((oldstate) => !oldstate);
-  };
   // handle fetch auto complete
   const [search, setSearch] = useState("");
   const isDevelopment = import.meta.env.MODE === "production";
-    const url = isDevelopment
-      ? import.meta.env.VITE_REACT_APP_VIEW_TEAS_API_DEPLOY
-      : import.meta.env.VITE_REACT_APP_VIEW_TEAS_API;
-  const { data, isLoading, message } = useFetchAutoComplete(
-    url,
-    search,
-    refreshData
-  );
+  const url = isDevelopment
+    ? import.meta.env.VITE_REACT_APP_VIEW_TEAS_API_DEPLOY
+    : import.meta.env.VITE_REACT_APP_VIEW_TEAS_API;
+  const {
+    data,
+    isLoading,
+    message,
+    setData,
+    setMessage,
+    setIsLoading,
+    clearMessage,
+  } = useFetchAutoComplete(url, search);
 
   const [animation, setAnimation] = useState("");
 
@@ -56,6 +56,13 @@ export default function ViewTeas() {
         <p style={{ fontSize: "14px" }}>
           Search by name or category to retrieve the desired drinks
         </p>
+        {message && (
+          <FlashMessage
+            message={message.message}
+            isSuccess={message.success}
+            clearMessage={clearMessage}
+          />
+        )}
       </div>
       <div className="search-btn">
         <InputField
@@ -79,7 +86,7 @@ export default function ViewTeas() {
         openDeleteModal={handleDeleteModal}
       />
 
-      <updateTeaContext.Provider value={handleRefreshData}>
+      <updateTeaContext.Provider value={{ setData, setIsLoading, setMessage }}>
         {openEditModal && (
           <EditTeaModal
             closeModal={handleEditModal}
@@ -89,7 +96,7 @@ export default function ViewTeas() {
         )}
       </updateTeaContext.Provider>
 
-      <updateTeaContext.Provider value={handleRefreshData}>
+      <updateTeaContext.Provider value={{ setData, setIsLoading, setMessage }}>
         {openDeleteModal && (
           <DeleteTeaModal
             closeModal={handleDeleteModal}

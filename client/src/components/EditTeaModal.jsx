@@ -1,19 +1,13 @@
 import Button from "./ui/Button";
 import InputField from "./ui/InputField";
-import ButtonLoading from "./ui/ButtonLoading";
-import FlashMessage from "./ui/FlashMessage";
-import loadingImg from "/images/n-loading.gif";
 import useEditTea from "../hooks/useEditTea";
 export default function EditTeaModal({ closeModal, animation, tea }) {
   const {
-    isLoading,
     form,
     fieldError,
-    message,
-    clearMessage,
     handleChange,
     validateSubmitForm: submitForm,
-  } = useEditTea(tea);
+  } = useEditTea(tea, closeModal);
 
   const handleCloseModal = (e) => {
     if (e.target.className == "modal animated fadeIn") {
@@ -29,13 +23,7 @@ export default function EditTeaModal({ closeModal, animation, tea }) {
             <i className="fa fa-rectangle-xmark"></i>
           </div>
         </div>
-        {message && (
-          <FlashMessage
-            message={message.message}
-            isSuccess={message.success}
-            clearMessage={clearMessage}
-          />
-        )}
+
         <div className="modal-body">
           <form onSubmit={submitForm}>
             {fieldError.name && <i className="error-text">{fieldError.name}</i>}
@@ -94,15 +82,8 @@ export default function EditTeaModal({ closeModal, animation, tea }) {
               </select>
               <span className="input-text">Type</span>
             </div>
-            {isLoading ? (
-              <ButtonLoading
-                text="Submit"
-                className="btn-dark"
-                img={loadingImg}
-              />
-            ) : (
-              <Button text="Submit" className="btn-dark" />
-            )}
+
+            <Button text="Submit" className="btn-dark" />
           </form>
         </div>
         <div className="modal-footer"></div>

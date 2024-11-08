@@ -2,13 +2,9 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import fieldValidation from "../utils/fieldValidation.mjs";
 import { updateTeaContext } from "../pages/ViewTeas";
-export default function useEditTea(tea) {
-  const setUpdateTea = useContext(updateTeaContext);
-  const [message, setMessage] = useState();
-  const clearMessage = () => {
-    setMessage();
-  };
-  const [isLoading, setIsLoading] = useState(false);
+export default function useEditTea(tea, closeModal) {
+  const teas = useContext(updateTeaContext);
+
   const [form, setForm] = useState(
     tea
       ? {
@@ -39,14 +35,21 @@ export default function useEditTea(tea) {
       submitForm();
     }
   };
+
+  // handle input value when changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((oldForm) => {
       return { ...oldForm, [name]: value };
     });
   };
+
   const submitForm = (e) => {
-    setIsLoading(true);
+    // close the modal when button clicked
+    closeModal();
+
+    // display loading icon
+    teas.setIsLoading(true);
     const isDevelopment = import.meta.env.MODE === "production";
     const url = isDevelopment
       ? import.meta.env.VITE_REACT_APP_UPDATE_TEA_API_DEPLOY
@@ -58,8 +61,22 @@ export default function useEditTea(tea) {
         tea_type: form.tea_type,
       })
       .then((res) => {
-        setMessage(res.data);
-        setUpdateTea();
+        // display response message
+        teas.setMessage(res.data);
+        //update teas' List
+        teas.setData((oldData) => {
+          const newTeasList = oldData.map((item) => {
+            if (item.id === tea.id) {
+              item.name = form.name;
+              item.price = form.price;
+              item.tea_type = form.tea_type;
+              return item;
+            } else {
+              return item;
+            }
+          });
+          return newTeasList;
+        });
       })
       .catch((err) => {
         setMessage({
@@ -68,16 +85,13 @@ export default function useEditTea(tea) {
         });
       })
       .finally(() => {
-        setIsLoading(false);
+        teas.setIsLoading(false);
       });
   };
   return {
     fieldError,
     form,
     handleChange,
-    message,
-    clearMessage,
-    isLoading,
     validateSubmitForm,
   };
 }
