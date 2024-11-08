@@ -5,6 +5,7 @@ import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
 import EmployeeTable from "../components/EmployeeTable";
 import WaiterRoleModal from "../components/WaiterRoleModal";
 import FlashMessage from "../components/ui/FlashMessage";
+import WaiterActivateModal from "../components/WaiterActivateModal";
 
 // for importiing employees data and states to make parent component rerender
 export const employeesDataContext = createContext();
@@ -30,6 +31,7 @@ export default function ViewBeverages() {
   const [animation, setAnimation] = useState("animated fadeIn");
   const [clickedRow, setClickedRow] = useState(null);
   const [openRoleModal, setOpenRoleModal] = useState(false);
+  const [openActivateModal, setOpenActivateModal] = useState(false);
   const handleModal = (employeeIndex, typeOfModal) => {
     // get targeted employee id
     setClickedRow(employeeIndex);
@@ -38,6 +40,11 @@ export default function ViewBeverages() {
       setAnimation(openRoleModal ? "animated fadeOut" : "animated fadeIn");
       setTimeout(() => {
         setOpenRoleModal((oldModalState) => !oldModalState);
+      }, 1000);
+    } else if (typeOfModal == "activate") {
+      setAnimation(openActivateModal ? "animated fadeOut" : "animated fadeIn");
+      setTimeout(() => {
+        setOpenActivateModal((oldModalState) => !oldModalState);
       }, 1000);
     }
   };
@@ -79,6 +86,19 @@ export default function ViewBeverages() {
       >
         {openRoleModal && (
           <WaiterRoleModal
+            allEmployees={data}
+            employeeIndex={clickedRow}
+            closeModal={handleModal}
+            animate={animation}
+          />
+        )}
+      </employeesDataContext.Provider>
+
+      <employeesDataContext.Provider
+        value={{ setData, setIsLoading, setMessage }}
+      >
+        {openActivateModal && (
+          <WaiterActivateModal
             allEmployees={data}
             employeeIndex={clickedRow}
             closeModal={handleModal}

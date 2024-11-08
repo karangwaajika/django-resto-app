@@ -110,3 +110,14 @@ def update_role(request, employee_id):
         return Response({"success": True, "message": "Role updated successfuly"})
     except User.DoesNotExist:
         return Response({"success": False, "message": "User doesn't exist"})
+
+
+@api_view(["GET"])
+def activate_user(request, employee_id):
+    try:
+        user = User.objects.get(pk=employee_id)
+        user.is_active = not (user.is_active)
+        user.save()
+        return Response({"success": True, "message": "Activation updated successfuly"})
+    except User.DoesNotExist:
+        return Response({"success": False, "message": "User doesn't exist"})

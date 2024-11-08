@@ -35,9 +35,12 @@ export default function EmployeeTable({ employees, openModal }) {
                   {employee.is_active ? (
                     <i className="fa fa-check-square text-success"></i>
                   ) : (
-                    <i className="fa fa-square-xmax text-danger"></i>
+                    <i className="fa fa-square-xmark text-danger"></i>
                   )}{" "}
-                  <i className="fa fa-pen-to-square"></i>
+                  <i
+                    className="fa fa-pen-to-square"
+                    onClick={() => openModal(index, "activate")}
+                  ></i>
                 </td>
                 <td data-cell="Password">
                   <i className="fa fa-pencil text-primary"></i>
