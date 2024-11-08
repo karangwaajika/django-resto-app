@@ -43,7 +43,10 @@ export default function EmployeeTable({ employees, openModal }) {
                   ></i>
                 </td>
                 <td data-cell="Password">
-                  <i className="fa fa-pencil text-primary"></i>
+                  <i
+                    className="fa fa-pencil text-primary"
+                    onClick={() => openModal(index, "password")}
+                  ></i>
                 </td>
               </tr>
             );

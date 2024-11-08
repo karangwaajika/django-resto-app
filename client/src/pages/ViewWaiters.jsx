@@ -6,6 +6,7 @@ import EmployeeTable from "../components/EmployeeTable";
 import WaiterRoleModal from "../components/WaiterRoleModal";
 import FlashMessage from "../components/ui/FlashMessage";
 import WaiterActivateModal from "../components/WaiterActivateModal";
+import WaiterPasswordModal from "../components/WaiterPasswordModal";
 
 // for importiing employees data and states to make parent component rerender
 export const employeesDataContext = createContext();
@@ -32,6 +33,7 @@ export default function ViewBeverages() {
   const [clickedRow, setClickedRow] = useState(null);
   const [openRoleModal, setOpenRoleModal] = useState(false);
   const [openActivateModal, setOpenActivateModal] = useState(false);
+  const [openPasswordModal, setOpenPasswordModal] = useState(false);
   const handleModal = (employeeIndex, typeOfModal) => {
     // get targeted employee id
     setClickedRow(employeeIndex);
@@ -45,6 +47,11 @@ export default function ViewBeverages() {
       setAnimation(openActivateModal ? "animated fadeOut" : "animated fadeIn");
       setTimeout(() => {
         setOpenActivateModal((oldModalState) => !oldModalState);
+      }, 1000);
+    } else {
+      setAnimation(openPasswordModal ? "animated fadeOut" : "animated fadeIn");
+      setTimeout(() => {
+        setOpenPasswordModal((oldModalState) => !oldModalState);
       }, 1000);
     }
   };
@@ -99,6 +106,19 @@ export default function ViewBeverages() {
       >
         {openActivateModal && (
           <WaiterActivateModal
+            allEmployees={data}
+            employeeIndex={clickedRow}
+            closeModal={handleModal}
+            animate={animation}
+          />
+        )}
+      </employeesDataContext.Provider>
+
+      <employeesDataContext.Provider
+        value={{ setData, setIsLoading, setMessage }}
+      >
+        {openPasswordModal && (
+          <WaiterPasswordModal
             allEmployees={data}
             employeeIndex={clickedRow}
             closeModal={handleModal}
