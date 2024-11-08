@@ -79,7 +79,7 @@ export default function useEditTea(tea, closeModal) {
         });
       })
       .catch((err) => {
-        setMessage({
+        teas.setMessage({
           success: false,
           message: err.message,
         });

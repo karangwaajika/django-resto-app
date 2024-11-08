@@ -2,13 +2,9 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import fieldValidation from "../utils/fieldValidation.mjs";
 import { updateMealContext } from "../pages/ViewMeals";
-export default function useEditMeal(meal) {
-  const setUpdateMeal = useContext(updateMealContext);
-  const [message, setMessage] = useState();
-  const clearMessage = () => {
-    setMessage();
-  };
-  const [isLoading, setIsLoading] = useState(false);
+export default function useEditMeal(meal, closeModal) {
+  const meals = useContext(updateMealContext);
+
   const [form, setForm] = useState(
     meal
       ? {
@@ -46,7 +42,11 @@ export default function useEditMeal(meal) {
     });
   };
   const submitForm = (e) => {
-    setIsLoading(true);
+    // close the modal when button clicked
+    closeModal();
+
+    // display loading icon
+    meals.setIsLoading(true);
     const isDevelopment = import.meta.env.MODE === "production";
     const url = isDevelopment
       ? import.meta.env.VITE_REACT_APP_UPDATE_MEAL_API_DEPLOY
@@ -58,26 +58,37 @@ export default function useEditMeal(meal) {
         meal_type: form.meal_type,
       })
       .then((res) => {
-        setMessage(res.data);
-        setUpdateMeal();
+        // display response message
+        meals.setMessage(res.data);
+        //update meals' List
+        meals.setData((oldData) => {
+          const newMealsList = oldData.map((item) => {
+            if (item.id === meal.id) {
+              item.name = form.name;
+              item.price = form.price;
+              item.meal_type = form.meal_type;
+              return item;
+            } else {
+              return item;
+            }
+          });
+          return newMealsList;
+        });
       })
       .catch((err) => {
-        setMessage({
+        meals.setMessage({
           success: false,
           message: err.message,
         });
       })
       .finally(() => {
-        setIsLoading(false);
+        meals.setIsLoading(false);
       });
   };
   return {
     fieldError,
     form,
     handleChange,
-    message,
-    clearMessage,
-    isLoading,
     validateSubmitForm,
   };
 }
