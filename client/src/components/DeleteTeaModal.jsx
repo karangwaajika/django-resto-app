@@ -1,12 +1,10 @@
 import Button from "./ui/Button";
-import ButtonLoading from "./ui/ButtonLoading";
 import useDeleteTea from "../hooks/useDeleteTea";
 import { addComma } from "../utils/addComma.mjs";
 import { formatToDateString } from "../utils/dateFormat.mjs";
-import loadingImg from "/images/r-loading.gif";
-import FlashMessage from "./ui/FlashMessage";
+
 export default function DeleteTeaModal({ closeModal, tea }) {
-  const { isLoading, message, clearMessage, submitForm } = useDeleteTea(tea, closeModal);
+  const { submitForm } = useDeleteTea(tea, closeModal);
 
   const handleCloseModal = (e) => {
     if (e.target.className == "modal animated fadeIn") {
@@ -23,13 +21,7 @@ export default function DeleteTeaModal({ closeModal, tea }) {
             <i className="fa fa-rectangle-xmark"></i>
           </div>
         </div>
-        {message && (
-          <FlashMessage
-            message={message.message}
-            isSuccess={message.success}
-            clearMessage={clearMessage}
-          />
-        )}
+
         <div className="modal-body">
           <div className="info">
             <span style={{ fontWeight: "bold" }}>Name</span>
@@ -56,19 +48,7 @@ export default function DeleteTeaModal({ closeModal, tea }) {
               onClick={closeModal}
             />
 
-            {isLoading ? (
-              <ButtonLoading
-                text="Delete"
-                className="btn-danger"
-                img={loadingImg}
-              />
-            ) : (
-              <Button
-                text="Delete"
-                className="btn-danger"
-                onClick={submitForm}
-              />
-            )}
+            <Button text="Delete" className="btn-danger" onClick={submitForm} />
           </div>
         </div>
       </div>
