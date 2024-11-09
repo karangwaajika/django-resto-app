@@ -45,10 +45,13 @@ export default function LoginForm() {
             import.meta.env.VITE_REACT_APP_TOKEN,
             res.data.token
           ); //store the token in a local storage
-
-          navigate("/dashboard/home");
+          if(res.data.is_superuser){
+            navigate("/dashboard/home");
+          }else{
+            navigate("/service/home");
+          }
+          
         } else {
-          console.log(res.data);
           setMessage(res.data);
         }
       })
