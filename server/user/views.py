@@ -141,6 +141,7 @@ def logout_user(request, user_id):
     try:
         user = User.objects.get(pk=user_id)
         token = Token.objects.get(user=user)
+        # deleting a token makes user be inactive
         token.delete()
         return Response({"success": True, "message": "Logout successfuly"})
     except User.DoesNotExist:
