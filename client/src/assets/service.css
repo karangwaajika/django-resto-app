@@ -1,4 +1,4 @@
-main{
+main {
   font-weight: 500;
   font-size: 15px;
 }
@@ -48,4 +48,16 @@ nav .date {
   color: white;
   font-size: small;
   margin-top: 4px;
+}
+
+main.service {
+  background-image: url("/images/lol.jpg");
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-position-y: bottom;
+  background-position-x: left;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }

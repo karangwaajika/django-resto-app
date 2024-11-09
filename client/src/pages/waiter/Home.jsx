@@ -8,10 +8,13 @@ export const userContext = createContext();
 function Home() {
   const { userInfo } = useProtectPage();
   return (
-    <main>
+    <main className="service">
       <userContext.Provider value={Object.keys(userInfo).length && userInfo}>
         <Navbar />
-        <h1>Home Page</h1>
+        <h5 style={{textAlign:"center"}}><i>Waiters Home Page</i></h5>
+        <div>
+          
+        </div>
       </userContext.Provider>
     </main>
   );

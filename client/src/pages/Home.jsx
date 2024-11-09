@@ -8,9 +8,6 @@ function App() {
     <div className="app-container">
       <NavbarHome />
       <LoginForm />
-      <div className="lolImg">
-        <img src={lolImg} alt="lol" width={100} height={100} />
-      </div>
     </div>
   );
 }
