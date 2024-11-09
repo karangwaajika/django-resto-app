@@ -41,7 +41,11 @@ export default function LoginForm() {
       })
       .then((res) => {
         if (res.data.success) {
-          localStorage.setItem("token", res.data.token); //store the token in a local storage
+          localStorage.setItem(
+            import.meta.env.VITE_REACT_APP_TOKEN,
+            res.data.token
+          ); //store the token in a local storage
+
           navigate("/dashboard/home");
         } else {
           console.log(res.data);
@@ -62,7 +66,7 @@ export default function LoginForm() {
     <div className="login-container">
       <div className="overlay">
         <div className="login-form">
-          <div className="card" style={{opacity:.8}}>
+          <div className="card" style={{ opacity: 0.8 }}>
             <div className="card-header">Sign in</div>
             {message && (
               <FlashMessage

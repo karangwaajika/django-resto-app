@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function useProtectPage() {
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN);
   let [isAuthenticated, setIsAuthenticated] = useState({});
   const [userInfo, setUserInfo] = useState({});
   useEffect(() => {

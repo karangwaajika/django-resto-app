@@ -1,5 +1,5 @@
 import Button from "./ui/Button";
-export default function Dropdown({ closeDropdown, animation }) {
+export default function Dropdown({ closeDropdown, animation, logout }) {
   const bounce = animation || "bounceIn";
   return (
     <div
@@ -22,7 +22,7 @@ export default function Dropdown({ closeDropdown, animation }) {
       </div>
       <div className="buttons">
         <Button text="Update" className="btn-light" />
-        <Button text="Logout" className="btn-dark" />
+        <Button text="Logout" className="btn-dark" onClick={logout} />
       </div>
     </div>
   );

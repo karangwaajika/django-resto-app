@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Dropdown from "../components/Dropdown";
 import { useState } from "react";
 import { userContext } from "../pages/Dashboard";
@@ -11,6 +11,12 @@ export default function DashboardNavbar() {
     setOpenDropdown(false);
   };
   const user = useContext(userContext);
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem(import.meta.env.VITE_REACT_APP_TOKEN);
+    navigate("/")
+  };
   return (
     <nav className="right-nav">
       <p>Restaurant Managing Dashboard</p>
@@ -26,6 +32,7 @@ export default function DashboardNavbar() {
           <Dropdown
             closeDropdown={closeDropdownOnMouseLeave}
             animation={dropdrownAnimation}
+            logout={logout}
           />
         )}
       </div>
