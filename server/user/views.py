@@ -132,3 +132,16 @@ def change_password(request):
         return Response({"success": True, "message": "Password updated successfuly"})
     except User.DoesNotExist:
         return Response({"success": False, "message": "User doesn't exist"})
+
+
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+@api_view(["GET"])
+def logout_user(request, user_id):
+    try:
+        user = User.objects.get(pk=user_id)
+        token = Token.objects.get(user=user)
+        token.delete()
+        return Response({"success": True, "message": "Logout successfuly"})
+    except User.DoesNotExist:
+        return Response({"success": False, "message": "User doen't exist!!"})
