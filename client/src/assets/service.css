@@ -1,0 +1,51 @@
+main{
+  font-weight: 500;
+  font-size: 15px;
+}
+nav.service {
+  background-color: #9b8c5d;
+  padding: 10px 50px;
+  font-weight: 500;
+  font-size: 15px;
+}
+nav.service .right-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.links a:hover,
+.links a.active {
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.caret-down .fa:active,
+.links a:active {
+  color: black;
+}
+
+ul.links {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+}
+.links a {
+  text-decoration: none;
+  color: black;
+}
+
+.service .image {
+  width: 50px;
+}
+.service .image img {
+  display: block;
+  width: 100%;
+}
+nav .date {
+  font-weight: bold;
+  color: white;
+  font-size: small;
+  margin-top: 4px;
+}
