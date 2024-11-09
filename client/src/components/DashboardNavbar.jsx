@@ -4,18 +4,22 @@ import { useState } from "react";
 import { userContext } from "../pages/Dashboard";
 import { useContext } from "react";
 export default function DashboardNavbar() {
-  const [openDropdown, setOpenDropdown] = useState(false);
-  const [dropdrownAnimation, setDropdownAnimation] = useState(false);
-
-  const closeDropdownOnMouseLeave = () => {
-    setOpenDropdown(false);
-  };
   const user = useContext(userContext);
   const navigate = useNavigate();
+  const [animation, setAnimation] = useState("animated fadeIn");
+  const [openProfileModal, setOpenProfileModal] = useState(false);
+  const handleModal = (typeOfModal) => {
+    if (typeOfModal == "profile") {
+      setAnimation(openProfileModal ? "animated fadeOut" : "animated fadeIn");
+      setTimeout(() => {
+        setOpenProfileModal((oldModalState) => !oldModalState);
+      }, 1000);
+    }
+  };
 
   const logout = () => {
     localStorage.removeItem(import.meta.env.VITE_REACT_APP_TOKEN);
-    navigate("/")
+    navigate("/");
   };
   return (
     <nav className="right-nav">
@@ -25,13 +29,14 @@ export default function DashboardNavbar() {
         <div className="name">
           <h5>{user.email}</h5>
         </div>
-        <div className="caret-down" onClick={() => setOpenDropdown(true)}>
+        <div className="caret-down" onClick={() => handleModal("profile")}>
           <i className="fa fa-caret-down"></i>
         </div>
-        {openDropdown && (
+        {openProfileModal && (
           <Dropdown
-            closeDropdown={closeDropdownOnMouseLeave}
-            animation={dropdrownAnimation}
+            closeModal={handleModal}
+            animate={animation}
+            user={user}
             logout={logout}
           />
         )}

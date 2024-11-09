@@ -45,7 +45,7 @@ export default function LoginForm() {
             import.meta.env.VITE_REACT_APP_TOKEN,
             res.data.token
           ); //store the token in a local storage
-          if(res.data.is_superuser){
+          if(res.data.user.is_superuser){
             navigate("/dashboard/home");
           }else{
             navigate("/service/home");

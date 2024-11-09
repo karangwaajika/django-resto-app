@@ -1,5 +1,5 @@
-import Button from "./ui/Button";
-export default function Dropdown({ closeModal, animate, user, logout }) {
+import Button from "../ui/Button";
+export default function DropdownProfile({ closeModal, animate, user, logout }) {
   return (
     <div
       className={`card dropdown ${animate}`}
@@ -21,7 +21,7 @@ export default function Dropdown({ closeModal, animate, user, logout }) {
       </div>
       <div className="buttons">
         <Button text="Update" className="btn-light" />
-        <Button text="Logout" className="btn-dark" onClick={logout} />
+        <Button text="Logout" className="btn-dark" onClick={logout}/>
       </div>
     </div>
   );
