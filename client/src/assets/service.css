@@ -61,6 +61,7 @@ main.service {
   flex-direction: column;
   gap: 15px;
 }
+/* ################## Homepage #################### */
 .header-section {
   min-height: 200px;
   background-image: url("/images/bg1.avif");
@@ -111,4 +112,38 @@ section .card-body {
 }
 .footer-card:hover {
   cursor: pointer;
+}
+main.service button {
+  font-weight: 500;
+  font-size: 14px;
+}
+/* ################## Homepage #################### */
+/* for real dropdown parent has to be relative and child absolute */
+.menu {
+  position: relative;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 40px;
+  width: 250px;
+}
+.dropdown-menu ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+/* use flex in a otherwise use li below*/
+/* .dropdown-menu ul li{
+  border-bottom: 1px solid #7c7979;
+  padding: 10px;
+} */
+.dropdown-menu ul li a {
+  display: flex;
+  text-decoration: none;
+  border-bottom: 1px solid #7c7979;
+  padding: 10px;
+}
+.dropdown-menu ul li a:hover {
+  background-color: #9b8c5d;
+  color: white;
 }

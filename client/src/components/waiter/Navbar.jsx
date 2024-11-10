@@ -3,19 +3,27 @@ import { formatToDateString } from "../../utils/dateFormat.mjs";
 import { useContext, useState } from "react";
 import { userContext } from "../../pages/waiter/Home";
 import DropdownProfile from "./DropdownProfile";
+import DropdownMenu from "./DropdownMenu";
 
 export default function Navbar() {
   const date = Date.now();
   const user = useContext(userContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [animation, setAnimation] = useState("animated fadeIn");
   const [openProfileModal, setOpenProfileModal] = useState(false);
+  const [openMenuModal, setOpenMenuModal] = useState(false);
   const handleModal = (typeOfModal) => {
     if (typeOfModal == "profile") {
       setAnimation(openProfileModal ? "animated fadeOut" : "animated fadeIn");
       setTimeout(() => {
         setOpenProfileModal((oldModalState) => !oldModalState);
+      }, 1000);
+    }
+    if (typeOfModal == "menu") {
+      setAnimation(openMenuModal ? "animated fadeOut" : "animated fadeIn");
+      setTimeout(() => {
+        setOpenMenuModal((oldModalState) => !oldModalState);
       }, 1000);
     }
   };
@@ -32,8 +40,13 @@ export default function Navbar() {
           <li>
             <NavLink to="/service/home">Home</NavLink>
           </li>
-          <li>
-            <NavLink to="/service/menu">Menu</NavLink>
+          <li className="menu">
+            <Link to="#" onClick={() => handleModal("menu")}>
+              Menu <i className="fa fa-caret-down"></i>
+            </Link>
+            {openMenuModal && (
+              <DropdownMenu closeModal={handleModal} animate={animation} />
+            )}
           </li>
           <li>
             <NavLink to="/service/bill">Bill</NavLink>
@@ -46,7 +59,9 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-      <div className="date" style={{marginRight:"100px"}}>{formatToDateString(date)}</div>
+      <div className="date" style={{ marginRight: "100px" }}>
+        {formatToDateString(date)}
+      </div>
       <div className="right-info">
         <div className="name">{user.first_name + " " + user.last_name}</div>
 
@@ -55,7 +70,12 @@ export default function Navbar() {
         </Link>
       </div>
       {openProfileModal && (
-        <DropdownProfile closeModal={handleModal} animate={animation} user={user} logout={logout}/>
+        <DropdownProfile
+          closeModal={handleModal}
+          animate={animation}
+          user={user}
+          logout={logout}
+        />
       )}
     </nav>
   );
