@@ -52,7 +52,7 @@ nav .date {
 
 main.service {
   background-image: url("/images/lol.jpg");
-  background-size: 30%;
+  background-size: 10%;
   background-repeat: no-repeat;
   background-position-y: bottom;
   background-position-x: left;
@@ -60,4 +60,55 @@ main.service {
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+.header-section {
+  min-height: 200px;
+  background-image: url("/images/bg1.avif");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+section.menu-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 80%;
+  margin: auto;
+}
+section.menu-section .card {
+  width: 300px;
+}
+section.menu-section .card-header {
+  padding: 0;
+}
+section.menu-section .card-header img {
+  display: block;
+  width: 100%;
+  min-height: 300px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+section.menu-section .card-header img:hover {
+  cursor: pointer;
+  background-color: white;
+  opacity: 0.9;
+}
+
+section .card-body {
+  padding: 10px;
+}
+.footer-card {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.footer-card:hover {
+  cursor: pointer;
 }

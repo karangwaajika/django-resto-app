@@ -46,7 +46,7 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
-      <div className="date">{formatToDateString(date)}</div>
+      <div className="date" style={{marginRight:"100px"}}>{formatToDateString(date)}</div>
       <div className="right-info">
         <div className="name">{user.first_name + " " + user.last_name}</div>
 

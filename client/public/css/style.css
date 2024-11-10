@@ -214,16 +214,33 @@ button.btn-light {
   border: 1px solid #e0e0e0;
   color: #ffffff;
 }
-/* button.btn-light:hover {
+button.btn-lighter {
   background: #ffffff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #ffffff;
   color: black;
+}
+button.btn-outline-lighter {
+  background-color: rgba(247, 211, 144, 0.795);
+  border: 1px solid #ffffff;
+  color: white;
+  opacity: 0.9;
+}
+button.btn-outline-lighter:hover {
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  color: black;
+}
+button.btn-outline-lighter:active{
+  background-color: rgba(247, 211, 144, 0.795);
+  border: 1px solid #ffffff;
+  color: white;
+  opacity: 0.9;
 }
 button.btn-light:active {
   background: #e0e0e0;
   border: 1px solid #e0e0e0;
   color: #ffffff;
-} */
+}
 .ok {
   color: #665252c7;
 }
