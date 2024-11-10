@@ -10,7 +10,7 @@ function HeaderSection() {
       <section className="header-section">
         <h3 style={{ fontFamily: "monospace" }}>Lol Resto Bar</h3>
         <p>Waiter platform for recording orders</p>
-        <Button text="Record" className="btn-outline-lighter" size="25%" />
+        <Button text="Record order" className="btn-outline-lighter" size="25%" />
       </section>
     </>
   );

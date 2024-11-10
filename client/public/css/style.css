@@ -220,13 +220,13 @@ button.btn-lighter {
   color: black;
 }
 button.btn-outline-lighter {
-  background-color: rgba(247, 211, 144, 0.795);
+  background-color: transparent;
   border: 1px solid #ffffff;
   color: white;
   opacity: 0.9;
 }
 button.btn-outline-lighter:hover {
-  background: #ffffff;
+  background-color: #ffffff;
   border: 1px solid #ffffff;
   color: black;
 }
