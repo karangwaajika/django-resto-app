@@ -3,8 +3,8 @@ import Navbar from "../../components/waiter/Navbar";
 import "../../assets/service.css";
 import { createContext } from "react";
 import useProtectPage from "../../hooks/useProtectPage";
-import MenuSection from "./MenuSection";
-import HeaderSection from "./HeaderSection.";
+import MenuSection from "../../components/waiter/MenuSection";
+import HeaderSection from "../../components/waiter/HeaderSection.";
 
 export const userContext = createContext();
 function Home() {
