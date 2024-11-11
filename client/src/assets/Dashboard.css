@@ -125,6 +125,7 @@ article p {
   top: 40px;
   right: 10px;
   width: 250px;
+  z-index: 1;
 }
 .dropdown .buttons {
   display: flex;

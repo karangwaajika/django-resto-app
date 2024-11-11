@@ -126,6 +126,7 @@ main.service button {
   position: absolute;
   top: 40px;
   width: 250px;
+  z-index: 1;
 }
 .dropdown-menu ul {
   display: flex;
@@ -157,13 +158,19 @@ aside.item-picture {
   display: flex;
   justify-content: center;
   min-width: 40%;
-  background-image: url("/images/drink1.jpeg");
+  
   background-repeat: no-repeat;
   background-position-y: bottom;
   background-size: cover;
   min-height: 80vh;
   border: 1px solid white;
   border-radius: 10%;
+}
+aside.beverages{
+  background-image: url("/images/drink1.jpeg");
+}
+aside.smoothies{
+  background-image: url("/images/smoothies1.jpg");
 }
 aside.items {
   display: flex;
