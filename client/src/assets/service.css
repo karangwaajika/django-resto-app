@@ -158,7 +158,7 @@ aside.item-picture {
   display: flex;
   justify-content: center;
   min-width: 40%;
-  
+
   background-repeat: no-repeat;
   background-position-y: bottom;
   background-size: cover;
@@ -166,11 +166,14 @@ aside.item-picture {
   border: 1px solid white;
   border-radius: 10%;
 }
-aside.beverages{
+aside.beverages {
   background-image: url("/images/drink1.jpeg");
 }
-aside.smoothies{
+aside.smoothies {
   background-image: url("/images/smoothies1.jpg");
+}
+aside.meal {
+  background-image: url("/images/food.jpg");
 }
 aside.items {
   display: flex;
