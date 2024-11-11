@@ -147,3 +147,67 @@ main.service button {
   background-color: #9b8c5d;
   color: white;
 }
+
+/* ################# MENU ############### */
+section.menu {
+  display: flex;
+  width: 100%;
+}
+aside.item-picture {
+  display: flex;
+  justify-content: center;
+  min-width: 40%;
+  background-image: url("/images/drink1.jpeg");
+  background-repeat: no-repeat;
+  background-position-y: bottom;
+  background-size: cover;
+  min-height: 80vh;
+  border: 1px solid white;
+  border-radius: 10%;
+}
+aside.items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 60%;
+  border: 1px solid white;
+  border-radius: 10%;
+  background-color: #9b8c5d;
+  padding: 20px;
+}
+section.menu td,
+section.menu th {
+  font-size: 13px;
+  padding: 5px;
+  text-align: center;
+}
+
+section.menu thead th {
+  font-size: 14px;
+}
+
+section.menu table caption,
+section.menu table th {
+  color: white;
+  border-bottom: 1px solid white;
+}
+
+section.menu td:hover {
+  background-color: #f3f3f3fb;
+  cursor: pointer;
+}
+.items .input-group {
+  border: 1px solid white;
+}
+.items .input-group input {
+  background-color: #9b8c5d;
+  color: white;
+}
+.items .input-group .input-text {
+  border-left: 1px solid white;
+  color: white;
+}
+.items .input-group .input-icon {
+  border-right: 1px solid white;
+  color: white;
+}

@@ -16,6 +16,7 @@ import HomeDashboard from "./pages/HomeDashboard.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import WaiterHome from "./pages/waiter/Home.jsx";
 import Service from "./pages/waiter/Service.jsx";
+import Beverages from "./pages/waiter/Beverages.jsx";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
           {
             path: "/service/home",
             element: <WaiterHome />,
+          },
+          {
+            path: "/service/beverages",
+            element: <Beverages />,
           },
         ],
       },

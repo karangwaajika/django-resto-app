@@ -25,7 +25,7 @@ table.beverage-table th {
   color: white;
   border-bottom: 1px solid #707474ee;
 }
-tr:nth-of-type(2n) {
+table.beverage-table tr:nth-of-type(2n) {
   background-color: #f3f3f3fb;
 }
 

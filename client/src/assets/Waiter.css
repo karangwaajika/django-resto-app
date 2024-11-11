@@ -28,10 +28,11 @@ table.waiter-table th {
   color: white;
   border-bottom: 1px solid #707474ee;
 }
-tr:nth-of-type(2n) {
+table.waiter-table tr:nth-of-type(2n) {
   background-color: #f3f3f3fb;
 }
-.waiter-table th,.waiter-table td{
+.waiter-table th,
+.waiter-table td {
   text-align: center;
 }
 .waiter-table .fa-pencil:hover {
