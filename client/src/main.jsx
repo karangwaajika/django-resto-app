@@ -14,7 +14,8 @@ import AddWaiter from "./pages/AddWaiter.jsx";
 import ViewWaiters from "./pages/ViewWaiters.jsx";
 import HomeDashboard from "./pages/HomeDashboard.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
-import WaiterHome from "./pages/waiter/Home.jsx"
+import WaiterHome from "./pages/waiter/Home.jsx";
+import Service from "./pages/waiter/Service.jsx";
 
 const router = createBrowserRouter([
   {
@@ -70,12 +71,17 @@ const router = createBrowserRouter([
   },
   {
     element: <ProtectPage />,
-    children:[
+    children: [
       {
-        path: "/service/home",
-        element: <WaiterHome />,
+        element: <Service />,
+        children: [
+          {
+            path: "/service/home",
+            element: <WaiterHome />,
+          },
+        ],
       },
-    ]
+    ],
   },
 ]);
 

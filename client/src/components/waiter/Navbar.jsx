@@ -1,7 +1,7 @@
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { formatToDateString } from "../../utils/dateFormat.mjs";
 import { useContext, useState } from "react";
-import { userContext } from "../../pages/waiter/Home";
+import { userContext } from "../../pages/waiter/Service";
 import DropdownProfile from "./DropdownProfile";
 import DropdownMenu from "./DropdownMenu";
 
@@ -65,7 +65,11 @@ export default function Navbar() {
       <div className="right-info">
         <div className="name">{user.first_name + " " + user.last_name}</div>
 
-        <Link className="caret-down" onClick={() => handleModal("profile")}>
+        <Link
+          to="#"
+          className="caret-down"
+          onClick={() => handleModal("profile")}
+        >
           <i className="fa fa-caret-down"></i>
         </Link>
       </div>
