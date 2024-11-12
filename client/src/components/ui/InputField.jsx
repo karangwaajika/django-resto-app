@@ -8,22 +8,30 @@ export default function InputField({
   handleChange,
   icon,
   errorfield,
+  height,
+  width,
 }) {
+  const inputWidth = width ? width : "100%";
   return (
-    <div className={`input-group ${errorfield && "error-field"}`}>
-      <span className="input-icon">
-        <i className={icon}></i>
-      </span>
-      <input
-        type={type}
-        name={name}
-        id={id}
-        onChange={handleChange}
-        placeholder={placeholder}
-        value={value}
-        className="input-field"
-      />
-      <span className="input-text">{label}</span>
-    </div>
+    <>
+      <div
+        className={`input-group ${errorfield && "error-field"}`}
+        style={{ height: height, width: inputWidth }}
+      >
+        <span className="input-icon">
+          <i className={icon}></i>
+        </span>
+        <input
+          type={type}
+          name={name}
+          id={id}
+          onChange={handleChange}
+          placeholder={placeholder}
+          value={value}
+          className="input-field"
+        />
+        <span className="input-text">{label}</span>
+      </div>
+    </>
   );
 }

@@ -15,6 +15,7 @@
   border: 1px solid #808080;
   border-radius: 5px;
   font-size: 14px;
+  width: 100%;
 }
 .input-field {
   border: none;
@@ -64,10 +65,7 @@
   flex-wrap: wrap;
   gap: 10px;
 }
-.input-group {
-  flex-grow: 1;
-  flex-basis: 200px;
-}
+
 .text-danger {
   color: #ff3547;
 }

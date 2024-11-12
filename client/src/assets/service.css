@@ -221,3 +221,90 @@ section.menu td:hover {
   border-right: 1px solid white;
   color: white;
 }
+
+/* ######################## ORDER ################## */
+
+section.order {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
+}
+/* 
+#use width 10px to make item have static width this works in wrap as item wont shrink
+min-width/height just for the starting size to allow extra to fit in
+#parent, set height using vh or % is relative to the browser for item its relative to parent
+means it wont wrap using %. the size is reponsive to its parent
+#flex for item in container is used to take controll of at what size to grown or shrink
+
+*/
+.order-section {
+  display: flex;
+  justify-content: space-between;
+  min-height: 500px;
+  border: 1px solid #9b8c5d;
+  border-radius: 5px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+.order-section .bill {
+  border-left: 1px solid #9b8c5d;
+  width: 20%;
+}
+.order-section aside.form {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px;
+  justify-content: start;
+}
+.section-menus,
+.order-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+.type,
+aside.form .order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 70%;
+  align-self: center;
+}
+button.btn-outline-service {
+  background-color: #7c6c3b;
+  border: 1px solid #7c6c3b;
+  color: white;
+}
+button.btn-outline-service:hover {
+  background-color: transparent;
+  border: 1px solid #7c6c3b;
+  color: black;
+}
+button.btn-outline-service:active {
+  background-color: #7c6c3b;
+  border: 1px solid #7c6c3b;
+  color: white;
+}
+.add-btn {
+  background-color: #7c6c3b;
+  color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.add-btn:hover {
+  background-color: transparent;
+  color: black;
+  border: 1px solid #7c6c3b;
+}
+.add-btn:active{
+  background-color: #7c6c3b;
+  color: white;
+}
