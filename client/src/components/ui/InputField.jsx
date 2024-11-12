@@ -10,10 +10,12 @@ export default function InputField({
   errorfield,
   height,
   width,
+  errorMessage,
 }) {
   const inputWidth = width ? width : "100%";
   return (
     <>
+      {errorMessage && <i className="error-text">{errorMessage}</i>}
       <div
         className={`input-group ${errorfield && "error-field"}`}
         style={{ height: height, width: inputWidth }}

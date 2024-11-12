@@ -106,5 +106,63 @@ export default function fieldValidation({
     errorsValidation["password"] = "Passwords do not match";
   }
 
+  // order form input
+
+  if (arg.beverageQty == 0 || arg.beverageQty == undefined) {
+    errorsValidation.beverageQty = "qty is required";
+  } else if (arg.beverageQty < 0) {
+    errorsValidation.beverageQty = "qty can't be less than 100";
+  } else if (!/^[0-9]+$/.test(arg.beverageQty)) {
+    errorsValidation.beverageQty = "Only digits are allowed";
+  }
+
+  if (arg.mealQty == 0 || arg.mealQty == undefined) {
+    errorsValidation.mealQty = "qty is required";
+  } else if (arg.mealQty < 0) {
+    errorsValidation.mealQty = "qty can't be less than 100";
+  } else if (!/^[0-9]+$/.test(arg.mealQty)) {
+    errorsValidation.mealQty = "Only digits are allowed";
+  }
+
+  if (arg.teaQty == 0 || arg.teaQty == undefined) {
+    errorsValidation.teaQty = "qty is required";
+  } else if (arg.teaQty < 0) {
+    errorsValidation.teaQty = "qty can't be less than 100";
+  } else if (!/^[0-9]+$/.test(arg.teaQty)) {
+    errorsValidation.teaQty = "Only digits are allowed";
+  }
+
+  if (arg.beverageId == 0 || arg.beverageId == undefined) {
+    errorsValidation.beverageId = "Beverage is required";
+  } else if (!/^[0-9]+$/.test(arg.beverageId)) {
+    errorsValidation.beverageId = "Only digits are allowed";
+  }
+
+  if (arg.mealId == 0 || arg.mealId == undefined) {
+    errorsValidation.mealId = "Meal is required";
+  } else if (!/^[0-9]+$/.test(arg.mealId)) {
+    errorsValidation.mealId = "Only digits are allowed";
+  }
+
+  if (arg.teaId == 0 || arg.teaId == undefined) {
+    errorsValidation.teaId = "Smoothy is required";
+  } else if (!/^[0-9]+$/.test(arg.teaId)) {
+    errorsValidation.teaId = "Only digits are allowed";
+  }
+
+  if (arg.orderId == 0 || arg.orderId == undefined) {
+    errorsValidation.orderId = "Order code is required";
+  } else if (!/^[0-9]+$/.test(arg.orderId)) {
+    errorsValidation.orderId = "Only digits are allowed";
+  }
+
+  if (arg.customerName !== undefined) {
+    if (!arg.customerName.trim()) {
+      errorsValidation.customerName = "Name is required";
+    } else if (arg.customerName.length < 3) {
+      errorsValidation["customerName"] = "Characters should be greater than 3";
+    }
+  }
+
   return errorsValidation;
 }
