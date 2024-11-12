@@ -78,16 +78,17 @@ export default function ViewTeas() {
           handleChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      {isLoading && (
-        <div className="loader">
-          <img src={loaderPicture} width={100} height={100} />
-        </div>
-      )}
+     
       <TeaTable
         teas={data}
         openEditModal={handleModal}
         openDeleteModal={handleModal}
       />
+       {isLoading && (
+        <div className="loader">
+          <img src={loaderPicture} width={100} height={100} />
+        </div>
+      )}
 
       <updateTeaContext.Provider value={{ setData, setIsLoading, setMessage }}>
         {openEditModal && (

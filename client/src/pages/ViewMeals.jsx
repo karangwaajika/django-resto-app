@@ -77,16 +77,17 @@ export default function ViewMeals() {
           handleChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      {isLoading && (
-        <div className="loader">
-          <img src={loaderPicture} width={100} height={100} />
-        </div>
-      )}
+      
       <MealTable
         meals={data}
         openEditModal={handleModal}
         openDeleteModal={handleModal}
       />
+      {isLoading && (
+        <div className="loader">
+          <img src={loaderPicture} width={100} height={100} />
+        </div>
+      )}
 
       <updateMealContext.Provider value={{ setData, setIsLoading, setMessage }}>
         {openEditModal && (

@@ -82,12 +82,13 @@ export default function ViewBeverages() {
           handleChange={(e) => setSearch(e.target.value)}
         />
       </div>
+
+      <EmployeeTable employees={data} openModal={handleModal} />
       {isLoading && (
         <div className="loader">
           <img src={loaderPicture} width={100} height={100} />
         </div>
       )}
-      <EmployeeTable employees={data} openModal={handleModal} />
       <employeesDataContext.Provider
         value={{ setData, setIsLoading, setMessage }}
       >

@@ -77,16 +77,17 @@ export default function ViewBeverages() {
           handleChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      {isLoading && (
-        <div className="loader">
-          <img src={loaderPicture} width={100} height={100} />
-        </div>
-      )}
+
       <BeverageTable
         beverages={data}
         openEditModal={handleModal}
         openDeleteModal={handleModal}
       />
+      {isLoading && (
+        <div className="loader">
+          <img src={loaderPicture} width={100} height={100} />
+        </div>
+      )}
 
       <updateBeverageContext.Provider
         value={{ setData, setIsLoading, setMessage }}
