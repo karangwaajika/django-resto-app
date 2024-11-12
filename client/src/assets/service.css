@@ -304,7 +304,32 @@ button.btn-outline-service:active {
   color: black;
   border: 1px solid #7c6c3b;
 }
-.add-btn:active{
+.add-btn:active {
   background-color: #7c6c3b;
   color: white;
+}
+
+/* ########################### Bill ###################### */
+.bill,
+.bill-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  font-size: 14px;
+}
+.item-bill {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.item-header {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+}
+.item-items {
+  list-style: none;
+  border-left: 1px solid #7c6c3b;
+  font-size: 12px;
 }

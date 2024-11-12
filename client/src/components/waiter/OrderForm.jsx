@@ -93,7 +93,7 @@ function OrderForm() {
           name="bill"
           id="bill"
           label="Bill"
-          icon="fa-solid fa-dollar"
+          icon="fa-solid fa-money-bill"
           placeholder="Bill Number"
           height="30px"
         />
