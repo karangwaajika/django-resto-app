@@ -4,7 +4,7 @@ export default function useRecordBeverage() {
   const [beverageRecords, setBeverageRecords] = useState([]);
   const [beverageForm, setBeverageForm] = useState({
     beverageName: "",
-    beverageQty: "",
+    beverageQty: 0,
   });
 
   const handleBeverageChange = (e) => {
@@ -23,10 +23,25 @@ export default function useRecordBeverage() {
     };
     const validatedFields = fieldValidation(inputFields);
     setFieldError(validatedFields);
-    console.log(validatedFields)
+    console.log(validatedFields);
     if (Object.keys(validatedFields).length == 0) {
-    
-      console.log(beverageForm);
+      // add beverage records into an array
+      beverageForm.beverageQty = parseInt(beverageForm.beverageQty)
+      if (beverageRecords.length == 0) {
+        beverageRecords.push(beverageForm);
+      } else {
+        let isNewBeverage = true;
+        for (let item of beverageRecords) {
+          if (item.beverageName === beverageForm.beverageName) {
+            isNewBeverage = false;
+            item.beverageQty += beverageForm.beverageQty;
+          }
+        }
+        if (isNewBeverage) {
+          beverageRecords.push(beverageForm);
+        }
+      }
+      console.log(beverageRecords);
     }
   };
 

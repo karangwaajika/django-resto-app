@@ -51,7 +51,7 @@ function OrderForm({
             height="30px"
             errorfield={props.beverageFieldError.beverageQty && "error-field"}
             handleChange={props.handleBeverageChange}
-            value={props.beverageForm.beverageQty}
+            value={props.beverageForm.beverageQty == 0 ? "": props.beverageForm.beverageQty}
             errorMessage={props.beverageFieldError.beverageQty}
           />
           <div className="add-btn" onClick={props.addBeverage}>
