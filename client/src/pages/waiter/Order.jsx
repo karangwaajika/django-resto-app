@@ -4,6 +4,7 @@ import Bill from "../../components/waiter/Bill";
 import useRecordOrder from "../../hooks/useRecordOrder";
 import useRecordBeverage from "../../hooks/useRecordBeverage";
 import useRecordMeal from "../../hooks/useRecordMeal";
+import useRecordTea from "../../hooks/useRecordTea";
 function Order() {
   const {
     beverageFieldError,
@@ -14,6 +15,8 @@ function Order() {
   } = useRecordBeverage();
   const { mealFieldError, mealForm, mealRecords, addMeal, handleMealChange } =
     useRecordMeal();
+  const { teaFieldError, teaForm, teaRecords, handleTeaChange, addTea } =
+    useRecordTea();
   const {
     fieldError,
     form,
@@ -43,6 +46,10 @@ function Order() {
           mealForm={mealForm}
           addMeal={addMeal}
           handleMealChange={handleMealChange}
+          teaFieldError={teaFieldError}
+          teaForm={teaForm}
+          addTea={addTea}
+          handleTeaChange={handleTeaChange}
         />
         <Bill />
       </div>

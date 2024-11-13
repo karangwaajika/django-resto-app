@@ -182,6 +182,15 @@ export default function fieldValidation({
       errorsValidation.mealName = "Use letters only";
     }
   }
+  if (arg.teaName !== undefined) {
+    if (!arg.teaName.trim()) {
+      errorsValidation.teaName = "Name is required";
+    } else if (arg.teaName.length < 3) {
+      errorsValidation["teaName"] = "Characters should be greater than 3";
+    } else if (!/^[a-zA-Z ]+$/.test(arg.teaName)) {
+      errorsValidation.teaName = "Use letters only";
+    }
+  }
 
   return errorsValidation;
 }

@@ -92,16 +92,16 @@ function OrderForm({
         <div className="type smoothy">
           <InputField
             type="text"
-            name="teaId"
+            name="teaName"
             id="smoothy"
             label="Smoothy"
             icon="fa-solid fa-blender"
             placeholder="Smoothy"
             height="30px"
-            errorfield={fieldError.teaId && "error-field"}
-            handleChange={handleChange}
-            value={form.teaId}
-            errorMessage={fieldError.teaId}
+            errorfield={props.teaFieldError.teaName && "error-field"}
+            handleChange={props.handleTeaChange}
+            value={props.teaForm.teaId}
+            errorMessage={props.teaFieldError.teaName}
           />
           <InputField
             type="number"
@@ -111,12 +111,12 @@ function OrderForm({
             icon="fa-solid fa-weight-scale"
             placeholder="Qty"
             height="30px"
-            errorfield={fieldError.teaQty && "error-field"}
-            handleChange={handleChange}
-            value={form.teaQty}
-            errorMessage={fieldError.teaQty}
+            errorfield={props.teaFieldError.teaQty && "error-field"}
+            handleChange={props.handleTeaChange}
+            value={props.teaForm.teaQty}
+            errorMessage={props.teaFieldError.teaQty}
           />
-          <div className="add-btn">
+          <div className="add-btn" onClick = {props.addTea}>
             <i className="fa fa-plus"></i>
           </div>
         </div>
