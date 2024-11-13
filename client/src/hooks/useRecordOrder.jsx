@@ -8,13 +8,13 @@ export default function useRecordOrder(setBeverageRefresher) {
   };
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    beverageId: undefined,
-    beverageQty: undefined,
-    mealId: undefined,
-    mealQty: undefined,
-    teaId: undefined,
-    teaQty: undefined,
-    orderId: undefined,
+    beverageId: "",
+    beverageQty: "",
+    mealId: "",
+    mealQty: "",
+    teaId: "",
+    teaQty: "",
+    orderId: "",
     customerName: "",
     orderType: "",
   });
