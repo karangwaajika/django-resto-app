@@ -107,24 +107,25 @@ export default function fieldValidation({
   }
 
   // order form input
-  if (arg.beverageQty == 0) {
-    errorsValidation.beverageQty = "qty is required";
+  if (arg.beverageQty !== undefined) {
+    if (arg.beverageQty == 0) {
+      errorsValidation.beverageQty = "qty is required";
+    } else if (arg.beverageQty < 0) {
+      errorsValidation.beverageQty = "qty can't be less than or equal to zero";
+    } else if (!/^[0-9]+$/.test(arg.beverageQty)) {
+      errorsValidation.beverageQty = "Only digits are allowed";
+    }
   }
-  if (arg.beverageQty < 0) {
-    errorsValidation.beverageQty = "qty can't be less than or equal to zero";
-  } else if (!/^[0-9]+$/.test(arg.beverageQty)) {
-    errorsValidation.beverageQty = "Only digits are allowed";
-  }
-
   if (arg.mealQty !== undefined) {
-    if (!arg.mealQty.trim()) {
+    if (arg.mealQty == 0) {
       errorsValidation.mealQty = "qty is required";
-    } else if (arg.mealQty <= 0) {
+    } else if (arg.mealQty < 0) {
       errorsValidation.mealQty = "qty can't be less than or equal to 0";
     } else if (!/^[0-9]+$/.test(arg.mealQty)) {
       errorsValidation.mealQty = "Only digits are allowed";
     }
   }
+
   if (arg.orderId !== undefined) {
     if (!arg.orderId.trim()) {
       errorsValidation.orderId = "order code is required";

@@ -51,7 +51,11 @@ function OrderForm({
             height="30px"
             errorfield={props.beverageFieldError.beverageQty && "error-field"}
             handleChange={props.handleBeverageChange}
-            value={props.beverageForm.beverageQty == 0 ? "": props.beverageForm.beverageQty}
+            value={
+              props.beverageForm.beverageQty == 0
+                ? ""
+                : props.beverageForm.beverageQty
+            }
             errorMessage={props.beverageFieldError.beverageQty}
           />
           <div className="add-btn" onClick={props.addBeverage}>
@@ -82,7 +86,7 @@ function OrderForm({
             height="30px"
             errorfield={props.mealFieldError.mealQty && "error-field"}
             handleChange={props.handleMealChange}
-            value={props.mealForm.mealQty}
+            value={props.mealForm.mealQty == 0 ? "" : props.mealForm.mealQty}
             errorMessage={props.mealFieldError.mealQty}
           />
           <div className="add-btn" onClick={props.addMeal}>
@@ -116,7 +120,7 @@ function OrderForm({
             value={props.teaForm.teaQty}
             errorMessage={props.teaFieldError.teaQty}
           />
-          <div className="add-btn" onClick = {props.addTea}>
+          <div className="add-btn" onClick={props.addTea}>
             <i className="fa fa-plus"></i>
           </div>
         </div>
