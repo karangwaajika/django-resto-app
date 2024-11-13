@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../ui/Button";
 import InputField from "../ui/InputField";
 import FlashMessage from "../ui/FlashMessage";
 import ButtonLoading from "../ui/ButtonLoading";
 import loadingImg from "/images/n-loading.gif";
+import useFetchAutoComplete from "../../hooks/useFetchAutoComplete";
+import ItemList from "./ItemList";
 
 function OrderForm({
   message,
@@ -15,6 +17,22 @@ function OrderForm({
   fieldError,
   ...props
 }) {
+  const isDevelopment = import.meta.env.MODE === "production";
+  const url = isDevelopment
+    ? import.meta.env.VITE_REACT_APP_VIEW_BEVERAGES_API_DEPLOY
+    : import.meta.env.VITE_REACT_APP_VIEW_BEVERAGES_API;
+  const {
+    data,
+    isLoading: listIsLoading,
+    message: listMessage,
+    setData,
+    setMessage,
+    setIsLoading,
+    clearMessage: listClearMessage,
+  } = useFetchAutoComplete(url, props.beverageForm.beverageName);
+  const [openModal, setOpenModal] = useState(false);
+  
+  const retrieveBeverage = () => {};
   return (
     <aside className="form">
       <h1 style={{ marginBottom: "30px", fontFamily: "cursive" }}>Order</h1>
@@ -41,6 +59,9 @@ function OrderForm({
             value={props.beverageForm.beverageName}
             errorMessage={props.beverageFieldError.beverageName}
           />
+          {props.beverageForm.beverageName && (
+            <ItemList setBeverageForm={props.setBeverageForm} />
+          )}
           <InputField
             type="number"
             name="beverageQty"

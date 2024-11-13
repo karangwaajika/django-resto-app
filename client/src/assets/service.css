@@ -308,6 +308,33 @@ button.btn-outline-service:active {
   background-color: #7c6c3b;
   color: white;
 }
+/* dropdwon-list */
+.type.beverage {
+  position: relative;
+}
+.dropdown-list {
+  position: absolute;
+  top: 30px;
+  width: 250px;
+  z-index: 1;
+}
+.dropdown-list ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.dropdown-list ul li {
+  display: flex;
+  text-decoration: none;
+  border-bottom: 1px solid #7c7979;
+  padding: 10px;
+}
+.dropdown-list ul li:hover {
+  background-color: #9b8c5d;
+  color: white;
+  cursor: pointer;
+}
 
 /* ########################### Bill ###################### */
 .bill,

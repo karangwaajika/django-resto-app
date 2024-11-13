@@ -1,7 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
 import fieldValidation from "../utils/fieldValidation.mjs";
-export default function useRecordOrder(setBeverageRefresher) {
+export default function useRecordOrder(
+  beverageRecords,
+  mealRecords,
+  teaRecords
+) {
   const [message, setMessage] = useState();
   const clearMessage = () => {
     setMessage();
@@ -12,6 +16,15 @@ export default function useRecordOrder(setBeverageRefresher) {
     customerName: "",
     orderType: "",
   });
+  // check records details
+  let isRecordsEmpty = false;
+  if (
+    beverageRecords.length == 0 &&
+    mealRecords.length == 0 &&
+    teaRecords.length == 0
+  ) {
+    isRecordsEmpty = true;
+  }
 
   // handle  form input error
   const [fieldError, setFieldError] = useState({});
@@ -25,8 +38,18 @@ export default function useRecordOrder(setBeverageRefresher) {
     };
     const validatedFields = fieldValidation(inputFields);
     setFieldError(validatedFields);
-    if (Object.keys(validatedFields).length == 0) {
-      console.log(form);
+
+    if (Object.keys(validatedFields).length == 0 && !isRecordsEmpty) {
+      // submitForms();
+      const x = {
+        order_id: form.orderId,
+        order_type: form.orderType,
+        customer_name: form.customerName,
+        beverages: beverageRecords,
+        meals: mealRecords,
+        teas: teaRecords,
+      };
+      console.log(x);
     }
   };
   const handleChange = (e) => {
@@ -43,8 +66,12 @@ export default function useRecordOrder(setBeverageRefresher) {
       : import.meta.env.VITE_REACT_APP_ADD_BEVERAGE_API;
     axios
       .post(url, {
-        name: form.name,
-        beverage_type: form.beverage_type,
+        order_id: form.orderId,
+        order_type: form.orderType,
+        customer_name: form.customerName,
+        beverages: beverageRecords,
+        meals: mealRecords,
+        teas: teaRecords,
       })
       .then((res) => {
         if (res.data.success) {

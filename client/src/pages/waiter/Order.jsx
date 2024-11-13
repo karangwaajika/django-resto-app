@@ -6,17 +6,22 @@ import useRecordBeverage from "../../hooks/useRecordBeverage";
 import useRecordMeal from "../../hooks/useRecordMeal";
 import useRecordTea from "../../hooks/useRecordTea";
 function Order() {
+  // beverage inputs
   const {
     beverageFieldError,
     beverageForm,
     beverageRecords,
     handleBeverageChange,
     addBeverage,
+    setBeverageForm,
   } = useRecordBeverage();
+  // meal inputs
   const { mealFieldError, mealForm, mealRecords, addMeal, handleMealChange } =
     useRecordMeal();
+  // smoothy input
   const { teaFieldError, teaForm, teaRecords, handleTeaChange, addTea } =
     useRecordTea();
+  // order inputs
   const {
     fieldError,
     form,
@@ -25,7 +30,8 @@ function Order() {
     clearMessage,
     isLoading,
     validateSubmitForm,
-  } = useRecordOrder(beverageRecords);
+  } = useRecordOrder(beverageRecords, mealRecords, teaRecords);
+
   return (
     <section className="order">
       <div style={{ fontFamily: "cursive" }}>Recoder Client Order</div>
@@ -42,6 +48,7 @@ function Order() {
           beverageFieldError={beverageFieldError}
           beverageForm={beverageForm}
           handleBeverageChange={handleBeverageChange}
+          setBeverageForm = {setBeverageForm}
           mealFieldError={mealFieldError}
           mealForm={mealForm}
           addMeal={addMeal}

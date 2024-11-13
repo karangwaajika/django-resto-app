@@ -51,5 +51,6 @@ export default function useRecordBeverage() {
     beverageRecords,
     handleBeverageChange,
     addBeverage,
+    setBeverageForm,
   };
 }
