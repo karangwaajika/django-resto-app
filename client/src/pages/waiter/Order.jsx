@@ -2,7 +2,18 @@ import React from "react";
 import OrderForm from "../../components/waiter/OrderForm";
 import Bill from "../../components/waiter/Bill";
 import useRecordOrder from "../../hooks/useRecordOrder";
+import useRecordBeverage from "../../hooks/useRecordBeverage";
+import useRecordMeal from "../../hooks/useRecordMeal";
 function Order() {
+  const {
+    beverageFieldError,
+    beverageForm,
+    beverageRecords,
+    handleBeverageChange,
+    addBeverage,
+  } = useRecordBeverage();
+  const { mealFieldError, mealForm, mealRecords, addMeal, handleMealChange } =
+    useRecordMeal();
   const {
     fieldError,
     form,
@@ -11,7 +22,7 @@ function Order() {
     clearMessage,
     isLoading,
     validateSubmitForm,
-  } = useRecordOrder();
+  } = useRecordOrder(beverageRecords);
   return (
     <section className="order">
       <div style={{ fontFamily: "cursive" }}>Recoder Client Order</div>
@@ -24,6 +35,14 @@ function Order() {
           submitForm={validateSubmitForm}
           clearMessage={clearMessage}
           fieldError={fieldError}
+          addBeverage={addBeverage}
+          beverageFieldError={beverageFieldError}
+          beverageForm={beverageForm}
+          handleBeverageChange={handleBeverageChange}
+          mealFieldError={mealFieldError}
+          mealForm={mealForm}
+          addMeal={addMeal}
+          handleMealChange={handleMealChange}
         />
         <Bill />
       </div>
