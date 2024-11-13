@@ -136,7 +136,7 @@ export default function fieldValidation({
     }
   }
   if (arg.teaQty !== undefined) {
-    if (!arg.teaQty.trim()) {
+    if (arg.teaQty == 0) {
       errorsValidation.teaQty = "qty is required";
     } else if (arg.teaQty <= 0) {
       errorsValidation.teaQty = "qty can't be less than or equal to 0";

@@ -4,7 +4,7 @@ export default function useRecordTea() {
   const [teaRecords, setTeaRecords] = useState([]);
   const [teaForm, setTeaForm] = useState({
     teaName: "",
-    teaQty: "",
+    teaQty: 0,
   });
 
   const handleTeaChange = (e) => {
@@ -24,7 +24,23 @@ export default function useRecordTea() {
     const validatedFields = fieldValidation(inputFields);
     setFieldError(validatedFields);
     if (Object.keys(validatedFields).length == 0) {
-      console.log(teaForm);
+      // add meal records into an array
+      teaForm.teaQty = parseInt(teaForm.teaQty);
+      if (teaRecords.length == 0) {
+        teaRecords.push(teaForm);
+      } else {
+        let isNewTea = true;
+        for (let item of teaRecords) {
+          if (item.teaName === teaForm.teaName) {
+            isNewTea = false;
+            item.teaQty += teaForm.teaQty;
+          }
+        }
+        if (isNewTea) {
+          teaRecords.push(teaForm);
+        }
+      }
+      console.log(teaRecords);
     }
   };
 

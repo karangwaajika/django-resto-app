@@ -117,7 +117,7 @@ function OrderForm({
             height="30px"
             errorfield={props.teaFieldError.teaQty && "error-field"}
             handleChange={props.handleTeaChange}
-            value={props.teaForm.teaQty}
+            value={props.teaForm.teaQty == 0 ? "" : props.teaForm.teaQty}
             errorMessage={props.teaFieldError.teaQty}
           />
           <div className="add-btn" onClick={props.addTea}>
