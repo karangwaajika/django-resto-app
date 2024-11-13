@@ -23,6 +23,7 @@ export default function useRecordBeverage() {
     };
     const validatedFields = fieldValidation(inputFields);
     setFieldError(validatedFields);
+    console.log(validatedFields)
     if (Object.keys(validatedFields).length == 0) {
     
       console.log(beverageForm);

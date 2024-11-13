@@ -8,12 +8,6 @@ export default function useRecordOrder(setBeverageRefresher) {
   };
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({
-    beverageId: "",
-    beverageQty: "",
-    mealId: "",
-    mealQty: "",
-    teaId: "",
-    teaQty: "",
     orderId: "",
     customerName: "",
     orderType: "",
@@ -25,12 +19,6 @@ export default function useRecordOrder(setBeverageRefresher) {
     e.preventDefault();
 
     const inputFields = {
-      beverageId: form.beverageId,
-      beverageQty: form.beverageQty,
-      mealId: form.mealId,
-      mealQty: form.mealQty,
-      teaId: form.teaId,
-      teaQty: form.teaQty,
       orderId: form.orderId,
       customerName: form.customerName,
       orderType: form.orderType,
