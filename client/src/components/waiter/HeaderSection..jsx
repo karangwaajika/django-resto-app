@@ -1,7 +1,9 @@
 import React from "react";
 import Button from "../ui/Button";
+import { useNavigate } from "react-router-dom";
 
 function HeaderSection() {
+  const navigate = useNavigate()
   return (
     <>
       <h5 style={{ textAlign: "center", fontSize: "15px", fontWeight: 400 }}>
@@ -13,7 +15,8 @@ function HeaderSection() {
         <Button
           text="Record order"
           className="btn-outline-lighter"
-          size="25%"
+          width="25%"
+          onClick={()=>navigate("/service/service")}
         />
       </section>
     </>
