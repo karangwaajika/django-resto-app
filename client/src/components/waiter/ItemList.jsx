@@ -1,20 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+import loaderPicture from "/images/loading-3.gif";
 
-function ItemList({ setBeverageForm, closeModal }) {
-  const selectItem = (e) => {
-    setBeverageForm((oldForm) => {
-      return { ...oldForm, beverageName: "Beverages" };
-    });
-    e.target.parentElement.parentElement.remove();
+function ItemList({ setForm, input, data, typeModal, isLoading, inputValue }) {
+  const [closeModal, setCloseModal] = useState(input);
+  let itemList = null;
+  // fetch beverages
+  const beverageList =
+    data.length > 0
+      ? data.map((item, i) => {
+          return (
+            <li onClick={() => selectItem(item)} key={i}>
+              {item.beverage.name}
+            </li>
+          );
+        })
+      : `No " ${inputValue} " in beverage`;
+  if (typeModal == "beverage") {
+    itemList = beverageList;
+  }
+  const selectItem = (item) => {
+    if (typeModal == "beverage") {
+      setForm((oldForm) => {
+        return {
+          ...oldForm,
+          beverageName: item.beverage.name,
+          beveragePrice: item.price,
+        };
+      });
+    }
+    setCloseModal(false);
   };
   return (
-    <div className={`card dropdown-list`}>
-      <ul>
-        <li onClick={selectItem}>Beverages</li>
-        <li>Meals</li>
-        <li>Smoothies</li>
-      </ul>
-    </div>
+    <>
+      {closeModal && (
+        <div className={`card dropdown-list`}>
+          {isLoading ? (
+            <div className="loader">
+              <img src={loaderPicture} width={100} height={100} />
+            </div>
+          ) : (
+            <ul>{itemList}</ul>
+          )}
+        </div>
+      )}
+    </>
   );
 }
 

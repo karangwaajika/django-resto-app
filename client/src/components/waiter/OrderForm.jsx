@@ -5,6 +5,7 @@ import FlashMessage from "../ui/FlashMessage";
 import ButtonLoading from "../ui/ButtonLoading";
 import loadingImg from "/images/n-loading.gif";
 import useFetchAutoComplete from "../../hooks/useFetchAutoComplete";
+import useFetchItem from "../../hooks/useFetchItem";
 import ItemList from "./ItemList";
 
 function OrderForm({
@@ -29,10 +30,9 @@ function OrderForm({
     setMessage,
     setIsLoading,
     clearMessage: listClearMessage,
-  } = useFetchAutoComplete(url, props.beverageForm.beverageName);
-  const [openModal, setOpenModal] = useState(false);
-  
-  const retrieveBeverage = () => {};
+  } = useFetchItem(url, props.beverageForm.beverageName);
+ 
+
   return (
     <aside className="form">
       <h1 style={{ marginBottom: "30px", fontFamily: "cursive" }}>Order</h1>
@@ -60,7 +60,14 @@ function OrderForm({
             errorMessage={props.beverageFieldError.beverageName}
           />
           {props.beverageForm.beverageName && (
-            <ItemList setBeverageForm={props.setBeverageForm} />
+            <ItemList
+              setForm={props.setBeverageForm}
+              input={props.beverageForm.beverageName ? true : false}
+              data = {data}
+              typeModal="beverage"
+              isLoading = {listIsLoading}
+              inputValue = {props.beverageForm.beverageName}
+            />
           )}
           <InputField
             type="number"

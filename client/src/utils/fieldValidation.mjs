@@ -158,7 +158,7 @@ export default function fieldValidation({
       errorsValidation.beverageName = "Name is required";
     } else if (arg.beverageName.length < 3) {
       errorsValidation["beverageName"] = "Characters should be greater than 3";
-    } else if (!/^[a-zA-Z ]+$/.test(arg.beverageName)) {
+    } else if (!/^[a-zA-Z -]+$/.test(arg.beverageName)) {
       errorsValidation.beverageName = "Use letters only";
     }
   }
@@ -167,7 +167,7 @@ export default function fieldValidation({
       errorsValidation.mealName = "Name is required";
     } else if (arg.mealName.length < 3) {
       errorsValidation["mealName"] = "Characters should be greater than 3";
-    } else if (!/^[a-zA-Z ]+$/.test(arg.mealName)) {
+    } else if (!/^[a-zA-Z -]+$/.test(arg.mealName)) {
       errorsValidation.mealName = "Use letters only";
     }
   }
@@ -176,7 +176,7 @@ export default function fieldValidation({
       errorsValidation.teaName = "Name is required";
     } else if (arg.teaName.length < 3) {
       errorsValidation["teaName"] = "Characters should be greater than 3";
-    } else if (!/^[a-zA-Z ]+$/.test(arg.teaName)) {
+    } else if (!/^[a-zA-Z -]+$/.test(arg.teaName)) {
       errorsValidation.teaName = "Use letters only";
     }
   }

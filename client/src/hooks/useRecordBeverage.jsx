@@ -5,8 +5,9 @@ export default function useRecordBeverage() {
   const [beverageForm, setBeverageForm] = useState({
     beverageName: "",
     beverageQty: 0,
+    beveragePrice: 0,
   });
-
+  console.log(beverageForm);
   const handleBeverageChange = (e) => {
     const { name, value } = e.target;
     setBeverageForm((oldForm) => {
@@ -26,7 +27,7 @@ export default function useRecordBeverage() {
     console.log(validatedFields);
     if (Object.keys(validatedFields).length == 0) {
       // add beverage records into an array
-      beverageForm.beverageQty = parseInt(beverageForm.beverageQty)
+      beverageForm.beverageQty = parseInt(beverageForm.beverageQty);
       if (beverageRecords.length == 0) {
         beverageRecords.push(beverageForm);
       } else {
