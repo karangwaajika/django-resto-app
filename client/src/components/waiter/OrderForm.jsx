@@ -26,9 +26,6 @@ function OrderForm({
     data,
     isLoading: listIsLoading,
     message: listMessage,
-    setData,
-    setMessage,
-    setIsLoading,
     clearMessage: listClearMessage,
   } = useFetchItem(url, props.beverageForm.beverageName);
  
@@ -67,6 +64,8 @@ function OrderForm({
               typeModal="beverage"
               isLoading = {listIsLoading}
               inputValue = {props.beverageForm.beverageName}
+              message={listMessage}
+              clearMessage={listClearMessage}
             />
           )}
           <InputField

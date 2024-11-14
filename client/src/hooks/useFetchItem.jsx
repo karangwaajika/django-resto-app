@@ -12,7 +12,7 @@ export default function useFetchItem(url, search) {
     const cancelToken = axios.CancelToken.source();
     if (search.length !== 0) {
       setIsLoading(true);
-      
+
       axios
         .post(
           url,
@@ -45,10 +45,8 @@ export default function useFetchItem(url, search) {
     isLoading,
     message,
     setData,
-    setIsLoading,
-    setMessage,
     clearMessage,
     openDropdown,
-    setOpenDropdown
+    setOpenDropdown,
   };
 }

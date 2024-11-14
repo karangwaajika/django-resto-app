@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import loaderPicture from "/images/loading-3.gif";
+import FlashMessage from "../ui/FlashMessage";
 
-function ItemList({ setForm, input, data, typeModal, isLoading, inputValue }) {
+function ItemList({
+  setForm,
+  input,
+  data,
+  typeModal,
+  isLoading,
+  inputValue,
+  message,
+  clearMessage,
+}) {
   const [closeModal, setCloseModal] = useState(input);
   let itemList = null;
   // fetch beverages
@@ -34,6 +44,13 @@ function ItemList({ setForm, input, data, typeModal, isLoading, inputValue }) {
     <>
       {closeModal && (
         <div className={`card dropdown-list`}>
+          {message && (
+            <FlashMessage
+              message={message.message}
+              isSuccess={message.success}
+              clearMessage={clearMessage}
+            />
+          )}
           {isLoading ? (
             <div className="loader">
               <img src={loaderPicture} width={100} height={100} />
