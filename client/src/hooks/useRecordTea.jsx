@@ -40,7 +40,6 @@ export default function useRecordTea() {
           teaRecords.push(teaForm);
         }
       }
-      console.log(teaRecords);
     }
   };
 

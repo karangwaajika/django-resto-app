@@ -7,7 +7,7 @@ export default function useRecordBeverage() {
     beverageQty: 0,
     beveragePrice: 0,
   });
-  console.log(beverageForm);
+
   const handleBeverageChange = (e) => {
     const { name, value } = e.target;
     setBeverageForm((oldForm) => {
@@ -24,7 +24,7 @@ export default function useRecordBeverage() {
     };
     const validatedFields = fieldValidation(inputFields);
     setFieldError(validatedFields);
-    console.log(validatedFields);
+
     if (Object.keys(validatedFields).length == 0) {
       // add beverage records into an array
       beverageForm.beverageQty = parseInt(beverageForm.beverageQty);
@@ -42,7 +42,6 @@ export default function useRecordBeverage() {
           beverageRecords.push(beverageForm);
         }
       }
-      console.log(beverageRecords);
     }
   };
 

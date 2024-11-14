@@ -1,4 +1,5 @@
 import React from "react";
+import { addComma } from "../../utils/addComma.mjs";
 
 function Bill({ beverages, teas, meals }) {
   let sumBeverage = 0;
@@ -7,7 +8,6 @@ function Bill({ beverages, teas, meals }) {
   if (beverages.length > 0) {
     for (let beverage of beverages) {
       sumBeverage += beverage.beverageQty * beverage.beveragePrice;
-      console.log(beverage.beverageQty)
     }
   }
   if (meals.length > 0) {
@@ -40,7 +40,7 @@ function Bill({ beverages, teas, meals }) {
                     <li key={i}>
                       {item.beverageName}({item.beverageQty} x{" "}
                       {item.beveragePrice}) ={" "}
-                      {item.beverageQty * item.beveragePrice} frw
+                      {addComma(item.beverageQty * item.beveragePrice)} frw
                     </li>
                   );
                 })}
@@ -66,7 +66,7 @@ function Bill({ beverages, teas, meals }) {
                   return (
                     <li key={i}>
                       {item.mealName}({item.mealQty} x {item.mealPrice}) ={" "}
-                      {item.mealQty * item.mealPrice} frw
+                      {addComma(item.mealQty * item.mealPrice)} frw
                     </li>
                   );
                 })}
@@ -94,7 +94,7 @@ function Bill({ beverages, teas, meals }) {
                   return (
                     <li key={i}>
                       {item.teaName}({item.teaQty} x {item.teaPrice}) ={" "}
-                      {item.teaQty * item.teaPrice} frw
+                      {addComma(item.teaQty * item.teaPrice)} frw
                     </li>
                   );
                 })}
@@ -108,7 +108,7 @@ function Bill({ beverages, teas, meals }) {
             )}
           </div>
         </div>
-        <div style={{ textAlign: "center" }}>Total: {total} Rwf</div>
+        <div style={{ textAlign: "center" }}>Total: <i className="span span-success">{addComma(total)} Rwf</i></div>
       </div>
     </aside>
   );

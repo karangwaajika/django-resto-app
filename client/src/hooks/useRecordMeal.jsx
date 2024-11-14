@@ -23,10 +23,9 @@ export default function useRecordMeal() {
     };
     const validatedFields = fieldValidation(inputFields);
     setFieldError(validatedFields);
-    console.log(validatedFields)
     if (Object.keys(validatedFields).length == 0) {
       // add meal records into an array
-      mealForm.mealQty = parseInt(mealForm.mealQty)
+      mealForm.mealQty = parseInt(mealForm.mealQty);
       if (mealRecords.length == 0) {
         mealRecords.push(mealForm);
       } else {
@@ -41,7 +40,6 @@ export default function useRecordMeal() {
           mealRecords.push(mealForm);
         }
       }
-      console.log(mealRecords);
     }
   };
 
@@ -51,6 +49,6 @@ export default function useRecordMeal() {
     mealRecords,
     handleMealChange,
     addMeal,
-    setMealForm
+    setMealForm,
   };
 }

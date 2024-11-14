@@ -23,7 +23,6 @@ export default function useFetchItem(url, search) {
         )
         .then((res) => {
           setData(res.data.data);
-          console.log(res.data.data);
         })
         .catch((err) => {
           if (err.message !== "canceled") {

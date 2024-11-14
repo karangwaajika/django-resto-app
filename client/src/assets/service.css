@@ -367,3 +367,22 @@ button.btn-outline-service:active {
   text-align: left;
   margin-left: 20px;
 }
+/*  */
+.span{
+  border-radius: 2px;
+  padding: 0px 3px;
+  font-size: small;
+  font-weight: bold;
+  
+}
+.span-div{
+  text-align: center;
+}
+.span-success{
+  background-color: green;
+  color: white;
+}
+.span-danger{
+  background-color: rgba(240, 25, 25, 0.986);
+  color: white;
+}
