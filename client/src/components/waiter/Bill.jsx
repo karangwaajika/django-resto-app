@@ -1,39 +1,55 @@
 import React from "react";
 
-function Bill() {
+function Bill({ beverages, teas, meals }) {
+  let sumBeverage = 0;
+  let sumMeal = 0;
+  let sumTea = 0;
+  if (beverages.length > 0) {
+    for (let beverage of beverages) {
+      sumBeverage += beverage.beverageQty * beverage.beveragePrice;
+      console.log(beverage.beverageQty)
+    }
+  }
+  if (meals.length > 0) {
+    for (let meal of meals) {
+      sumMeal += meal.mealQty * meal.mealPrice;
+    }
+  }
+  if (teas.length > 0) {
+    for (let tea of teas) {
+      sumTea += tea.teaQty * tea.teaPrice;
+    }
+  }
+  let total = sumBeverage + sumMeal + sumTea;
   return (
     <aside className="bill">
-      <h1 style={{ fontFamily: "cursive" }}>Bill</h1>
+      <h1 style={{ fontFamily: "cursive" }}>Order Records</h1>
       <div className="bill-details">
         <div className="item-bill">
           <div className="item-header">
             <div className="item-icon">
               <i className="far fa-circle-dot"></i>
             </div>
-            <div className="item-text">Beverage</div>
+            <div className="item-text" style={{fontWeight:"bold"}}>Beverage</div>
           </div>
-          <div className="" style={{ paddingLeft: "5px" }}>
-            <ul className="item-items">
-              <li>Ajika(3 x 120) = 3000 frw</li>
-              <li>Ajika(3 x 120) = 3000 frw</li>
-              <li>Ajika(3 x 120) = 3000 frw</li>
-              <li>Ajika(3 x 120) = 3000 frw</li>
-            </ul>
-          </div>
-        </div>
-        <div className="item-bill">
-          <div className="item-header">
-            <div className="item-icon">
-              <i className="far fa-circle-dot"></i>
-            </div>
-            <div className="item-text">Beverage</div>
-          </div>
-          <div className="" style={{ paddingLeft: "5px" }}>
-            <ul className="item-items">
-              <li>Ajika(3 x 120) = 3000 frw</li>
-              <li>Ajika(3 x 120) = 3000 frw</li>
-              <li>Ajika(3 x 120) = 3000 frw</li>
-            </ul>
+          <div className="" style={{borderLeft: "1px solid #7c6c3b", marginLeft:"5px"}}>
+            {beverages.length > 0 ? (
+              <ul className="item-items">
+                {beverages.map((item, i) => {
+                  return (
+                    <li key={i}>
+                      {item.beverageName}({item.beverageQty} x{" "}
+                      {item.beveragePrice}) ={" "}
+                      {item.beverageQty * item.beveragePrice} frw
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <i style={{ textAlign: "left", fontSize: "13px", color: "red" }}>
+                No item
+              </i>
+            )}
           </div>
         </div>
         <div className="item-bill">
@@ -41,21 +57,58 @@ function Bill() {
             <div className="item-icon">
               <i className="far fa-circle-dot"></i>
             </div>
-            <div className="item-text">Beverage</div>
+            <div className="item-text" style={{fontWeight:"bold"}}>Meal</div>
           </div>
-          <div className="" style={{ paddingLeft: "5px" }}>
-            <ul className="item-items">
-              <li>Ajika(3 x 120) = 3000 frw</li>
-              <li>Ajika(3 x 120) = 3000 frw</li>
-              <li>Ajika(3 x 120) = 3000 frw</li>
-              <li>Ajika(3 x 120) = 3000 frw</li>
-              <li>Ajika(3 x 120) = 3000 frw</li>
-            </ul>
+          <div className="" style={{borderLeft: "1px solid #7c6c3b", marginLeft:"5px"}}>
+            {meals.length > 0 ? (
+              <ul className="item-items">
+                {meals.map((item, i) => {
+                  return (
+                    <li key={i}>
+                      {item.mealName}({item.mealQty} x {item.mealPrice}) ={" "}
+                      {item.mealQty * item.mealPrice} frw
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <i
+                style={{ textAlign: "center", fontSize: "13px", color: "red" }}
+              >
+                No item
+              </i>
+            )}
           </div>
         </div>
-        <div style={{textAlign:"center"}}>
-            Total: 3000 Rwf
+        <div className="item-bill">
+          <div className="item-header">
+            <div className="item-icon">
+              <i className="far fa-circle-dot"></i>
+            </div>
+            <div className="item-text" style={{fontWeight:"bold"}}>Smoothy</div>
+          </div>
+          <div className="" style={{borderLeft: "1px solid #7c6c3b", marginLeft:"5px"}}>
+            {teas.length > 0 ? (
+              <ul className="item-items">
+                {teas.map((item, i) => {
+                  return (
+                    <li key={i}>
+                      {item.teaName}({item.teaQty} x {item.teaPrice}) ={" "}
+                      {item.teaQty * item.teaPrice} frw
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <i
+                style={{ textAlign: "center", fontSize: "13px", color: "red" }}
+              >
+                No item
+              </i>
+            )}
+          </div>
         </div>
+        <div style={{ textAlign: "center" }}>Total: {total} Rwf</div>
       </div>
     </aside>
   );

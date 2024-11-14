@@ -363,6 +363,7 @@ button.btn-outline-service:active {
 }
 .item-items {
   list-style: none;
-  border-left: 1px solid #7c6c3b;
   font-size: 12px;
+  text-align: left;
+  margin-left: 20px;
 }

@@ -72,7 +72,11 @@ function Order() {
           handleTeaChange={handleTeaChange}
           setTeaForm={setTeaForm}
         />
-        <Bill />
+        <Bill
+          beverages={beverageRecords}
+          meals={mealRecords}
+          teas={teaRecords}
+        />
       </div>
     </section>
   );
