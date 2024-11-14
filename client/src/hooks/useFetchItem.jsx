@@ -26,10 +26,12 @@ export default function useFetchItem(url, search) {
           console.log(res.data.data);
         })
         .catch((err) => {
-          setMessage({
-            success: false,
-            message: err.message,
-          });
+          if (err.message !== "canceled") {
+            setMessage({
+              success: false,
+              message: err.message,
+            });
+          }
         })
         .finally(() => {
           setIsLoading(false);

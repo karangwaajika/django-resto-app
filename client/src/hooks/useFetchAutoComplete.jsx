@@ -23,10 +23,12 @@ export default function useFetchAutoComplete(url, search, refreshData) {
         console.log(res.data.data);
       })
       .catch((err) => {
-        setMessage({
-          success: false,
-          message: err.message,
-        });
+        if (err.message !== "canceled") {
+          setMessage({
+            success: false,
+            message: err.message,
+          });
+        }
       })
       .finally(() => {
         setIsLoading(false);
@@ -36,5 +38,13 @@ export default function useFetchAutoComplete(url, search, refreshData) {
     };
   }, [search, refreshData]);
 
-  return { data, isLoading, message, setData, setIsLoading, setMessage, clearMessage };
+  return {
+    data,
+    isLoading,
+    message,
+    setData,
+    setIsLoading,
+    setMessage,
+    clearMessage,
+  };
 }
