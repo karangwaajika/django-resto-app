@@ -15,18 +15,32 @@ function ItemList({
   const [closeModal, setCloseModal] = useState(input);
   let itemList = null;
   // fetch beverages
-  const beverageList =
-    data.length > 0
-      ? data.map((item, i) => {
-          return (
-            <li onClick={() => selectItem(item)} key={i}>
-              {item.beverage.name}
-            </li>
-          );
-        })
-      : `No " ${inputValue} " in beverage`;
   if (typeModal == "beverage") {
+    const beverageList =
+      data.length > 0
+        ? data.map((item, i) => {
+            return (
+              <li onClick={() => selectItem(item)} key={i}>
+                {item.beverage.name}
+              </li>
+            );
+          })
+        : `No " ${inputValue} " in beverage`;
     itemList = beverageList;
+  }
+  // fetch meal
+  if (typeModal == "meal") {
+    const mealList =
+      data.length > 0
+        ? data.map((item, i) => {
+            return (
+              <li onClick={() => selectItem(item)} key={i}>
+                {item.name}
+              </li>
+            );
+          })
+        : `No " ${inputValue} " in meal`;
+    itemList = mealList;
   }
   const selectItem = (item) => {
     if (typeModal == "beverage") {
@@ -35,6 +49,15 @@ function ItemList({
           ...oldForm,
           beverageName: item.beverage.name,
           beveragePrice: item.price,
+        };
+      });
+    }
+    if (typeModal == "meal") {
+      setForm((oldForm) => {
+        return {
+          ...oldForm,
+          mealName: item.name,
+          mealPrice: item.price,
         };
       });
     }

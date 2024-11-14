@@ -16,8 +16,14 @@ function Order() {
     setBeverageForm,
   } = useRecordBeverage();
   // meal inputs
-  const { mealFieldError, mealForm, mealRecords, addMeal, handleMealChange } =
-    useRecordMeal();
+  const {
+    mealFieldError,
+    mealForm,
+    mealRecords,
+    addMeal,
+    handleMealChange,
+    setMealForm,
+  } = useRecordMeal();
   // smoothy input
   const { teaFieldError, teaForm, teaRecords, handleTeaChange, addTea } =
     useRecordTea();
@@ -48,11 +54,12 @@ function Order() {
           beverageFieldError={beverageFieldError}
           beverageForm={beverageForm}
           handleBeverageChange={handleBeverageChange}
-          setBeverageForm = {setBeverageForm}
+          setBeverageForm={setBeverageForm}
           mealFieldError={mealFieldError}
           mealForm={mealForm}
           addMeal={addMeal}
           handleMealChange={handleMealChange}
+          setMealForm={setMealForm}
           teaFieldError={teaFieldError}
           teaForm={teaForm}
           addTea={addTea}

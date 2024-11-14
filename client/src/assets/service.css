@@ -312,6 +312,9 @@ button.btn-outline-service:active {
 .type.beverage {
   position: relative;
 }
+.type.meal {
+  position: relative;
+}
 .dropdown-list {
   position: absolute;
   top: 30px;

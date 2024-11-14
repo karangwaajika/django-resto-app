@@ -19,16 +19,28 @@ function OrderForm({
   ...props
 }) {
   const isDevelopment = import.meta.env.MODE === "production";
-  const url = isDevelopment
+
+  // beverage url and fetch
+  const beverageUrl = isDevelopment
     ? import.meta.env.VITE_REACT_APP_VIEW_BEVERAGES_API_DEPLOY
     : import.meta.env.VITE_REACT_APP_VIEW_BEVERAGES_API;
   const {
-    data,
-    isLoading: listIsLoading,
-    message: listMessage,
-    clearMessage: listClearMessage,
-  } = useFetchItem(url, props.beverageForm.beverageName);
- 
+    data: beverageData,
+    isLoading: beverageIsLoading,
+    message: beverageMessage,
+    clearMessage: beverageClearMessage,
+  } = useFetchItem(beverageUrl, props.beverageForm.beverageName);
+
+  // meal url and fetch
+  const mealUrl = isDevelopment
+    ? import.meta.env.VITE_REACT_APP_VIEW_MEALS_API_DEPLOY
+    : import.meta.env.VITE_REACT_APP_VIEW_MEALS_API;
+  const {
+    data: mealData,
+    isLoading: mealIsLoading,
+    message: mealMessage,
+    clearMessage: mealClearMessage,
+  } = useFetchItem(mealUrl, props.mealForm.mealName);
 
   return (
     <aside className="form">
@@ -60,12 +72,12 @@ function OrderForm({
             <ItemList
               setForm={props.setBeverageForm}
               input={props.beverageForm.beverageName ? true : false}
-              data = {data}
+              data={beverageData}
               typeModal="beverage"
-              isLoading = {listIsLoading}
-              inputValue = {props.beverageForm.beverageName}
-              message={listMessage}
-              clearMessage={listClearMessage}
+              isLoading={beverageIsLoading}
+              inputValue={props.beverageForm.beverageName}
+              message={beverageMessage}
+              clearMessage={beverageClearMessage}
             />
           )}
           <InputField
@@ -103,6 +115,18 @@ function OrderForm({
             value={props.mealForm.mealName}
             errorMessage={props.mealFieldError.mealName}
           />
+          {props.mealForm.mealName && (
+            <ItemList
+              setForm={props.setMealForm}
+              input={props.mealForm.mealName ? true : false}
+              data={mealData}
+              typeModal="meal"
+              isLoading={mealIsLoading}
+              inputValue={props.mealForm.mealName}
+              message={mealMessage}
+              clearMessage={mealClearMessage}
+            />
+          )}
           <InputField
             type="number"
             name="mealQty"
