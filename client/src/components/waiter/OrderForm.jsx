@@ -42,6 +42,17 @@ function OrderForm({
     clearMessage: mealClearMessage,
   } = useFetchItem(mealUrl, props.mealForm.mealName);
 
+  // tea/smoothy url and fetch
+  const teaUrl = isDevelopment
+    ? import.meta.env.VITE_REACT_APP_VIEW_TEAS_API_DEPLOY
+    : import.meta.env.VITE_REACT_APP_VIEW_TEAS_API;
+  const {
+    data: teaData,
+    isLoading: teaIsLoading,
+    message: teaMessage,
+    clearMessage: teaClearMessage,
+  } = useFetchItem(teaUrl, props.teaForm.teaName);
+
   return (
     <aside className="form">
       <h1 style={{ marginBottom: "30px", fontFamily: "cursive" }}>Order</h1>
@@ -155,9 +166,21 @@ function OrderForm({
             height="30px"
             errorfield={props.teaFieldError.teaName && "error-field"}
             handleChange={props.handleTeaChange}
-            value={props.teaForm.teaId}
+            value={props.teaForm.teaName}
             errorMessage={props.teaFieldError.teaName}
           />
+           {props.teaForm.teaName && (
+            <ItemList
+              setForm={props.setTeaForm}
+              input={props.teaForm.teaName ? true : false}
+              data={teaData}
+              typeModal="smoothy"
+              isLoading={teaIsLoading}
+              inputValue={props.teaForm.teaName}
+              message={teaMessage}
+              clearMessage={teaClearMessage}
+            />
+          )}
           <InputField
             type="number"
             name="teaQty"

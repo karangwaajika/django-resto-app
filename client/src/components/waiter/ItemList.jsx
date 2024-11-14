@@ -42,6 +42,20 @@ function ItemList({
         : `No " ${inputValue} " in meal`;
     itemList = mealList;
   }
+  // fetch smoothy/tea
+  if (typeModal == "smoothy") {
+    const smoothyList =
+      data.length > 0
+        ? data.map((item, i) => {
+            return (
+              <li onClick={() => selectItem(item)} key={i}>
+                {item.name}
+              </li>
+            );
+          })
+        : `No " ${inputValue} " in Smoothies`;
+    itemList = smoothyList;
+  }
   const selectItem = (item) => {
     if (typeModal == "beverage") {
       setForm((oldForm) => {
@@ -58,6 +72,15 @@ function ItemList({
           ...oldForm,
           mealName: item.name,
           mealPrice: item.price,
+        };
+      });
+    }
+    if (typeModal == "smoothy") {
+      setForm((oldForm) => {
+        return {
+          ...oldForm,
+          teaName: item.name,
+          teaPrice: item.price,
         };
       });
     }

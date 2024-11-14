@@ -315,6 +315,9 @@ button.btn-outline-service:active {
 .type.meal {
   position: relative;
 }
+.type.smoothy {
+  position: relative;
+}
 .dropdown-list {
   position: absolute;
   top: 30px;

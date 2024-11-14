@@ -49,6 +49,7 @@ export default function useRecordTea() {
     teaForm,
     teaRecords,
     handleTeaChange,
+    setTeaForm,
     addTea,
   };
 }

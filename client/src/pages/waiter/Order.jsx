@@ -25,8 +25,14 @@ function Order() {
     setMealForm,
   } = useRecordMeal();
   // smoothy input
-  const { teaFieldError, teaForm, teaRecords, handleTeaChange, addTea } =
-    useRecordTea();
+  const {
+    teaFieldError,
+    teaForm,
+    teaRecords,
+    handleTeaChange,
+    addTea,
+    setTeaForm,
+  } = useRecordTea();
   // order inputs
   const {
     fieldError,
@@ -64,6 +70,7 @@ function Order() {
           teaForm={teaForm}
           addTea={addTea}
           handleTeaChange={handleTeaChange}
+          setTeaForm={setTeaForm}
         />
         <Bill />
       </div>
