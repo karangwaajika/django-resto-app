@@ -64,6 +64,7 @@ function ItemList({
           beverageName: item.beverage.name,
           beverageId: item.beverage.id,
           beveragePrice: item.price,
+          beverageStockQty: item.qty,
         };
       });
     }

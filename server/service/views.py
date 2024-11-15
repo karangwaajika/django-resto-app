@@ -14,6 +14,7 @@ from rest_framework.authentication import SessionAuthentication, TokenAuthentica
 from rest_framework.permissions import IsAuthenticated
 import datetime
 import pytz
+from .operation import *
 
 
 # Create your views here.
@@ -44,15 +45,48 @@ def record_order(request):
     user = request.user
     dt_now = datetime.datetime.now(tz=pytz.UTC)
     date_today = dt_now.astimezone(pytz.timezone("Africa/Kigali"))
-    
+
     # insert order
-    add_order = Order.objects.create(
-        employee=user,
-        customer_name=customer_name,
-        order_type=order_type,
-        date_time=date_today,
-        sold_date=date_today,
-    )
+    # add_order = Order.objects.create(
+    #     employee=user,
+    #     customer_name=customer_name,
+    #     order_type=order_type,
+    #     date_time=date_today,
+    #     sold_date=date_today,
+    # )
+
+    order = Order.objects.last()
+    if len(beverages) > 0:
+        for drink in beverages:
+            beverage = Beverage.objects.get(pk=drink.get("beverageId"))
+
+            if drink.get("beverageQty") > drink.get("beverageStockQty"):
+                return Response(
+                    {
+                        "success": False,
+                        "message": "The stock is not enough !!!",
+                    }
+                )
+
+            # update stock
+            operate = BeverageOperation(
+                beverage=beverage,
+                openQty=drink.get("beverageStockQty"),
+                soldQty=drink.get("beverageQty"),
+            )
+            operate.update_beverage_stock()
+
+            # insert beverage
+            BeverageOrder.objects.create(
+                beverage=beverage,
+                order=order,
+                open_qty=drink.get("beverageStockQty"),
+                left_qty=drink.get("beverageStockQty") - drink.get("beverageQty"),
+                sold_qty=drink.get("beverageQty"),
+                price=drink.get("beveragePrice"),
+                total_beverage=drink.get("beverageQty") * drink.get("beveragePrice"),
+                sold_date=date_today,
+            )
 
     return Response(
         {
