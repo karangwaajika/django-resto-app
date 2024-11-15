@@ -52,13 +52,23 @@ export default function AddWaiter() {
       ? import.meta.env.VITE_REACT_APP_ADD_EMPLOYEE_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_ADD_EMPLOYEE_API;
     axios
-      .post(url, {
-        first_name: form.firstName,
-        last_name: form.lastName,
-        username: form.username,
-        password: form.password,
-        is_staff: form.task,
-      })
+      .post(
+        url,
+        {
+          first_name: form.firstName,
+          last_name: form.lastName,
+          username: form.username,
+          password: form.password,
+          is_staff: form.task,
+        },
+        {
+          headers: {
+            Authorization:
+              "Token " +
+              localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           setMessage(res.data);

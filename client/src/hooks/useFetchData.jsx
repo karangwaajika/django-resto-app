@@ -10,6 +10,12 @@ export default function useFetchData(url, refreshData) {
     axios
       .get(url, {
         cancelToken: cancelToken.token,
+
+        headers: {
+          Authorization:
+            "Token " +
+            localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+        },
       })
       .then((res) => {
         setData(res.data.data);

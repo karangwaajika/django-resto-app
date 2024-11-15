@@ -45,11 +45,21 @@ export default function AddMeal() {
       ? import.meta.env.VITE_REACT_APP_ADD_MEAL_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_ADD_MEAL_API;
     axios
-      .post(url, {
-        name: form.name,
-        price: form.price,
-        meal_type: form.meal_type,
-      })
+      .post(
+        url,
+        {
+          name: form.name,
+          price: form.price,
+          meal_type: form.meal_type,
+        },
+        {
+          headers: {
+            Authorization:
+              "Token " +
+              localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           setMessage(res.data);

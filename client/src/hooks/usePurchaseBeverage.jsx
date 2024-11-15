@@ -44,12 +44,22 @@ export default function usePurchaseBeverage() {
       ? import.meta.env.VITE_REACT_APP_PURCHASE_BEVERAGE_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_PURCHASE_BEVERAGE_API;
     axios
-      .post(url, {
-        qty: form.qty,
-        beverage: form.beverage,
-        price: form.price,
-        purchase_date: form.purchase_date,
-      })
+      .post(
+        url,
+        {
+          qty: form.qty,
+          beverage: form.beverage,
+          price: form.price,
+          purchase_date: form.purchase_date,
+        },
+        {
+          headers: {
+            Authorization:
+              "Token " +
+              localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           setMessage(res.data);

@@ -21,7 +21,13 @@ export default function useActivateEmployee(
       ? import.meta.env.VITE_REACT_APP_ACTIVATE_USER_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_ACTIVATE_USER_API;
     axios
-      .get(url + "/" + employeeId)
+      .get(url + "/" + employeeId, {
+        headers: {
+          Authorization:
+            "Token " +
+            localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+        },
+      })
       .then((res) => {
         // display response message
         employees.setMessage(res.data);

@@ -13,7 +13,13 @@ export default function useDeleteTea(tea, closeModal, teaIndex) {
       ? import.meta.env.VITE_REACT_APP_DELETE_TEA_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_DELETE_TEA_API;
     axios
-      .delete(url + "/" + tea.id)
+      .delete(url + "/" + tea.id, {
+        headers: {
+          Authorization:
+            "Token " +
+            localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+        },
+      })
       .then((res) => {
         teas.setMessage(res.data);
         teas.setData((oldData) => {

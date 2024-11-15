@@ -48,7 +48,17 @@ export default function useChangeEmployeePassword(
       ? import.meta.env.VITE_REACT_APP_CHANGE_PASSWORD_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_CHANGE_PASSWORD_API;
     axios
-      .post(url, { employeeId: employee.id, password: form.password })
+      .post(
+        url,
+        { employeeId: employee.id, password: form.password },
+        {
+          headers: {
+            Authorization:
+              "Token " +
+              localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+          },
+        }
+      )
       .then((res) => {
         // display response message
         employees.setMessage(res.data);

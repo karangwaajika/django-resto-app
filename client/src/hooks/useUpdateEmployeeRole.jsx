@@ -21,7 +21,13 @@ export default function useUpdateEmployeeRole(
       ? import.meta.env.VITE_REACT_APP_UPDATE_ROLE_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_UPDATE_ROLE_API;
     axios
-      .get(url + "/" + employeeId)
+      .get(url + "/" + employeeId, {
+        headers: {
+          Authorization:
+            "Token " +
+            localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+        },
+      })
       .then((res) => {
         // display response message
         employees.setMessage(res.data);

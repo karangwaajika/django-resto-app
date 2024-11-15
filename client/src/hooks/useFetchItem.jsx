@@ -19,6 +19,11 @@ export default function useFetchItem(url, search) {
           { search: search },
           {
             cancelToken: cancelToken.token,
+            headers: {
+              Authorization:
+                "Token " +
+                localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+            },
           }
         )
         .then((res) => {

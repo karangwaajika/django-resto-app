@@ -40,10 +40,20 @@ export default function useAddBeverageBrand(setBeverageRefresher) {
       ? import.meta.env.VITE_REACT_APP_ADD_BEVERAGE_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_ADD_BEVERAGE_API;
     axios
-      .post(url, {
-        name: brandForm.name,
-        beverage_type: brandForm.beverage_type,
-      })
+      .post(
+        url,
+        {
+          name: brandForm.name,
+          beverage_type: brandForm.beverage_type,
+        },
+        {
+          headers: {
+            Authorization:
+              "Token " +
+              localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           setBrandMessage(res.data);

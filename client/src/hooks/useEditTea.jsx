@@ -55,11 +55,21 @@ export default function useEditTea(tea, closeModal, teaIndex) {
       ? import.meta.env.VITE_REACT_APP_UPDATE_TEA_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_UPDATE_TEA_API;
     axios
-      .post(url + "/" + tea.id, {
-        name: form.name,
-        price: form.price,
-        tea_type: form.tea_type,
-      })
+      .post(
+        url + "/" + tea.id,
+        {
+          name: form.name,
+          price: form.price,
+          tea_type: form.tea_type,
+        },
+        {
+          headers: {
+            Authorization:
+              "Token " +
+              localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+          },
+        }
+      )
       .then((res) => {
         // display response message
         teas.setMessage(res.data);

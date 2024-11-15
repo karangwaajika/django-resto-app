@@ -62,6 +62,8 @@ def protect_page(request):
 
 
 @api_view(["POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def add_employee(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
@@ -88,6 +90,8 @@ def add_employee(request):
 
 
 @api_view(["POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def view_employees(request):
     search_fields = (
         Q(username__icontains=request.data["search"], is_superuser=False)
@@ -102,6 +106,8 @@ def view_employees(request):
 
 
 @api_view(["GET"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def update_role(request, employee_id):
     try:
         user = User.objects.get(pk=employee_id)
@@ -113,6 +119,8 @@ def update_role(request, employee_id):
 
 
 @api_view(["GET"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def activate_user(request, employee_id):
     try:
         user = User.objects.get(pk=employee_id)
@@ -124,6 +132,8 @@ def activate_user(request, employee_id):
 
 
 @api_view(["POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def change_password(request):
     try:
         user = User.objects.get(pk=request.data["employeeId"])

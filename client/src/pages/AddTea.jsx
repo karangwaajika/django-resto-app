@@ -45,11 +45,21 @@ export default function AddTea() {
       ? import.meta.env.VITE_REACT_APP_ADD_TEA_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_ADD_TEA_API;
     axios
-      .post(url, {
-        name: form.name,
-        price: form.price,
-        tea_type: form.tea_type,
-      })
+      .post(
+        url,
+        {
+          name: form.name,
+          price: form.price,
+          tea_type: form.tea_type,
+        },
+        {
+          headers: {
+            Authorization:
+              "Token " +
+              localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           setMessage(res.data);

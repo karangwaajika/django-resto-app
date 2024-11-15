@@ -68,14 +68,24 @@ export default function useRecordOrder(
       ? import.meta.env.VITE_REACT_APP_RECORD_ORDER_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_RECORD_ORDER_API;
     axios
-      .post(url, {
-        order_id: form.orderId,
-        order_type: form.orderType,
-        customer_name: form.customerName,
-        beverages: beverageRecords,
-        meals: mealRecords,
-        teas: teaRecords,
-      })
+      .post(
+        url,
+        {
+          order_id: form.orderId,
+          order_type: form.orderType,
+          customer_name: form.customerName,
+          beverages: beverageRecords,
+          meals: mealRecords,
+          teas: teaRecords,
+        },
+        {
+          headers: {
+            Authorization:
+              "Token " +
+              localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+          },
+        }
+      )
       .then((res) => {
         if (res.data.success) {
           setMessage(res.data);

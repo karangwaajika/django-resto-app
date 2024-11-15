@@ -13,7 +13,13 @@ export default function useDeleteMeal(beverage, closeModal, beverageIndex) {
       ? import.meta.env.VITE_REACT_APP_DELETE_BEVERAGE_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_DELETE_BEVERAGE_API;
     axios
-      .delete(url + "/" + beverage.beverage.id)
+      .delete(url + "/" + beverage.beverage.id, {
+        headers: {
+          Authorization:
+            "Token " +
+            localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+        },
+      })
       .then((res) => {
         beverages.setMessage(res.data);
         // remove beverage from the list and update it.

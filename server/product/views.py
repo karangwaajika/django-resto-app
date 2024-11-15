@@ -16,6 +16,8 @@ from django.db.models import Q
 
 
 @api_view(["POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def add_tea(request):
     tea_serializer = TeaSerializer(data=request.data)
     if tea_serializer.is_valid():
@@ -35,6 +37,8 @@ def add_tea(request):
 
 
 @api_view(["GET", "POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def view_teas(request):
     if request.method == "POST":
         search_fields = (
@@ -48,10 +52,12 @@ def view_teas(request):
 
     teas = Tea.objects.all().order_by("-id")
     tea_serializer = TeaSerializer(teas, many=True)
-    return Response({"success": True, "data": tea_serializer.data})
+    return Response({"success": True, "user": request.user,"data": tea_serializer.data})
 
 
 @api_view(["POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def update_tea(request, tea_id):
     try:
         tea = Tea.objects.get(pk=tea_id)
@@ -66,6 +72,8 @@ def update_tea(request, tea_id):
 
 
 @api_view(["DELETE"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def delete_tea(request, tea_id):
     try:
         tea = Tea.objects.get(pk=tea_id)
@@ -76,6 +84,8 @@ def delete_tea(request, tea_id):
 
 
 @api_view(["POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def add_meal(request):
     meal_serializer = MealSerializer(data=request.data)
     if meal_serializer.is_valid():
@@ -95,6 +105,8 @@ def add_meal(request):
 
 
 @api_view(["GET", "POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def view_meals(request):
     if request.method == "POST":
         search_fields = (
@@ -112,6 +124,8 @@ def view_meals(request):
 
 
 @api_view(["POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def update_meal(request, meal_id):
     try:
         meal = Meal.objects.get(pk=meal_id)
@@ -126,6 +140,8 @@ def update_meal(request, meal_id):
 
 
 @api_view(["DELETE"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def delete_meal(request, meal_id):
     try:
         meal = Meal.objects.get(pk=meal_id)
@@ -136,6 +152,8 @@ def delete_meal(request, meal_id):
 
 
 @api_view(["POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def add_beverage(request):
     beverage_serializer = BeverageSerializer(data=request.data)
     if beverage_serializer.is_valid():
@@ -148,6 +166,8 @@ def add_beverage(request):
 
 
 @api_view(["POST", "GET"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def purchase_beverage(request):
     if request.method == "POST":
         # if a beverage brand is already in the Stock, add qty to the old one and update price
@@ -177,6 +197,8 @@ def purchase_beverage(request):
 
 
 @api_view(["POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def view_beverages(request):
     search_fields = (
         Q(beverage__name__icontains=request.data["search"])
@@ -191,6 +213,8 @@ def view_beverages(request):
 
 
 @api_view(["POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def update_beverage(request, beverage_id):
     try:
         beverage = Beverage.objects.get(pk=beverage_id)
@@ -209,6 +233,8 @@ def update_beverage(request, beverage_id):
 
 
 @api_view(["DELETE"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def delete_beverage(request, beverage_id):
     try:
         beverage = Beverage.objects.get(pk=beverage_id)

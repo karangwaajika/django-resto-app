@@ -52,11 +52,21 @@ export default function useEditMeal(meal, closeModal, mealIndex) {
       ? import.meta.env.VITE_REACT_APP_UPDATE_MEAL_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_UPDATE_MEAL_API;
     axios
-      .post(url + "/" + meal.id, {
-        name: form.name,
-        price: form.price,
-        meal_type: form.meal_type,
-      })
+      .post(
+        url + "/" + meal.id,
+        {
+          name: form.name,
+          price: form.price,
+          meal_type: form.meal_type,
+        },
+        {
+          headers: {
+            Authorization:
+              "Token " +
+              localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+          },
+        }
+      )
       .then((res) => {
         // display response message
         meals.setMessage(res.data);

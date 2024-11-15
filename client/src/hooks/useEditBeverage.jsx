@@ -55,12 +55,22 @@ export default function useEditBeverage(beverage, closeModal, beverageIndex) {
       ? import.meta.env.VITE_REACT_APP_UPDATE_BEVERAGE_API_DEPLOY
       : import.meta.env.VITE_REACT_APP_UPDATE_BEVERAGE_API;
     axios
-      .post(url + "/" + beverage.beverage.id, {
-        name: form.name,
-        price: form.price,
-        beverage_type: form.beverage_type,
-        qty: form.qty,
-      })
+      .post(
+        url + "/" + beverage.beverage.id,
+        {
+          name: form.name,
+          price: form.price,
+          beverage_type: form.beverage_type,
+          qty: form.qty,
+        },
+        {
+          headers: {
+            Authorization:
+              "Token " +
+              localStorage.getItem(import.meta.env.VITE_REACT_APP_TOKEN),
+          },
+        }
+      )
       .then((res) => {
         // display response message
         beverages.setMessage(res.data);
