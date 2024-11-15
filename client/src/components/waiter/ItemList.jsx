@@ -62,6 +62,7 @@ function ItemList({
         return {
           ...oldForm,
           beverageName: item.beverage.name,
+          beverageId: item.beverage.id,
           beveragePrice: item.price,
         };
       });
@@ -71,6 +72,7 @@ function ItemList({
         return {
           ...oldForm,
           mealName: item.name,
+          mealId: item.id,
           mealPrice: item.price,
         };
       });
@@ -80,6 +82,7 @@ function ItemList({
         return {
           ...oldForm,
           teaName: item.name,
+          teaId: item.id,
           teaPrice: item.price,
         };
       });
