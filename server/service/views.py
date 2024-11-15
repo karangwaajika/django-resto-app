@@ -46,14 +46,14 @@ def record_order(request):
     dt_now = datetime.datetime.now(tz=pytz.UTC)
     date_today = dt_now.astimezone(pytz.timezone("Africa/Kigali"))
 
-    # insert order
-    # add_order = Order.objects.create(
-    #     employee=user,
-    #     customer_name=customer_name,
-    #     order_type=order_type,
-    #     date_time=date_today,
-    #     sold_date=date_today,
-    # )
+    #insert order
+    add_order = Order.objects.create(
+        employee=user,
+        customer_name=customer_name,
+        order_type=order_type,
+        date_time=date_today,
+        sold_date=date_today,
+    )
 
     order = Order.objects.last()
     if len(beverages) > 0:
@@ -99,6 +99,20 @@ def record_order(request):
                 plate_nbr=item.get("mealQty"),
                 price=item.get("mealPrice"),
                 total_meal=item.get("mealPrice") * item.get("mealQty"),
+                sold_date=date_today,
+            )
+
+    if len(teas):
+        for item in teas:
+            tea = Tea.objects.get(pk=item.get("teaId"))
+
+            # insert tea
+            TeaOrder.objects.create(
+                tea=tea,
+                order=order,
+                qty=item.get("teaQty"),
+                price=item.get("teaPrice"),
+                total_tea=item.get("teaPrice") * item.get("teaQty"),
                 sold_date=date_today,
             )
 
