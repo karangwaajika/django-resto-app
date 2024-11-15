@@ -7,6 +7,7 @@ import loadingImg from "/images/n-loading.gif";
 import useFetchAutoComplete from "../../hooks/useFetchAutoComplete";
 import useFetchItem from "../../hooks/useFetchItem";
 import ItemList from "./ItemList";
+import loaderPicture from "/images/loading-3.gif";
 
 function OrderForm({
   message,
@@ -62,6 +63,11 @@ function OrderForm({
           isSuccess={message.success}
           clearMessage={clearMessage}
         />
+      )}
+      {isLoading && (
+        <div className="loader-service">
+          <img src={loaderPicture} width={100} height={100} />
+        </div>
       )}
       {/* <form onSubmit={submitForm} > */}
       <div className="section-menus">
@@ -169,7 +175,7 @@ function OrderForm({
             value={props.teaForm.teaName}
             errorMessage={props.teaFieldError.teaName}
           />
-           {props.teaForm.teaName && (
+          {props.teaForm.teaName && (
             <ItemList
               setForm={props.setTeaForm}
               input={props.teaForm.teaName ? true : false}
@@ -239,28 +245,20 @@ function OrderForm({
             onChange={handleChange}
             errorfield={fieldError.orderType && "error-field"}
           >
-            <option value="1">Dine-in</option>
-            <option value="2">To-Go</option>
-            <option value="3">Online</option>
+            <option value={1}>Dine-in</option>
+            <option value={2}>To-Go</option>
+            <option value={3}>Online</option>
           </select>
           <span className="input-text">OrderType</span>
         </div>
       </div>
       <div className="order-buttons">
-        {isLoading ? (
-          <ButtonLoading
-            text="Submit"
-            className="btn-outline-service"
-            img={loadingImg}
-          />
-        ) : (
-          <Button
-            text="Record"
-            className="btn-outline-service"
-            name=""
-            onClick={submitForm}
-          />
-        )}
+        <Button
+          text="Record"
+          className="btn-outline-service"
+          name=""
+          onClick={submitForm}
+        />
 
         <Button text="New Bill" className="btn-outline-service" name="" />
       </div>

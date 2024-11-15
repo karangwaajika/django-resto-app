@@ -14,7 +14,7 @@ export default function useRecordOrder(
   const [form, setForm] = useState({
     orderId: "",
     customerName: "",
-    orderType: "",
+    orderType: 1,
   });
   // check records details
   let isRecordsEmpty = false;
@@ -38,7 +38,9 @@ export default function useRecordOrder(
     };
     const validatedFields = fieldValidation(inputFields);
     setFieldError(validatedFields);
-
+    if (isRecordsEmpty) {
+      setMessage({ status: false, message: "You haven't added any item !!!" });
+    }
     if (Object.keys(validatedFields).length == 0 && !isRecordsEmpty) {
       // submitForms();
       const x = {
@@ -49,6 +51,7 @@ export default function useRecordOrder(
         meals: mealRecords,
         teas: teaRecords,
       };
+      submitForms();
       console.log(x);
     }
   };
@@ -62,8 +65,8 @@ export default function useRecordOrder(
     setIsLoading(true);
     const isDevelopment = import.meta.env.MODE === "production";
     const url = isDevelopment
-      ? import.meta.env.VITE_REACT_APP_ADD_BEVERAGE_API_DEPLOY
-      : import.meta.env.VITE_REACT_APP_ADD_BEVERAGE_API;
+      ? import.meta.env.VITE_REACT_APP_RECORD_ORDER_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_RECORD_ORDER_API;
     axios
       .post(url, {
         order_id: form.orderId,
@@ -76,7 +79,6 @@ export default function useRecordOrder(
       .then((res) => {
         if (res.data.success) {
           setMessage(res.data);
-          setBeverageRefresher();
         } else {
           setMessage(res.data);
         }

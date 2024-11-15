@@ -368,21 +368,34 @@ button.btn-outline-service:active {
   margin-left: 20px;
 }
 /*  */
-.span{
+.span {
   border-radius: 2px;
   padding: 0px 3px;
   font-size: small;
   font-weight: bold;
-  
 }
-.span-div{
+.span-div {
   text-align: center;
 }
-.span-success{
+.span-success {
   background-color: green;
   color: white;
 }
-.span-danger{
+.span-danger {
   background-color: rgba(240, 25, 25, 0.986);
   color: white;
+}
+/* loader */
+/* loading image */
+.loader-service {
+  width: 30%;
+  position: absolute;
+  left: 25%;
+}
+.loader-service img {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.5;
+  border-radius: 80%;
 }
