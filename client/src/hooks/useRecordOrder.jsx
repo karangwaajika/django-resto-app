@@ -4,7 +4,8 @@ import fieldValidation from "../utils/fieldValidation.mjs";
 export default function useRecordOrder(
   beverageRecords,
   mealRecords,
-  teaRecords
+  teaRecords,
+  lastOrderId
 ) {
   const [message, setMessage] = useState();
   const clearMessage = () => {
@@ -32,7 +33,6 @@ export default function useRecordOrder(
     e.preventDefault();
 
     const inputFields = {
-      orderId: form.orderId,
       customerName: form.customerName,
       orderType: form.orderType,
     };
@@ -58,7 +58,7 @@ export default function useRecordOrder(
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((oldForm) => {
-      return { ...oldForm, [name]: value };
+      return { ...oldForm, [name]: value, orderId: lastOrderId };
     });
   };
   const submitForms = (e) => {
@@ -96,6 +96,7 @@ export default function useRecordOrder(
   return {
     fieldError,
     form,
+    setForm,
     handleChange,
     message,
     clearMessage,

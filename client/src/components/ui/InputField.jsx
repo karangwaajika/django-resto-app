@@ -11,6 +11,7 @@ export default function InputField({
   height,
   width,
   errorMessage,
+  readOnly
 }) {
   const inputWidth = width ? width : "100%";
   return (
@@ -31,6 +32,7 @@ export default function InputField({
           placeholder={placeholder}
           value={value}
           className="input-field"
+          readOnly={readOnly}
         />
         <span className="input-text">{label}</span>
       </div>

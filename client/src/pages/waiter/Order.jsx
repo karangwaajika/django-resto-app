@@ -5,6 +5,7 @@ import useRecordOrder from "../../hooks/useRecordOrder";
 import useRecordBeverage from "../../hooks/useRecordBeverage";
 import useRecordMeal from "../../hooks/useRecordMeal";
 import useRecordTea from "../../hooks/useRecordTea";
+import useFetchData from "../../hooks/useFetchData";
 function Order() {
   // beverage inputs
   const {
@@ -33,6 +34,14 @@ function Order() {
     addTea,
     setTeaForm,
   } = useRecordTea();
+
+  // get last order ID
+  const isDevelopment = import.meta.env.MODE === "production";
+  const url = isDevelopment
+    ? import.meta.env.VITE_REACT_APP_ORDER_ID_API_DEPLOY
+    : import.meta.env.VITE_REACT_APP_ORDER_ID_API;
+  const { data } = useFetchData(url);
+
   // order inputs
   const {
     fieldError,
@@ -42,7 +51,7 @@ function Order() {
     clearMessage,
     isLoading,
     validateSubmitForm,
-  } = useRecordOrder(beverageRecords, mealRecords, teaRecords);
+  } = useRecordOrder(beverageRecords, mealRecords, teaRecords, data.order_id);
 
   return (
     <section className="order">
@@ -71,6 +80,7 @@ function Order() {
           addTea={addTea}
           handleTeaChange={handleTeaChange}
           setTeaForm={setTeaForm}
+          orderId={data.order_id}
         />
         <Bill
           beverages={beverageRecords}

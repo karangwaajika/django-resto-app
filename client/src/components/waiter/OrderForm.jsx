@@ -56,7 +56,10 @@ function OrderForm({
 
   return (
     <aside className="form">
-      <h1 style={{ marginBottom: "30px", fontFamily: "cursive" }}>Order</h1>
+      <h1 style={{ marginBottom: "30px", fontFamily: "cursive" }}>
+        Order{" "}
+        <i className="span span-success">{props.orderId && props.orderId}</i>
+      </h1>
       {message && (
         <FlashMessage
           message={message.message}
@@ -219,7 +222,7 @@ function OrderForm({
           value={form.customerName}
           errorMessage={fieldError.customerName}
         />
-        <InputField
+        {/* <InputField
           type="number"
           name="orderId"
           id="bill"
@@ -231,7 +234,8 @@ function OrderForm({
           handleChange={handleChange}
           value={form.orderId}
           errorMessage={fieldError.orderId}
-        />
+          readOnly={true}
+        /> */}
 
         <div className={`input-group`}>
           <span className="input-icon">
@@ -263,6 +267,18 @@ function OrderForm({
         <Button text="New Bill" className="btn-outline-service" name="" />
       </div>
       {/* </form> */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontSize: "13px",
+          fontFamily: "cursive",
+        }}
+      >
+        <i>The current bill number is {props.orderId}</i>
+      </div>
     </aside>
   );
 }
