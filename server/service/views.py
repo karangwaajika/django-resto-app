@@ -88,6 +88,20 @@ def record_order(request):
                 sold_date=date_today,
             )
 
+    if len(meals):
+        for item in meals:
+            meal = Meal.objects.get(pk=item.get("mealId"))
+
+            # insert meal
+            MealOrder.objects.create(
+                meal=meal,
+                order=order,
+                plate_nbr=item.get("mealQty"),
+                price=item.get("mealPrice"),
+                total_meal=item.get("mealPrice") * item.get("mealQty"),
+                sold_date=date_today,
+            )
+
     return Response(
         {
             "success": True,
