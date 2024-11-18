@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "user.apps.UserConfig",
     "product.apps.ProductConfig",
     "service.apps.ServiceConfig",
+    "django_extensions",
 ]
 
 MIDDLEWARE = [
