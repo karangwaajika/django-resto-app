@@ -1,3 +1,5 @@
+from django.http import HttpResponse, JsonResponse
+from django.core import serializers
 from rest_framework.decorators import (
     api_view,
     authentication_classes,
@@ -173,25 +175,25 @@ def view_orders(request):
             )
         )
 
-        return Response({"success": True, "data": orders})
+        serializer = OrderSerializer(orders, many=True)
+        return Response({"success": True, "data": serializer.data})
 
-    orders = (
-        Order.objects.all()
-        .values("id", "customer_name", "date_time")
-        .annotate(
-            employee_fullname=employee_fullname,
-            total_tea=sum_tea,
-            total_meal=sum_meal,
-            total_beverage=sum_beverage,
-            overall_total=F("total_tea") + F("total_meal") + F("total_beverage"),
-            amount_paid=F("cash") + F("momo"),
-            amount_to_pay=Case(
-                When(
-                    overall_total__gt=F("amount_paid"),
-                    then=F("overall_total") - F("amount_paid"),
-                ),
-                default=F("overall_total"),
+    orders = Order.objects.all().annotate(
+        employee_fullname=employee_fullname,
+        total_tea=sum_tea,
+        total_meal=sum_meal,
+        total_beverage=sum_beverage,
+        overall_total=F("total_tea") + F("total_meal") + F("total_beverage"),
+        amount_paid=F("cash") + F("momo"),
+        amount_to_pay=Case(
+            When(
+                overall_total__gt=F("amount_paid"),
+                then=F("overall_total") - F("amount_paid"),
             ),
-        )
+            default=F("overall_total"),
+        ),
     )
-    return Response({"success": True, "data": orders})
+
+    serializer = OrderSerializer(orders, many=True)
+
+    return Response({"success": True, "data": serializer.data})
