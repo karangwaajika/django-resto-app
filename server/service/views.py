@@ -8,6 +8,7 @@ from rest_framework import status
 from .models import *
 from product.models import *
 from product.serializers import *
+from .serializers import *
 from user.models import *
 from user.serializers import *
 from rest_framework.authentication import SessionAuthentication, TokenAuthentication
@@ -15,6 +16,9 @@ from rest_framework.permissions import IsAuthenticated
 import datetime
 import pytz
 from .operation import *
+from django.db.models import Q, F, Case, When, CharField, Value
+from django.db.models.aggregates import Sum, Count
+from django.db.models.functions import Concat
 
 
 # Create your views here.
@@ -46,7 +50,7 @@ def record_order(request):
     dt_now = datetime.datetime.now(tz=pytz.UTC)
     date_today = dt_now.astimezone(pytz.timezone("Africa/Kigali"))
 
-    #insert order
+    # insert order
     add_order = Order.objects.create(
         employee=user,
         customer_name=customer_name,
@@ -122,3 +126,72 @@ def record_order(request):
             "message": "Order recorded successfully",
         }
     )
+
+
+@api_view(["GET", "POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def view_orders(request):
+    employee_fullname = Concat(
+        "employee__first_name",
+        Value(" "),
+        "employee__last_name",
+        output_field=CharField(),
+    )
+    sum_tea = Sum("order_teas__total_tea", default=0)
+    sum_beverage = Sum("order_beverages__total_beverage", default=0)
+    sum_meal = Sum("order_meals__total_meal", default=0)
+
+    if request.method == "POST":
+        # search inside order table and all items tables such as beverage, tea, and meal.
+        search_fields = (
+            Q(employee__first_name__icontains=request.data["search"])
+            | Q(employee__last_name__icontains=request.data["search"])
+            | Q(id__icontains=request.data["search"])
+            | Q(customer_name__icontains=request.data["search"])
+            | Q(order_teas__tea__name__icontains=request.data["search"])
+            | Q(order_beverages__beverage__name__icontains=request.data["search"])
+            | Q(order_meals__meal__name__icontains=request.data["search"])
+        )
+        orders = (
+            Order.objects.all()
+            .filter(search_fields)
+            .annotate(
+                employee_fullname=employee_fullname,
+                total_tea=sum_tea,
+                total_meal=sum_meal,
+                total_beverage=sum_beverage,
+                overall_total=F("total_tea") + F("total_meal") + F("total_beverage"),
+                amount_paid=F("cash") + F("momo"),
+                amount_to_pay=Case(
+                    When(
+                        overall_total__gt=F("amount_paid"),
+                        then=F("overall_total") - F("amount_paid"),
+                    ),
+                    default=F("overall_total"),
+                ),
+            )
+        )
+
+        return Response({"success": True, "data": orders})
+
+    orders = (
+        Order.objects.all()
+        .values("id", "customer_name", "date_time")
+        .annotate(
+            employee_fullname=employee_fullname,
+            total_tea=sum_tea,
+            total_meal=sum_meal,
+            total_beverage=sum_beverage,
+            overall_total=F("total_tea") + F("total_meal") + F("total_beverage"),
+            amount_paid=F("cash") + F("momo"),
+            amount_to_pay=Case(
+                When(
+                    overall_total__gt=F("amount_paid"),
+                    then=F("overall_total") - F("amount_paid"),
+                ),
+                default=F("overall_total"),
+            ),
+        )
+    )
+    return Response({"success": True, "data": orders})
