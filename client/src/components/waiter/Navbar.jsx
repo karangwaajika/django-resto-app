@@ -49,7 +49,7 @@ export default function Navbar() {
             )}
           </li>
           <li>
-            <NavLink to="/service/bill">Bill</NavLink>
+            <NavLink to="/service/orders">Bill</NavLink>
           </li>
           <li>
             <NavLink to="/service/service">Service</NavLink>

@@ -399,3 +399,35 @@ button.btn-outline-service:active {
   opacity: 0.5;
   border-radius: 80%;
 }
+/* table */
+section table.order-table {
+  border: 1px solid #c6cdc9;
+  font-size: 13px;
+}
+section table.order-table caption,
+section table.order-table th {
+  color: white;
+  border: 1px solid #c6ccc9;
+  background-color: #252928d2;
+}
+section table.order-table tr:nth-of-type(2n) {
+  border-top: 1px solid #c6ccc9;
+}
+section table.order-table tr:nth-of-type(2n):hover {
+  background-color: #eeebe8d2;
+}
+section table.order-table .far,
+section table.order-table .fa-regular,
+section table.order-table .fa {
+  font-size: 18px;
+}
+/* action buttons */
+.order-table .fa:hover {
+  cursor: pointer;
+}
+.order-table .fa:active {
+  color: white;
+}
+.order-table .fa-trash-can {
+  color: #aff5af;
+}

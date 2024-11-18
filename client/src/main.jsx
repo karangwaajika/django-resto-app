@@ -20,6 +20,7 @@ import Beverages from "./pages/waiter/Beverages.jsx";
 import Smoothies from "./pages/waiter/Smoothies.jsx";
 import Meal from "./pages/waiter/Meal.jsx";
 import Order from "./pages/waiter/Order.jsx";
+import ViewOrders from "./pages/waiter/ViewOrders.jsx";
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
           {
             path: "/service/service",
             element: <Order />,
+          },
+          {
+            path: "/service/orders",
+            element: <ViewOrders />,
           },
         ],
       },
