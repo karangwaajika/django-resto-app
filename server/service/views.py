@@ -156,7 +156,7 @@ def view_orders(request):
             | Q(order_meals__meal__name__icontains=request.data["search"])
         )
         orders = (
-            Order.objects.all()
+            Order.objects.all().order_by("-id")
             .filter(search_fields)
             .annotate(
                 employee_fullname=employee_fullname,
@@ -178,7 +178,7 @@ def view_orders(request):
         serializer = OrderSerializer(orders, many=True)
         return Response({"success": True, "data": serializer.data})
 
-    orders = Order.objects.all().annotate(
+    orders = Order.objects.all().order_by("-id").annotate(
         employee_fullname=employee_fullname,
         total_tea=sum_tea,
         total_meal=sum_meal,
