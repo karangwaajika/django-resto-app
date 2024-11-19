@@ -156,7 +156,8 @@ def view_orders(request):
             | Q(order_meals__meal__name__icontains=request.data["search"])
         )
         orders = (
-            Order.objects.all().order_by("-id")
+            Order.objects.all()
+            .order_by("-id")
             .filter(search_fields)
             .annotate(
                 employee_fullname=employee_fullname,
@@ -178,7 +179,48 @@ def view_orders(request):
         serializer = OrderSerializer(orders, many=True)
         return Response({"success": True, "data": serializer.data})
 
-    orders = Order.objects.all().order_by("-id").annotate(
+    orders = (
+        Order.objects.all()
+        .order_by("-id")
+        .annotate(
+            employee_fullname=employee_fullname,
+            total_tea=sum_tea,
+            total_meal=sum_meal,
+            total_beverage=sum_beverage,
+            overall_total=F("total_tea") + F("total_meal") + F("total_beverage"),
+            amount_paid=F("cash") + F("momo"),
+            amount_to_pay=Case(
+                When(
+                    overall_total__gt=F("amount_paid"),
+                    then=F("overall_total") - F("amount_paid"),
+                ),
+                default=F("overall_total"),
+            ),
+        )
+    )
+
+    serializer = OrderSerializer(orders, many=True)
+
+    return Response({"success": True, "data": serializer.data})
+
+
+@api_view(["GET", "POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def approve_bill(request, order_id):
+    if request.method == "POST":
+        pass
+
+    employee_fullname = Concat(
+        "employee__first_name",
+        Value(" "),
+        "employee__last_name",
+        output_field=CharField(),
+    )
+    sum_tea = Sum("order_teas__total_tea", default=0)
+    sum_beverage = Sum("order_beverages__total_beverage", default=0)
+    sum_meal = Sum("order_meals__total_meal", default=0)
+    order = Order.objects.filter(id=order_id).annotate(
         employee_fullname=employee_fullname,
         total_tea=sum_tea,
         total_meal=sum_meal,
@@ -194,6 +236,6 @@ def view_orders(request):
         ),
     )
 
-    serializer = OrderSerializer(orders, many=True)
+    order_serializer = OrderSerializer(order, many=True)
 
-    return Response({"success": True, "data": serializer.data})
+    return Response({"success": True, "data": order_serializer.data[0]})

@@ -1,6 +1,8 @@
 import { addComma } from "../../utils/addComma.mjs";
+import { useNavigate } from "react-router-dom";
 import { convertToDateTime } from "../../utils/dateFormat.mjs";
 export default function OrderTable({ orders }) {
+  const navigate = useNavigate()
   return (
     <table className="order-table">
       <thead>
@@ -57,7 +59,7 @@ export default function OrderTable({ orders }) {
                   )}
                 </td>
                 <td data-cell="Approve" style={{ textAlign: "center" }}>
-                  <i className="far fa-check-square text-success"></i>
+                  <i className="far fa-check-square text-success" onClick={()=>navigate(`/service/approve/${order.id}/bill`)}></i>
                 </td>
                 <td data-cell="Bill">
                   <i className="fa-regular fa-money-bill-1"></i>
