@@ -410,10 +410,10 @@ section table.order-table th {
   border: 1px solid #c6ccc9;
   background-color: #252928d2;
 }
-section table.order-table tr:nth-of-type(2n) {
+section table.order-table tr {
   border-top: 1px solid #c6ccc9;
 }
-section table.order-table tr:nth-of-type(2n):hover {
+section table.order-table tr:nth-of-type(2n) {
   background-color: #eeebe8d2;
 }
 section table.order-table .far,
@@ -422,12 +422,17 @@ section table.order-table .fa {
   font-size: 18px;
 }
 /* action buttons */
-.order-table .fa:hover {
+.order-table .fa:hover, .order-table .far:hover, .order-table .fa-regular:hover {
   cursor: pointer;
 }
-.order-table .fa:active {
+.order-table .fa:active, .order-table .far:active, .order-table .fa-regular:active {
   color: white;
 }
 .order-table .fa-trash-can {
   color: #aff5af;
+}
+.td-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

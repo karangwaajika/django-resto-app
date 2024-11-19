@@ -3,9 +3,9 @@ import FlashMessage from "../../components/ui/FlashMessage";
 import InputField from "../../components/ui/InputField";
 import loaderPicture from "/images/loading-3.gif";
 import useFetchAutoComplete from "../../hooks/useFetchAutoComplete";
-import OrderTable from "../../components/waiter/OrderTable";
+import WaiterOrderTable from "../../components/waiter/WaiterOrderTable";
 
-function ViewOrders() {
+function WaiterOrders() {
   const [search, setSearch] = useState("");
   const isDevelopment = import.meta.env.MODE === "production";
   const url = isDevelopment
@@ -23,7 +23,7 @@ function ViewOrders() {
   return (
     <section className="view-meal-content">
       <div className="meal-header">
-        <h2>List of all orders recorded by the waiters</h2>
+        <h2>List of My recorded orders</h2>
         <p style={{ fontSize: "14px" }}>
           Search by waiter, customer name, and menu items
         </p>
@@ -46,7 +46,7 @@ function ViewOrders() {
           handleChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <OrderTable orders={data}/>
+      <WaiterOrderTable orders={data}/>
       {isLoading && (
         <div className="loader">
           <img src={loaderPicture} width={100} height={100} />
@@ -56,4 +56,4 @@ function ViewOrders() {
   );
 }
 
-export default ViewOrders;
+export default WaiterOrders;

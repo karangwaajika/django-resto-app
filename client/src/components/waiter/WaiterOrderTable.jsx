@@ -1,6 +1,6 @@
 import { addComma } from "../../utils/addComma.mjs";
 import { convertToDateTime } from "../../utils/dateFormat.mjs";
-export default function OrderTable({ orders }) {
+export default function WaiterOrderTable({ orders }) {
   return (
     <table className="order-table">
       <thead>
@@ -11,9 +11,7 @@ export default function OrderTable({ orders }) {
           <th>Waiter</th>
           <th>Amount To Pay</th>
           <th>Status</th>
-          <th>Approve Payment</th>
-          <th>Bill</th>
-          <th>Edit</th>
+          <th>Re-order</th>
         </tr>
       </thead>
       <tbody>
@@ -24,7 +22,7 @@ export default function OrderTable({ orders }) {
                 <td data-cell="#">{index + 1}</td>
                 <td data-cell="Date" className="td-row">
                   <div>{convertToDateTime(order.created_at)}</div>
-                   <div>Code: {order.id}</div>
+                  <div>Code: {order.id}</div>
                 </td>
                 <td data-cell="Client">{order.customer_name}</td>
                 <td data-cell="Waiter">{order.employee_fullname}</td>
@@ -32,11 +30,8 @@ export default function OrderTable({ orders }) {
                 <td data-cell="Status">
                   {order.is_paid ? (
                     <div
-                      className="span"
+                      className="span td-row"
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
                         fontWeight: 400,
                       }}
                     >
@@ -44,11 +39,8 @@ export default function OrderTable({ orders }) {
                     </div>
                   ) : (
                     <div
-                      className="span"
+                      className="span td-row"
                       style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
                         fontWeight: 400,
                       }}
                     >
@@ -57,13 +49,7 @@ export default function OrderTable({ orders }) {
                   )}
                 </td>
                 <td data-cell="Approve" style={{ textAlign: "center" }}>
-                  <i className="far fa-check-square text-success"></i>
-                </td>
-                <td data-cell="Bill">
-                  <i className="fa-regular fa-money-bill-1"></i>
-                </td>
-                <td data-cell="Edit">
-                  <i className="fa fa-pen-to-square text-primary"></i>
+                  <i className="fa fa-repeat text-success"></i>
                 </td>
               </tr>
             );

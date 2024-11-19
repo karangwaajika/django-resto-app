@@ -52,10 +52,10 @@ export default function Navbar() {
             <NavLink to="/service/orders">Bill</NavLink>
           </li>
           <li>
-            <NavLink to="/service/service">Service</NavLink>
+            <NavLink to="/service/service">Record Order</NavLink>
           </li>
           <li>
-            <NavLink to="/service/reorder">Re-order</NavLink>
+            <NavLink to="/service/my-services">My services</NavLink>
           </li>
         </ul>
       </div>
