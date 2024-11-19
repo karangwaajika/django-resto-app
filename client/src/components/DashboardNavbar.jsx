@@ -27,7 +27,7 @@ export default function DashboardNavbar() {
       <ul className="right-ul"></ul>
       <div className="profile">
         <div className="name">
-          <h5>{user.email}</h5>
+          <h5>{user.email && user.email}</h5>
         </div>
         <div className="caret-down" onClick={() => handleModal("profile")}>
           <i className="fa fa-caret-down"></i>

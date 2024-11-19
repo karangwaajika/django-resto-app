@@ -63,7 +63,10 @@ export default function Navbar() {
         {formatToDateString(date)}
       </div>
       <div className="right-info">
-        <div className="name">{user.first_name + " " + user.last_name}</div>
+        <div className="name">
+          {user.first_name && user.first_name}{" "}
+          {user.last_name && user.last_name}
+        </div>
 
         <Link
           to="#"

@@ -48,7 +48,7 @@ function WaiterOrders() {
       </div>
       <WaiterOrderTable orders={data}/>
       {isLoading && (
-        <div className="loader">
+        <div className="loader-service">
           <img src={loaderPicture} width={100} height={100} />
         </div>
       )}

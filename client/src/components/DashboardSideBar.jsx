@@ -14,10 +14,13 @@ export default function DashboardSideBar() {
             height={200}
           />
           <figcaption style={{ color: "white" }}>
-            {user.first_name + " " + user.last_name}
+            {user.first_name && user.first_name}{" "}
+            {user.last_name && user.last_nam}
           </figcaption>
         </figure>
-        <p>{user.first_name + " " + user.email}</p>
+        <p>
+          {user.first_name && user.first_name} {user.email && user.email}
+        </p>
       </article>
 
       <nav>

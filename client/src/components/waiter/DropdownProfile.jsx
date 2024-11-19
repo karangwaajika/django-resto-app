@@ -14,14 +14,17 @@ export default function DropdownProfile({ closeModal, animate, user, logout }) {
               width={200}
               height={200}
             />
-            <figcaption>{user.first_name + " " + user.last_name}</figcaption>
+            <figcaption>
+              {user.first_name && user.first_name}{" "}
+              {user.last_name && user.last_name}
+            </figcaption>
           </figure>
           <p>{user.email ? user.email : "no-email@gmail.com"}</p>
         </article>
       </div>
       <div className="buttons">
         <Button text="Update" className="btn-light" />
-        <Button text="Logout" className="btn-dark" onClick={logout}/>
+        <Button text="Logout" className="btn-dark" onClick={logout} />
       </div>
     </div>
   );

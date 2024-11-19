@@ -14,7 +14,10 @@ export default function Dropdown({ closeModal, animate, user, logout }) {
               width={200}
               height={200}
             />
-            <figcaption>{user.first_name + " " + user.last_name}</figcaption>
+            <figcaption>
+              {user.first_name && user.first_name}{" "}
+              {user.last_name && user.last_name}
+            </figcaption>
           </figure>
           <p>{user.email ? user.email : "no-email@gmail.com"}</p>
         </article>
