@@ -53,7 +53,7 @@ def record_order(request):
     date_today = dt_now.astimezone(pytz.timezone("Africa/Kigali"))
 
     # insert order
-    add_order = Order.objects.create(
+    Order.objects.create(
         employee=user,
         customer_name=customer_name,
         order_type=order_type,

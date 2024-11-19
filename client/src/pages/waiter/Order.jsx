@@ -15,6 +15,7 @@ function Order() {
     handleBeverageChange,
     addBeverage,
     setBeverageForm,
+    setBeverageRecords,
   } = useRecordBeverage();
   // meal inputs
   const {
@@ -24,6 +25,7 @@ function Order() {
     addMeal,
     handleMealChange,
     setMealForm,
+    setMealRecords,
   } = useRecordMeal();
   // smoothy input
   const {
@@ -33,6 +35,7 @@ function Order() {
     handleTeaChange,
     addTea,
     setTeaForm,
+    setTeaRecords,
   } = useRecordTea();
 
   // get last order ID
@@ -40,7 +43,7 @@ function Order() {
   const url = isDevelopment
     ? import.meta.env.VITE_REACT_APP_ORDER_ID_API_DEPLOY
     : import.meta.env.VITE_REACT_APP_ORDER_ID_API;
-  const { data } = useFetchData(url);
+  const { setData, data } = useFetchData(url);
 
   // order inputs
   const {
@@ -51,7 +54,16 @@ function Order() {
     clearMessage,
     isLoading,
     validateSubmitForm,
-  } = useRecordOrder(beverageRecords, mealRecords, teaRecords, data.order_id);
+  } = useRecordOrder(
+    beverageRecords,
+    mealRecords,
+    teaRecords,
+    data.order_id,
+    setData,
+    setBeverageRecords,
+    setMealRecords,
+    setTeaRecords
+  );
 
   return (
     <section className="order">

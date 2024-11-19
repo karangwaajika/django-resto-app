@@ -5,7 +5,11 @@ export default function useRecordOrder(
   beverageRecords,
   mealRecords,
   teaRecords,
-  lastOrderId
+  lastOrderId,
+  setData,
+  setBeverageRecords,
+  setMealRecords,
+  setTeaRecords
 ) {
   const [message, setMessage] = useState();
   const clearMessage = () => {
@@ -89,6 +93,21 @@ export default function useRecordOrder(
       .then((res) => {
         if (res.data.success) {
           setMessage(res.data);
+
+          // clear Form
+          setForm({
+            orderId: "",
+            customerName: "",
+            orderType: 1,
+          });
+
+          // update bill number
+          setData({ order_id: lastOrderId + 1 });
+
+          // clear items
+          setBeverageRecords([]);
+          setMealRecords([]);
+          setTeaRecords([]);
         } else {
           setMessage(res.data);
         }

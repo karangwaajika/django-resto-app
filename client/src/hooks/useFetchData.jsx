@@ -34,5 +34,5 @@ export default function useFetchData(url, refreshData) {
     };
   }, [refreshData]);
 
-  return { data, isLoading, message };
+  return { setData, data, isLoading, message };
 }

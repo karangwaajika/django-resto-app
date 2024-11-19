@@ -390,7 +390,7 @@ button.btn-outline-service:active {
 .loader-service {
   width: 30%;
   position: absolute;
-  left: 35%;
+  left: 30%;
   top: 25%;
 }
 .loader-service img {

@@ -51,5 +51,6 @@ export default function useRecordMeal() {
     handleMealChange,
     addMeal,
     setMealForm,
+    setMealRecords
   };
 }

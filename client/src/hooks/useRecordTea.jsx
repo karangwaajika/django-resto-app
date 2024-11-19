@@ -54,5 +54,6 @@ export default function useRecordTea() {
     handleTeaChange,
     setTeaForm,
     addTea,
+    setTeaRecords
   };
 }
