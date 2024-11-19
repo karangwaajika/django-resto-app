@@ -40,6 +40,7 @@ export default function useRecordMeal() {
           mealRecords.push(mealForm);
         }
       }
+      setMealForm({ mealName: "", mealQty: 0 });
     }
   };
 

@@ -42,6 +42,11 @@ export default function useRecordBeverage() {
           beverageRecords.push(beverageForm);
         }
       }
+      setBeverageForm({
+        beverageName: "",
+        beverageQty: 0,
+        beveragePrice: 0,
+      });
     }
   };
 
