@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import FlashMessage from "../../components/ui/FlashMessage";
 import InputField from "../../components/ui/InputField";
 import loaderPicture from "/images/loading-3.gif";
@@ -46,7 +46,7 @@ function ViewOrders() {
           handleChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <OrderTable orders={data}/>
+      <OrderTable orders={data} />
       {isLoading && (
         <div className="loader-service">
           <img src={loaderPicture} width={100} height={100} />

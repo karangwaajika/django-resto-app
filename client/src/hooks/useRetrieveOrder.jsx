@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-export default function useFetchData(url) {
-  const [data, setData] = useState({});
+export default function useRetrieveOrder(url) {
+  const [data, setData] = useState({
+    order: {},
+    beverages: [],
+    teas: [],
+    meals: [],
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   useEffect(() => {
@@ -19,7 +24,7 @@ export default function useFetchData(url) {
       })
       .then((res) => {
         setData(res.data.data);
-        console.log(res.data.data)
+        console.log(res.data.data);
       })
       .catch((err) => {
         setMessage({

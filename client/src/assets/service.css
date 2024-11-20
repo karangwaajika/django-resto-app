@@ -442,20 +442,21 @@ section table.order-table .fa {
   align-items: center;
 }
 /* approve bill */
-section.approve-bill{
+section.approve-bill {
   display: flex;
   justify-content: space-between;
-  padding: 0 50px;
-  gap:20px
-  
+  padding: 0 150px;
+  gap: 20px;
 }
-aside.form-section{
-  
+aside.form-section {
   flex-grow: 1;
   width: 300px;
   padding: 20px;
 }
-aside.order-info{
-  
-  flex-grow: 1;
+aside.order-info {
+  width: 250px;
+}
+.loading-page{
+  height: 18px;
+  background-color: #f4f5f2;
 }

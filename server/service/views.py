@@ -220,22 +220,45 @@ def approve_bill(request, order_id):
     sum_tea = Sum("order_teas__total_tea", default=0)
     sum_beverage = Sum("order_beverages__total_beverage", default=0)
     sum_meal = Sum("order_meals__total_meal", default=0)
-    order = Order.objects.filter(id=order_id).annotate(
-        employee_fullname=employee_fullname,
-        total_tea=sum_tea,
-        total_meal=sum_meal,
-        total_beverage=sum_beverage,
-        overall_total=F("total_tea") + F("total_meal") + F("total_beverage"),
-        amount_paid=F("cash") + F("momo"),
-        amount_to_pay=Case(
-            When(
-                overall_total__gt=F("amount_paid"),
-                then=F("overall_total") - F("amount_paid"),
+    order = (
+        Order.objects.filter(id=order_id)
+        .prefetch_related("order_teas", "order_beverages", "order_meals")
+        .annotate(
+            employee_fullname=employee_fullname,
+            total_tea=sum_tea,
+            total_meal=sum_meal,
+            total_beverage=sum_beverage,
+            overall_total=F("total_tea") + F("total_meal") + F("total_beverage"),
+            amount_paid=F("cash") + F("momo"),
+            amount_to_pay=Case(
+                When(
+                    overall_total__gt=F("amount_paid"),
+                    then=F("overall_total") - F("amount_paid"),
+                ),
+                default=F("overall_total"),
             ),
-            default=F("overall_total"),
-        ),
+        )
     )
-
     order_serializer = OrderSerializer(order, many=True)
+    order = order[0]
+    # fetch assocaited tea
+    tea_order = order.order_teas.all()
+    tea_serializer = TeaOrderSerializer(tea_order, many=True)
+    # associated beverages
+    beverage_order = order.order_beverages.all()
+    beverage_serializer = BeverageOrderSerializer(beverage_order, many=True)
+    # associated meals
+    meal_order = order.order_meals.all()
+    meal_serializer = MealOrderSerializer(meal_order, many=True)
 
-    return Response({"success": True, "data": order_serializer.data[0]})
+    return Response(
+        {
+            "success": True,
+            "data": {
+                "order": order_serializer.data[0],
+                "teas": tea_serializer.data,
+                "beverages": beverage_serializer.data,
+                "meals": meal_serializer.data,
+            },
+        }
+    )
