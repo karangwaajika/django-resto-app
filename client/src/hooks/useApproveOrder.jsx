@@ -33,7 +33,7 @@ export default function useApproveOrder(
     const validatedFields = fieldValidation(inputFields);
     setFieldError(validatedFields);
     let isFormValide = true;
-    if (form.cash == 0 && form.momo == 0) {
+    if (form.cash == 0 && form.momo == 0 && !(form.comment.trim())) {
       isFormValide = false;
       setMessage({ status: false, message: "You didn't set amount!" });
     }

@@ -180,6 +180,14 @@ def approve_bill(request, order_id):
         order.cash += int(cash)
         order.momo += int(momo)
 
+        if cash == 0 and momo == 0:
+            return Response(
+                {
+                    "success": True,
+                    "message": "Comment's recorded successfuly",
+                }
+            )
+
         if order.cash + order.momo < order.overall_total:
             order.customer_name = customer_name
             order.comment = comment
