@@ -19,7 +19,7 @@ import datetime
 import pytz
 from .operation import *
 from django.db.models import Q, F, Case, When, CharField, Value
-from django.db.models.aggregates import Sum, Count
+from django.db.models.aggregates import Count, Sum
 from django.db.models.functions import Concat
 
 
@@ -209,8 +209,58 @@ def view_orders(request):
 @permission_classes([IsAuthenticated])
 def approve_bill(request, order_id):
     if request.method == "POST":
-        pass
+        momo, cash, customer_name, comment = request.data.values()
 
+        order = Order.objects.get(pk=order_id)
+
+        total_sum_beverages = BeverageOrder.objects.filter(order=order).aggregate(
+            sum=Sum("total_beverage")
+        )
+        total_sum_teas = TeaOrder.objects.filter(order=order).aggregate(
+            sum=Sum("total_tea")
+        )
+        total_sum_meals = MealOrder.objects.filter(order=order).aggregate(
+            sum=Sum("total_meal")
+        )
+        sum_beverage = (
+            total_sum_beverages.get("sum") if total_sum_beverages.get("sum") else 0
+        )
+        sum_meal = total_sum_meals.get("sum") if total_sum_meals.get("sum") else 0
+        sum_tea = total_sum_teas.get("sum") if total_sum_teas.get("sum") else 0
+        total_sum = sum_tea + sum_meal + sum_beverage
+
+        order.cash += int(cash)
+        order.momo += int(momo)
+        print(order.cash, order.momo, total_sum)
+        if order.cash + order.momo < total_sum:
+            order.customer_name = customer_name
+            order.comment = comment
+            order.save()
+
+            return Response(
+                {
+                    "success": False,
+                    "message": "Paid but Still in debt",
+                }
+            )
+        if order.cash + order.momo > total_sum:
+            return Response(
+                {
+                    "success": False,
+                    "message": "Amount is greater than expected",
+                }
+            )
+        order.customer_name = customer_name
+        order.comment = comment
+        order.is_paid = True
+        order.save()
+
+        return Response(
+            {
+                "success": True,
+                "message": "Approved Payment Successfuly",
+            }
+        )
     employee_fullname = Concat(
         "employee__first_name",
         Value(" "),

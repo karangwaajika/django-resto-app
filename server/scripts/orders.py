@@ -5,7 +5,7 @@ from django.db.models.aggregates import Sum, Count
 from django.db.models.functions import Concat
 
 
-def run():
+def okay():
     employee_fullname = Concat(
         "employee__first_name",
         Value(" "),
@@ -38,3 +38,10 @@ def run():
     print(orders)
     print("\n")
     print(connection.queries)
+
+
+def run():
+    order = Order.objects.get(pk = 7)
+    sum_beverage = BeverageOrder.objects.filter(order = order).aggregate(sum = Sum('total_beverage'))
+    
+    print(sum_beverage)    

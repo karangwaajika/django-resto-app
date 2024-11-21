@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-export default function useRetrieveOrder(url) {
+export default function useRetrieveOrder(url, isRefresh) {
   const [data, setData] = useState({
     order: {},
     beverages: [],
@@ -9,6 +9,9 @@ export default function useRetrieveOrder(url) {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const clearMessage = () => {
+    setMessage();
+  };
   useEffect(() => {
     const cancelToken = axios.CancelToken.source();
     setIsLoading(true);
@@ -38,7 +41,7 @@ export default function useRetrieveOrder(url) {
     return () => {
       cancelToken.cancel();
     };
-  }, []);
+  }, [isRefresh]);
 
-  return { setData, data, isLoading, message };
+  return { setData, data, isLoading, message, clearMessage, setMessage };
 }
