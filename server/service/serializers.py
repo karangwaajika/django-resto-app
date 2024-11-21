@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import *
-from product.serializers import * 
+from product.serializers import *
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    employee_fullname = serializers.CharField()
+
     total_tea = serializers.IntegerField()
     total_meal = serializers.IntegerField()
     total_beverage = serializers.IntegerField()
@@ -16,19 +16,26 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = "__all__"
 
+
 class TeaOrderSerializer(serializers.ModelSerializer):
     tea = TeaSerializer()
+
     class Meta:
         model = TeaOrder
         fields = "__all__"
+
+
 class BeverageOrderSerializer(serializers.ModelSerializer):
     beverage = BeverageSerializer()
+
     class Meta:
         model = BeverageOrder
         fields = "__all__"
+
+
 class MealOrderSerializer(serializers.ModelSerializer):
     meal = MealSerializer()
+
     class Meta:
         model = MealOrder
         fields = "__all__"
-    

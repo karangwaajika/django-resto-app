@@ -134,17 +134,8 @@ def record_order(request):
 @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def view_orders(request):
-    employee_fullname = Concat(
-        "employee__first_name",
-        Value(" "),
-        "employee__last_name",
-        output_field=CharField(),
-    )
-    sum_tea = Sum("order_teas__total_tea", default=0)
-    sum_beverage = Sum("order_beverages__total_beverage", default=0)
-    sum_meal = Sum("order_meals__total_meal", default=0)
 
-    if request.method == "POST":
+    if request.method == "POST" and request.data["search"]:
         # search inside order table and all items tables such as beverage, tea, and meal.
         search_fields = (
             Q(employee__first_name__icontains=request.data["search"])
@@ -156,23 +147,10 @@ def view_orders(request):
             | Q(order_meals__meal__name__icontains=request.data["search"])
         )
         orders = (
-            Order.objects.all()
+            Order.objects.filter(search_fields)
             .order_by("-id")
-            .filter(search_fields)
-            .annotate(
-                employee_fullname=employee_fullname,
-                total_tea=sum_tea,
-                total_meal=sum_meal,
-                total_beverage=sum_beverage,
-                overall_total=F("total_tea") + F("total_meal") + F("total_beverage"),
-                amount_paid=F("cash") + F("momo"),
-                amount_to_pay=Case(
-                    When(
-                        overall_total__gt=F("amount_paid"),
-                        then=F("overall_total") - F("amount_paid"),
-                    ),
-                    default=F("overall_total"),
-                ),
+            .prefetch_related(
+                "order_teas", "order_beverages", "order_meals", "employee"
             )
         )
 
@@ -182,21 +160,7 @@ def view_orders(request):
     orders = (
         Order.objects.all()
         .order_by("-id")
-        .annotate(
-            employee_fullname=employee_fullname,
-            total_tea=sum_tea,
-            total_meal=sum_meal,
-            total_beverage=sum_beverage,
-            overall_total=F("total_tea") + F("total_meal") + F("total_beverage"),
-            amount_paid=F("cash") + F("momo"),
-            amount_to_pay=Case(
-                When(
-                    overall_total__gt=F("amount_paid"),
-                    then=F("overall_total") - F("amount_paid"),
-                ),
-                default=F("overall_total"),
-            ),
-        )
+        .prefetch_related("order_teas", "order_beverages", "order_meals")
     )
 
     serializer = OrderSerializer(orders, many=True)
@@ -209,30 +173,14 @@ def view_orders(request):
 @permission_classes([IsAuthenticated])
 def approve_bill(request, order_id):
     if request.method == "POST":
-        momo, cash, customer_name, comment = request.data.values()
+        cash, momo, customer_name, comment = request.data.values()
 
         order = Order.objects.get(pk=order_id)
 
-        total_sum_beverages = BeverageOrder.objects.filter(order=order).aggregate(
-            sum=Sum("total_beverage")
-        )
-        total_sum_teas = TeaOrder.objects.filter(order=order).aggregate(
-            sum=Sum("total_tea")
-        )
-        total_sum_meals = MealOrder.objects.filter(order=order).aggregate(
-            sum=Sum("total_meal")
-        )
-        sum_beverage = (
-            total_sum_beverages.get("sum") if total_sum_beverages.get("sum") else 0
-        )
-        sum_meal = total_sum_meals.get("sum") if total_sum_meals.get("sum") else 0
-        sum_tea = total_sum_teas.get("sum") if total_sum_teas.get("sum") else 0
-        total_sum = sum_tea + sum_meal + sum_beverage
-
         order.cash += int(cash)
         order.momo += int(momo)
-        print(order.cash, order.momo, total_sum)
-        if order.cash + order.momo < total_sum:
+
+        if order.cash + order.momo < order.overall_total:
             order.customer_name = customer_name
             order.comment = comment
             order.save()
@@ -243,7 +191,7 @@ def approve_bill(request, order_id):
                     "message": "Paid but Still in debt",
                 }
             )
-        if order.cash + order.momo > total_sum:
+        if order.cash + order.momo > order.overall_total:
             return Response(
                 {
                     "success": False,
@@ -267,30 +215,18 @@ def approve_bill(request, order_id):
         "employee__last_name",
         output_field=CharField(),
     )
-    sum_tea = Sum("order_teas__total_tea", default=0)
-    sum_beverage = Sum("order_beverages__total_beverage", default=0)
-    sum_meal = Sum("order_meals__total_meal", default=0)
+
     order = (
-        Order.objects.filter(id=order_id)
-        .prefetch_related("order_teas", "order_beverages", "order_meals")
+        Order.objects.prefetch_related(
+            "order_teas", "order_beverages", "order_meals", "employee"
+        )
         .annotate(
             employee_fullname=employee_fullname,
-            total_tea=sum_tea,
-            total_meal=sum_meal,
-            total_beverage=sum_beverage,
-            overall_total=F("total_tea") + F("total_meal") + F("total_beverage"),
-            amount_paid=F("cash") + F("momo"),
-            amount_to_pay=Case(
-                When(
-                    overall_total__gt=F("amount_paid"),
-                    then=F("overall_total") - F("amount_paid"),
-                ),
-                default=F("overall_total"),
-            ),
         )
+        .get(pk=order_id)
     )
-    order_serializer = OrderSerializer(order, many=True)
-    order = order[0]
+
+    order_serializer = OrderSerializer(order)
     # fetch assocaited tea
     tea_order = order.order_teas.all()
     tea_serializer = TeaOrderSerializer(tea_order, many=True)
@@ -305,7 +241,7 @@ def approve_bill(request, order_id):
         {
             "success": True,
             "data": {
-                "order": order_serializer.data[0],
+                "order": order_serializer.data,
                 "teas": tea_serializer.data,
                 "beverages": beverage_serializer.data,
                 "meals": meal_serializer.data,

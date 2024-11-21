@@ -181,19 +181,22 @@ export default function fieldValidation({
     }
   }
   // approve order form
-
-  if (arg.momo !== 0) {
-    if (arg.teaQty < 0) {
-      errorsValidation.momo = "no negative number";
-    } else if (!/^[0-9]+$/.test(arg.momo)) {
-      errorsValidation.momo = "Only digits are allowed";
+  if (arg.momo !== undefined) {
+    if (arg.momo !== 0) {
+      if (arg.teaQty < 0) {
+        errorsValidation.momo = "no negative number";
+      } else if (!/^[0-9]+$/.test(arg.momo)) {
+        errorsValidation.momo = "Only digits are allowed";
+      }
     }
   }
-  if (arg.cash !== 0) {
-    if (arg.teaQty < 0) {
-      errorsValidation.cash = "no negative number";
-    } else if (!/^[0-9]+$/.test(arg.cash)) {
-      errorsValidation.cash = "Only digits are allowed";
+  if (arg.cash) {
+    if (arg.cash !== 0) {
+      if (arg.teaQty < 0) {
+        errorsValidation.cash = "no negative number";
+      } else if (!/^[0-9]+$/.test(arg.cash)) {
+        errorsValidation.cash = "Only digits are allowed";
+      }
     }
   }
 

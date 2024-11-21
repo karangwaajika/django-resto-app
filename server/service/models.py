@@ -27,6 +27,38 @@ class Order(models.Model):
     def __str__(self):
         return self.customer_name
 
+    @property
+    def total_tea(self):
+        teas = self.order_teas.all()
+        total = sum([item.total_tea for item in teas])
+        return total
+
+    @property
+    def total_beverage(self):
+        beverages = self.order_beverages.all()
+        total = sum([item.total_beverage for item in beverages])
+        return total
+
+    @property
+    def total_meal(self):
+        meals = self.order_meals.all()
+        total = sum([item.total_meal for item in meals])
+        return total
+
+    @property
+    def overall_total(self):
+        return self.total_meal + self.total_beverage + self.total_tea
+
+    @property
+    def amount_paid(self):
+        return self.cash + self.momo
+
+    @property
+    def amount_to_pay(self):
+        if self.overall_total > self.amount_paid:
+            return self.overall_total - self.amount_paid
+        return self.overall_total
+
 
 class TeaOrder(models.Model):
     tea = models.ForeignKey(
