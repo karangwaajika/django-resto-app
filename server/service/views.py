@@ -148,10 +148,7 @@ def view_orders(request):
             Q(employee__first_name__icontains=request.data["search"])
             | Q(employee__last_name__icontains=request.data["search"])
             | Q(id__icontains=request.data["search"])
-            | Q(customer_name__icontains=request.data["search"])
-            | Q(order_teas__tea__name__icontains=request.data["search"])
-            | Q(order_beverages__beverage__name__icontains=request.data["search"])
-            | Q(order_meals__meal__name__icontains=request.data["search"])
+            | Q(customer_name__icontains=request.data["search"])    
         )
         orders = (
             Order.objects.filter(search_fields)
