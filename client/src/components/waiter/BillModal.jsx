@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import { addComma } from "../../utils/addComma.mjs";
 import { Link } from "react-router-dom";
+import { useReactToPrint } from "react-to-print";
+import Button from "../ui/Button";
 
 function BillModal({
   beverages,
@@ -11,24 +13,37 @@ function BillModal({
   animate,
   orderIndex,
 }) {
+  const contentRef = useRef();
+  const reactToPrintFn = useReactToPrint({ contentRef });
   return (
     <div className={`modal ${animate}`}>
+      <div></div>
       <div className="modal-content" style={{ width: "300px" }}>
         <div className="modal-header">
           <h2 style={{ fontFamily: "cursive" }}>L&#128514;L Bar-Resto Bill</h2>
-          <div
-            className="modal-close-button"
-            onClick={() =>
-              closeModal(orderIndex, beverages, meals, teas, billTotal)
-            }
-          >
-            <i className="fa fa-rectangle-xmark"></i>
+          <div className="modal-close-button">
+            <i
+              className="fa fa-rectangle-xmark"
+              onClick={() => {
+                return closeModal(
+                  orderIndex,
+                  beverages,
+                  meals,
+                  teas,
+                  billTotal
+                );
+              }}
+            ></i>
+            <i
+              className="fa fa-print"
+              onClick={reactToPrintFn}
+            ></i>
           </div>
         </div>
-        <div className="modal-body">
+        <div className="modal-body" ref={contentRef}>
           <aside className="card order-info">
             <div className="card-header">
-              <div style={{ fontFamily: "cursive" }}>Order Records</div>
+              <div style={{ fontFamily: "cursive" }}>Bill Records</div>
             </div>
             <div
               className="card-header"
@@ -41,9 +56,9 @@ function BillModal({
                   Social Media{" "}
                   <i className="fa-brands fa-twitter">
                     {" "}
-                    || <i className="fa-brands fa-snapchat"></i>{" "} ||
-                    {" "}<i className="fa-brands fa-instagram"></i> ||
-                    {" "}<i className="fa-brands fa-facebook"></i>
+                    || <i className="fa-brands fa-snapchat"></i> ||{" "}
+                    <i className="fa-brands fa-instagram"></i> ||{" "}
+                    <i className="fa-brands fa-facebook"></i>
                   </i>
                 </li>
                 <li>

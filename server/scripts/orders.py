@@ -18,21 +18,7 @@ def run():
     
     orders = Order.objects.annotate(
         employee_fullname=employee_fullname,
-        total_tea=Sum('order_meals__total_meal', default=0),
-        total_meal=Sum('order_meals__total_meal', default=0),
-        total_beverage=Sum('order_beverages__total_beverage', default=0),
-        overall_total=F('total_tea') + F('total_meal') + F('total_beverage'),
-        amount_paid=F('cash') + F('momo'),
-        amount_to_pay=Case(
-            When(
-                overall_total__gt=F('amount_paid'),
-                then=F('overall_total') - F('amount_paid'),
-            ),
-            default=F('overall_total'),
-        ),
-    ).annotate(
-        employee_fullname=employee_fullname,
-        total_tea=sum_tea,
+        total_tea=Sum('order_teas__total_tea', default=0),
         total_meal=Sum('order_meals__total_meal', default=0),
         total_beverage=Sum('order_beverages__total_beverage', default=0),
         overall_total=F('total_tea') + F('total_meal') + F('total_beverage'),
@@ -47,7 +33,7 @@ def run():
     )
     print(orders.values('id', 'total_tea', 'total_meal'))
     print("\n")
-    # print(connection.queries)
+    print(connection.queries)
 
 
 # def run():
@@ -55,3 +41,7 @@ def run():
 #     sum_beverage = BeverageOrder.objects.filter(order = order).aggregate(sum = Sum('total_beverage'))
 
 #     print(sum_beverage)
+
+def run():
+    order = Order.objects.get(pk = 11)
+    print(order.order_beverages.all())
