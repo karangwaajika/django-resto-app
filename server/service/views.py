@@ -252,6 +252,91 @@ def approve_bill(request, order_id):
     return Response(
         {
             "success": True,
-            "data":  order_serializer.data,
+            "data": order_serializer.data,
+        }
+    )
+
+
+@api_view(["POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def reorder(request):
+    order_details = request.data
+    order_id, order_type, customer_name, beverages, meals, teas = order_details.values()
+    user = request.user
+    dt_now = datetime.datetime.now(tz=pytz.UTC)
+    date_today = dt_now.astimezone(pytz.timezone("Africa/Kigali"))
+
+    # update order
+    order = Order.objects.get(pk=order_id)
+    order.employee = user
+    order.customer_name = customer_name
+    order.order_type = order_type
+
+    order.save()
+
+    if len(beverages) > 0:
+        for drink in beverages:
+            beverage = Beverage.objects.get(pk=drink.get("beverageId"))
+
+            if drink.get("beverageQty") > drink.get("beverageStockQty"):
+                return Response(
+                    {
+                        "success": False,
+                        "message": "The stock is not enough !!!",
+                    }
+                )
+
+            # update stock
+            operate = BeverageOperation(
+                beverage=beverage,
+                openQty=drink.get("beverageStockQty"),
+                soldQty=drink.get("beverageQty"),
+            )
+            operate.update_beverage_stock()
+
+            BeverageOrder.objects.create(
+                beverage=beverage,
+                order=order,
+                open_qty=drink.get("beverageStockQty"),
+                left_qty=drink.get("beverageStockQty") - drink.get("beverageQty"),
+                sold_qty=drink.get("beverageQty"),
+                price=drink.get("beveragePrice"),
+                total_beverage=drink.get("beverageQty") * drink.get("beveragePrice"),
+                sold_date=date_today,
+            )
+
+    if len(meals):
+        for item in meals:
+            meal = Meal.objects.get(pk=item.get("mealId"))
+
+            # insert meal
+            MealOrder.objects.create(
+                meal=meal,
+                order=order,
+                plate_nbr=item.get("mealQty"),
+                price=item.get("mealPrice"),
+                total_meal=item.get("mealPrice") * item.get("mealQty"),
+                sold_date=date_today,
+            )
+
+    if len(teas):
+        for item in teas:
+            tea = Tea.objects.get(pk=item.get("teaId"))
+
+            # insert tea
+            TeaOrder.objects.create(
+                tea=tea,
+                order=order,
+                qty=item.get("teaQty"),
+                price=item.get("teaPrice"),
+                total_tea=item.get("teaPrice") * item.get("teaQty"),
+                sold_date=date_today,
+            )
+
+    return Response(
+        {
+            "success": True,
+            "message": "Re-order recorded successfully",
         }
     )

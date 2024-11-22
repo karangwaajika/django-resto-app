@@ -43,5 +43,11 @@ def run():
 #     print(sum_beverage)
 
 def run():
+    beverage = Beverage.objects.get(pk = 5)
     order = Order.objects.get(pk = 11)
-    print(order.order_beverages.all())
+    
+    try:
+        beverage_stock = BeverageOrder.objects.filter(beverage = beverage, order = order).exists()
+    except BeverageOrder.DoesNotExist:
+        print("nop")    
+    

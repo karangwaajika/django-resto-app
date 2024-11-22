@@ -57,6 +57,7 @@ export default function useReOrder(
         teas: teaRecords,
       };
       form.customerName = form.customerName ? form.customerName : customerName;
+      form.orderId = orderId;
       submitForms();
       console.log(x);
     }
@@ -71,8 +72,8 @@ export default function useReOrder(
     setIsLoading(true);
     const isDevelopment = import.meta.env.MODE === "production";
     const url = isDevelopment
-      ? import.meta.env.VITE_REACT_APP_RECORD_ORDER_API_DEPLOY
-      : import.meta.env.VITE_REACT_APP_RECORD_ORDER_API;
+      ? import.meta.env.VITE_REACT_APP_REORDER_API_DEPLOY
+      : import.meta.env.VITE_REACT_APP_REORDER_API;
     axios
       .post(
         url,
@@ -120,11 +121,9 @@ export default function useReOrder(
           success: false,
           message: err.message,
         });
-        setRefresh((oldState) => !oldState);
       })
       .finally(() => {
         setIsLoading(false);
-        setRefresh((oldState) => !oldState);
       });
   };
   return {
