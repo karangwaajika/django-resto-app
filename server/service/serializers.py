@@ -3,20 +3,6 @@ from .models import *
 from product.serializers import *
 
 
-class OrderSerializer(serializers.ModelSerializer):
-
-    total_tea = serializers.IntegerField()
-    total_meal = serializers.IntegerField()
-    total_beverage = serializers.IntegerField()
-    overall_total = serializers.IntegerField()
-    amount_paid = serializers.IntegerField()
-    amount_to_pay = serializers.IntegerField()
-
-    class Meta:
-        model = Order
-        fields = "__all__"
-
-
 class TeaOrderSerializer(serializers.ModelSerializer):
     tea = TeaSerializer()
 
@@ -38,4 +24,21 @@ class MealOrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MealOrder
+        fields = "__all__"
+
+
+class OrderSerializer(serializers.ModelSerializer):
+
+    total_tea = serializers.IntegerField()
+    total_meal = serializers.IntegerField()
+    total_beverage = serializers.IntegerField()
+    overall_total = serializers.IntegerField()
+    amount_paid = serializers.IntegerField()
+    amount_to_pay = serializers.IntegerField()
+    order_beverages = BeverageOrderSerializer(read_only=True, many=True)
+    order_teas = TeaOrderSerializer(read_only=True, many=True)
+    order_meals = MealOrderSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Order
         fields = "__all__"

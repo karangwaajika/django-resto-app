@@ -1,7 +1,7 @@
 import { addComma } from "../../utils/addComma.mjs";
 import { useNavigate } from "react-router-dom";
 import { convertToDateTime } from "../../utils/dateFormat.mjs";
-export default function OrderTable({ orders }) {
+export default function OrderTable({ orders, openModal }) {
   const navigate = useNavigate();
   return (
     <table className="order-table">
@@ -71,7 +71,18 @@ export default function OrderTable({ orders }) {
                   )}
                 </td>
                 <td data-cell="Bill">
-                  <i className="fa-regular fa-money-bill-1"></i>
+                  <i
+                    className="fa-regular fa-money-bill-1"
+                    onClick={() =>
+                      openModal(
+                        index,
+                        order.order_beverages,
+                        order.order_meals,
+                        order.order_teas,
+                        order.overall_total
+                      )
+                    }
+                  ></i>
                 </td>
                 <td data-cell="Edit">
                   {order.is_paid ? (

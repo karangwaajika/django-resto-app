@@ -4,6 +4,7 @@ import InputField from "../../components/ui/InputField";
 import loaderPicture from "/images/loading-3.gif";
 import useFetchAutoComplete from "../../hooks/useFetchAutoComplete";
 import OrderTable from "../../components/waiter/OrderTable";
+import BillModal from "../../components/waiter/BillModal";
 
 function ViewOrders() {
   const [search, setSearch] = useState("");
@@ -20,6 +21,29 @@ function ViewOrders() {
     setIsLoading,
     clearMessage,
   } = useFetchAutoComplete(url, search);
+
+  // handle bill modal
+  const [beverageItems, setBeverageItem] = useState([]);
+  const [mealItems, setMealItem] = useState([]);
+  const [teaItems, setTeaItem] = useState([]);
+  const [billTotal, setBillTotal] = useState(0);
+
+  const [animation, setAnimation] = useState("animated fadeIn");
+  const [clickedRow, setClickedRow] = useState(null);
+  const [openBillModal, setOpenBillModal] = useState(false);
+  const handleBillModal = (orderIndex, beverages, meals, teas, billTotal) => {
+    // get targeted order id
+    setClickedRow(orderIndex);
+    setBeverageItem(beverages);
+    setMealItem(meals);
+    setTeaItem(teas);
+    setBillTotal(billTotal);
+
+    setAnimation(openBillModal ? "animated fadeOut" : "animated fadeIn");
+    setTimeout(() => {
+      setOpenBillModal((oldModalState) => !oldModalState);
+    }, 1000);
+  };
   return (
     <section className="view-meal-content">
       <div className="meal-header">
@@ -46,7 +70,19 @@ function ViewOrders() {
           handleChange={(e) => setSearch(e.target.value)}
         />
       </div>
-      <OrderTable orders={data} />
+      <OrderTable orders={data} openModal={handleBillModal} />
+      {openBillModal && (
+        <BillModal
+          beverages={beverageItems}
+          teas={teaItems}
+          meals={mealItems}
+          billTotal={billTotal}
+          closeModal={handleBillModal}
+          animate={animation}
+          orderIndex={clickedRow}
+        />
+      )}
+
       {isLoading && (
         <div className="loader-service">
           <img src={loaderPicture} width={100} height={100} />
