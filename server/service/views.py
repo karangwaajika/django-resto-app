@@ -235,24 +235,10 @@ def approve_bill(request, order_id):
     )
 
     order_serializer = OrderSerializer(order)
-    # fetch assocaited tea
-    tea_order = order.order_teas.all()
-    tea_serializer = TeaOrderSerializer(tea_order, many=True)
-    # associated beverages
-    beverage_order = order.order_beverages.all()
-    beverage_serializer = BeverageOrderSerializer(beverage_order, many=True)
-    # associated meals
-    meal_order = order.order_meals.all()
-    meal_serializer = MealOrderSerializer(meal_order, many=True)
 
     return Response(
         {
             "success": True,
-            "data": {
-                "order": order_serializer.data,
-                "teas": tea_serializer.data,
-                "beverages": beverage_serializer.data,
-                "meals": meal_serializer.data,
-            },
+            "data":  order_serializer.data,
         }
     )

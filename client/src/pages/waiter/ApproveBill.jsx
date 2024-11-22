@@ -26,9 +26,9 @@ function ApproveBill({}) {
     validateSubmitForm,
     isLoading: isLoadingForm,
   } = useApproveOrder(
-    data.order.id,
-    data.order.customer_name,
-    data.order.amount_to_pay,
+    data.id,
+    data.customer_name,
+    data.amount_to_pay,
     setMessage,
     setRefresh
   );
@@ -36,7 +36,7 @@ function ApproveBill({}) {
   return (
     <section className="approve-bill">
       <OrderApproveForm
-        order={data.order}
+        order={data}
         isLoading={isLoading}
         isLoadingForm={isLoadingForm}
         form={form}
@@ -46,12 +46,12 @@ function ApproveBill({}) {
         handleChange={handleChange}
         submitForm={validateSubmitForm}
       />
-
+      
       <OrderApproveBill
-        beverages={data.beverages}
-        teas={data.teas}
-        meals={data.meals}
-        overallTotal={data.order.overall_total}
+        beverages={Object.values(data ).length > 0 ? data.order_beverages : [] }
+        teas={Object.values(data ).length > 0 ? data.order_teas : []}
+        meals={Object.values(data ).length > 0 ? data.order_meals : []}
+        overallTotal={data.overall_total}
         isLoading={isLoading}
       />
     </section>

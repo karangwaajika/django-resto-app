@@ -1,12 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 export default function useRetrieveOrder(url, isRefresh) {
-  const [data, setData] = useState({
-    order: {},
-    beverages: [],
-    teas: [],
-    meals: [],
-  });
+  const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
   const clearMessage = () => {
