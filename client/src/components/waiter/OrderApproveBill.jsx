@@ -1,11 +1,20 @@
 import React from "react";
 import { addComma } from "../../utils/addComma.mjs";
 
-function OrderApproveBill({ beverages, teas, meals, overallTotal }) {
+function OrderApproveBill({
+  beverages,
+  teas,
+  meals,
+  overallTotal,
+  componentUsedIn,
+}) {
   return (
     <aside className="card order-info">
       <div className="card-header">
-        <div style={{ fontFamily: "cursive" }}>Order Records</div>
+        <div style={{ fontFamily: "cursive" }}>
+          {" "}
+          {componentUsedIn == "reorder" ? "Earlier Records" : "Order Records"}
+        </div>
       </div>
 
       <div className="bill-details">

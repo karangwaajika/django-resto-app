@@ -244,7 +244,6 @@ means it wont wrap using %. the size is reponsive to its parent
   min-height: 500px;
   border: 1px solid #9b8c5d;
   border-radius: 5px;
-  flex-wrap: wrap;
   text-align: center;
 }
 .order-section .bill {

@@ -1,6 +1,8 @@
 import { addComma } from "../../utils/addComma.mjs";
 import { convertToDateTime } from "../../utils/dateFormat.mjs";
+import { useNavigate } from "react-router-dom";
 export default function WaiterOrderTable({ orders }) {
+  const navigate = useNavigate();
   return (
     <table className="order-table">
       <thead>
@@ -48,8 +50,18 @@ export default function WaiterOrderTable({ orders }) {
                     </div>
                   )}
                 </td>
+
                 <td data-cell="Approve" style={{ textAlign: "center" }}>
-                  <i className="fa fa-repeat text-success"></i>
+                  {order.is_paid ? (
+                    "-"
+                  ) : (
+                    <i
+                      className="fa fa-repeat text-success"
+                      onClick={() => {
+                        return navigate(`/service/${order.id}/reorder`);
+                      }}
+                    ></i>
+                  )}
                 </td>
               </tr>
             );

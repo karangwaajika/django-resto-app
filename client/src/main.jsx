@@ -23,6 +23,7 @@ import Order from "./pages/waiter/Order.jsx";
 import ViewOrders from "./pages/waiter/ViewOrders.jsx";
 import WaiterOrders from "./pages/waiter/WaiterOrders.jsx";
 import ApproveBill from "./pages/waiter/ApproveBill.jsx";
+import ReOrder from "./pages/waiter/ReOrder.jsx";
 
 const router = createBrowserRouter([
   {
@@ -113,6 +114,10 @@ const router = createBrowserRouter([
           {
             path: "/service/approve/:orderId/bill",
             element: <ApproveBill />,
+          },
+          {
+            path: "/service/:orderId/reorder",
+            element: <ReOrder />,
           },
         ],
       },

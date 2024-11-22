@@ -1,7 +1,7 @@
 import React from "react";
 import { addComma } from "../../utils/addComma.mjs";
 
-function Bill({ beverages, teas, meals }) {
+function Bill({ beverages, teas, meals, componentUsedIn }) {
   let sumBeverage = 0;
   let sumMeal = 0;
   let sumTea = 0;
@@ -22,17 +22,26 @@ function Bill({ beverages, teas, meals }) {
   }
   let total = sumBeverage + sumMeal + sumTea;
   return (
-    <aside className="bill">
-      <h1 style={{ fontFamily: "cursive" }}>Order Records</h1>
+    <aside className="card order-info">
+      <div className="card-header">
+        <div style={{ fontFamily: "cursive" }}>
+          {componentUsedIn == "reorder" ? "New Records" : "Order Records"}
+        </div>
+      </div>
       <div className="bill-details">
         <div className="item-bill">
           <div className="item-header">
             <div className="item-icon">
               <i className="far fa-circle-dot"></i>
             </div>
-            <div className="item-text" style={{fontWeight:"bold"}}>Beverage</div>
+            <div className="item-text" style={{ fontWeight: "bold" }}>
+              Beverage
+            </div>
           </div>
-          <div className="" style={{borderLeft: "1px solid #7c6c3b", marginLeft:"5px"}}>
+          <div
+            className=""
+            style={{ borderLeft: "1px solid #7c6c3b", marginLeft: "5px" }}
+          >
             {beverages.length > 0 ? (
               <ul className="item-items">
                 {beverages.map((item, i) => {
@@ -57,9 +66,14 @@ function Bill({ beverages, teas, meals }) {
             <div className="item-icon">
               <i className="far fa-circle-dot"></i>
             </div>
-            <div className="item-text" style={{fontWeight:"bold"}}>Meal</div>
+            <div className="item-text" style={{ fontWeight: "bold" }}>
+              Meal
+            </div>
           </div>
-          <div className="" style={{borderLeft: "1px solid #7c6c3b", marginLeft:"5px"}}>
+          <div
+            className=""
+            style={{ borderLeft: "1px solid #7c6c3b", marginLeft: "5px" }}
+          >
             {meals.length > 0 ? (
               <ul className="item-items">
                 {meals.map((item, i) => {
@@ -85,9 +99,14 @@ function Bill({ beverages, teas, meals }) {
             <div className="item-icon">
               <i className="far fa-circle-dot"></i>
             </div>
-            <div className="item-text" style={{fontWeight:"bold"}}>Smoothy</div>
+            <div className="item-text" style={{ fontWeight: "bold" }}>
+              Smoothy
+            </div>
           </div>
-          <div className="" style={{borderLeft: "1px solid #7c6c3b", marginLeft:"5px"}}>
+          <div
+            className=""
+            style={{ borderLeft: "1px solid #7c6c3b", marginLeft: "5px" }}
+          >
             {teas.length > 0 ? (
               <ul className="item-items">
                 {teas.map((item, i) => {
@@ -108,7 +127,9 @@ function Bill({ beverages, teas, meals }) {
             )}
           </div>
         </div>
-        <div style={{ textAlign: "center" }}>Total: <i className="span span-success">{addComma(total)} Rwf</i></div>
+        <div style={{ textAlign: "center" }}>
+          Total: <i className="span span-success">{addComma(total)} Rwf</i>
+        </div>
       </div>
     </aside>
   );

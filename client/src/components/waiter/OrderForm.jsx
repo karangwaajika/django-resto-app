@@ -56,10 +56,19 @@ function OrderForm({
 
   return (
     <aside className="form">
-      <h1 style={{ marginBottom: "30px", fontFamily: "cursive" }}>
-        Order{" "}
-        <i className="span span-success">{props.orderId && props.orderId}</i>
-      </h1>
+      {props.componentUsedIn == "reorder" ? (
+        <h1 style={{ marginBottom: "30px", fontFamily: "cursive" }}>
+          ReOrder{" "}
+          <i className="span span-success">{props.orderId && props.orderId}</i>
+          -{props.customerName}
+        </h1>
+      ) : (
+        <h1 style={{ marginBottom: "30px", fontFamily: "cursive" }}>
+          Order{" "}
+          <i className="span span-success">{props.orderId && props.orderId}</i>
+        </h1>
+      )}
+
       {message && (
         <FlashMessage
           message={message.message}
@@ -215,7 +224,7 @@ function OrderForm({
           id="customer"
           label="Client"
           icon="fa-solid fa-user"
-          placeholder="Client"
+          placeholder={props.customerName}
           height="30px"
           errorfield={fieldError.customerName && "error-field"}
           handleChange={handleChange}
