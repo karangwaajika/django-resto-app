@@ -38,6 +38,7 @@ class OrderSerializer(serializers.ModelSerializer):
     order_beverages = BeverageOrderSerializer(read_only=True, many=True)
     order_teas = TeaOrderSerializer(read_only=True, many=True)
     order_meals = MealOrderSerializer(read_only=True, many=True)
+    employee_fullname = serializers.CharField()
 
     class Meta:
         model = Order

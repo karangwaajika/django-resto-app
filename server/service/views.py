@@ -135,6 +135,13 @@ def record_order(request):
 @permission_classes([IsAuthenticated])
 def view_orders(request):
 
+    employee_fullname = Concat(
+        "employee__first_name",
+        Value(" "),
+        "employee__last_name",
+        output_field=CharField(),
+    )
+
     if request.method == "POST" and request.data["search"]:
         # search inside order table and all items tables such as beverage, tea, and meal.
         search_fields = (
@@ -152,6 +159,9 @@ def view_orders(request):
             .prefetch_related(
                 "order_teas", "order_beverages", "order_meals", "employee"
             )
+            .annotate(
+                employee_fullname=employee_fullname,
+            )
         )
 
         serializer = OrderSerializer(orders, many=True)
@@ -161,6 +171,9 @@ def view_orders(request):
         Order.objects.all()
         .order_by("-id")
         .prefetch_related("order_teas", "order_beverages", "order_meals")
+        .annotate(
+            employee_fullname=employee_fullname,
+        )
     )
 
     serializer = OrderSerializer(orders, many=True)
