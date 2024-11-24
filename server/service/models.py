@@ -76,6 +76,15 @@ class TeaOrder(models.Model):
         return self.tea.name
 
 
+class TeaOrderTotal(models.Model):
+    tea = models.ForeignKey(Tea, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(
+        Order, on_delete=models.SET_NULL, null=True, related_name="order_teas_total"
+    )
+    total_amount = models.IntegerField(default=0, blank=True)
+    total_qty = models.IntegerField(default=0, blank=True)
+
+
 class MealOrder(models.Model):
     meal = models.ForeignKey(
         Meal, on_delete=models.SET_NULL, related_name="meal_orders", null=True
@@ -87,6 +96,15 @@ class MealOrder(models.Model):
     price = models.IntegerField(default=0)
     total_meal = models.IntegerField(default=0)
     sold_date = models.DateField(auto_now=True)
+
+
+class MealOrderTotal(models.Model):
+    meal = models.ForeignKey(Meal, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(
+        Order, on_delete=models.SET_NULL, null=True, related_name="order_meals_total"
+    )
+    total_amount = models.IntegerField(default=0, blank=True)
+    total_qty = models.IntegerField(default=0, blank=True)
 
 
 class BeverageOrder(models.Model):
@@ -105,3 +123,16 @@ class BeverageOrder(models.Model):
 
     def __str__(self):
         return self.beverage.name
+
+
+class BeverageOrderTotal(models.Model):
+    beverage = models.ForeignKey(Beverage, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="order_beverages_total",
+    )
+    sold_price = models.IntegerField(default=0, blank=True)
+    total_amount = models.IntegerField(default=0, blank=True)
+    total_qty = models.IntegerField(default=0, blank=True)

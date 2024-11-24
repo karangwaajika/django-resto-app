@@ -44,3 +44,24 @@ class MealOrderAdmin(admin.ModelAdmin):
 
 
 admin.site.register(MealOrder, MealOrderAdmin)
+
+
+class MealOrderTotalAdmin(admin.ModelAdmin):
+    list_display = ("meal", "order")
+
+
+admin.site.register(MealOrderTotal, MealOrderTotalAdmin)
+
+
+class BeverageOrderTotalAdmin(admin.ModelAdmin):
+    list_display = ("beverage", "order")
+
+
+admin.site.register(BeverageOrderTotal, BeverageOrderTotalAdmin)
+
+
+class TeaOrderTotalAdmin(admin.ModelAdmin):
+    list_display = ("tea", "order")
+
+
+admin.site.register(TeaOrderTotal, TeaOrderTotalAdmin)
