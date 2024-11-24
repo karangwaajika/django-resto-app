@@ -316,28 +316,62 @@ def reorder(request):
 
             # check if it is a new beverage order
             try:
-                beverage_order = BeverageOrder.objects.filter(
+                beverage_order = BeverageOrder.objects.get(
                     order=order, beverage=beverage
                 )
+                beverage_order_total = BeverageOrderTotal.objects.get(
+                    order=order, beverage=beverage
+                )
+                beverage_order_total.total_qty += drink.get("beverageQty")
+                beverage_order_total.total_amount += drink.get(
+                    "beverageQty"
+                ) * drink.get("beveragePrice")
+                beverage_order_total.save()
 
             except BeverageOrder.DoesNotExist:
-                #
-                BeverageOrder.objects.create(
+
+                # insert beverage total
+                BeverageOrderTotal.objects.create(
                     beverage=beverage,
                     order=order,
-                    open_qty=drink.get("beverageStockQty"),
-                    left_qty=drink.get("beverageStockQty") - drink.get("beverageQty"),
-                    sold_qty=drink.get("beverageQty"),
-                    price=drink.get("beveragePrice"),
-                    total_beverage=drink.get("beverageQty")
-                    * drink.get("beveragePrice"),
-                    sold_date=date_today,
+                    total_qty=drink.get("beverageQty"),
+                    sold_price=drink.get("beveragePrice"),
+                    total_amount=drink.get("beverageQty") * drink.get("beveragePrice"),
                 )
+            BeverageOrder.objects.create(
+                beverage=beverage,
+                order=order,
+                open_qty=drink.get("beverageStockQty"),
+                left_qty=drink.get("beverageStockQty") - drink.get("beverageQty"),
+                sold_qty=drink.get("beverageQty"),
+                price=drink.get("beveragePrice"),
+                total_beverage=drink.get("beverageQty") * drink.get("beveragePrice"),
+                sold_date=date_today,
+            )
 
     if len(meals):
         for item in meals:
             meal = Meal.objects.get(pk=item.get("mealId"))
 
+            # check if it is a new meal order
+            try:
+                meal_order = MealOrder.objects.get(order=order, meal=meal)
+                meal_order_total = MealOrderTotal.objects.get(order=order, meal=meal)
+                meal_order_total.total_qty += item.get("mealQty")
+                meal_order_total.total_amount += item.get("mealQty") * item.get(
+                    "mealPrice"
+                )
+                meal_order_total.save()
+
+            except MealOrder.DoesNotExist:
+
+                # insert meal total
+                MealOrderTotal.objects.create(
+                    meal=meal,
+                    order=order,
+                    total_qty=item.get("mealQty"),
+                    total_amount=item.get("mealQty") * item.get("mealPrice"),
+                )
             # insert meal
             MealOrder.objects.create(
                 meal=meal,
@@ -351,6 +385,26 @@ def reorder(request):
     if len(teas):
         for item in teas:
             tea = Tea.objects.get(pk=item.get("teaId"))
+
+            # check if it is a new tea order
+            try:
+                tea_order = TeaOrder.objects.get(order=order, tea=tea)
+                tea_order_total = TeaOrderTotal.objects.get(order=order, tea=tea)
+                tea_order_total.total_qty += item.get("teaQty")
+                tea_order_total.total_amount += item.get("teaQty") * item.get(
+                    "teaPrice"
+                )
+                tea_order_total.save()
+
+            except TeaOrder.DoesNotExist:
+
+                # insert tea total
+                TeaOrderTotal.objects.create(
+                    tea=tea,
+                    order=order,
+                    total_qty=item.get("teaQty"),
+                    total_amount=item.get("teaQty") * item.get("teaPrice"),
+                )
 
             # insert tea
             TeaOrder.objects.create(
