@@ -76,9 +76,9 @@ export default function OrderTable({ orders, openModal }) {
                     onClick={() =>
                       openModal(
                         index,
-                        order.order_beverages,
-                        order.order_meals,
-                        order.order_teas,
+                        order.order_beverages_total,
+                        order.order_meals_total,
+                        order.order_teas_total,
                         order.overall_total
                       )
                     }

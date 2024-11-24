@@ -36,8 +36,8 @@ function OrderApproveBill({
                 {beverages.map((item, i) => {
                   return (
                     <li key={i}>
-                      {item.beverage.name}({item.sold_qty} x {item.price}) ={" "}
-                      {addComma(item.total_beverage)} frw
+                      {item.beverage.name}({item.total_qty} x {item.sold_price}) ={" "}
+                      {addComma(item.total_amount)} frw
                     </li>
                   );
                 })}
@@ -63,8 +63,8 @@ function OrderApproveBill({
                 {meals.map((item, i) => {
                   return (
                     <li key={i}>
-                      {item.meal.name}({item.plate_nbr} x {item.price}) ={" "}
-                      {addComma(item.total_meal)} frw
+                      {item.meal.name}({item.total_qty} x {item.meal.price}) ={" "}
+                      {addComma(item.total_amount)} frw
                     </li>
                   );
                 })}
@@ -90,8 +90,8 @@ function OrderApproveBill({
                 {teas.map((item, i) => {
                   return (
                     <li key={i}>
-                      {item.tea.name}({item.qty} x {item.price}) ={" "}
-                      {addComma(item.total_tea)} frw
+                      {item.tea.name}({item.total_qty} x {item.tea.price}) ={" "}
+                      {addComma(item.total_amount)} frw
                     </li>
                   );
                 })}

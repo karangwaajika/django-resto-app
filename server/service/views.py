@@ -176,7 +176,7 @@ def view_orders(request):
             Order.objects.filter(search_fields)
             .order_by("-id")
             .prefetch_related(
-                "order_teas", "order_beverages", "order_meals", "employee"
+                "order_teas_total", "order_beverages_total", "order_meals_total", "employee"
             )
             .annotate(
                 employee_fullname=employee_fullname,
@@ -189,7 +189,7 @@ def view_orders(request):
     orders = (
         Order.objects.all()
         .order_by("-id")
-        .prefetch_related("order_teas", "order_beverages", "order_meals")
+        .prefetch_related("order_teas_total", "order_beverages_total", "order_meals_total")
         .annotate(
             employee_fullname=employee_fullname,
         )

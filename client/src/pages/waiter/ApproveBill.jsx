@@ -48,9 +48,9 @@ function ApproveBill({}) {
       />
       
       <OrderApproveBill
-        beverages={Object.values(data ).length > 0 ? data.order_beverages : [] }
-        teas={Object.values(data ).length > 0 ? data.order_teas : []}
-        meals={Object.values(data ).length > 0 ? data.order_meals : []}
+        beverages={Object.values(data ).length > 0 ? data.order_beverages_total : [] }
+        teas={Object.values(data ).length > 0 ? data.order_teas_total : []}
+        meals={Object.values(data ).length > 0 ? data.order_meals_total : []}
         overallTotal={data.overall_total}
         isLoading={isLoading}
       />
