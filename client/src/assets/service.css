@@ -455,7 +455,34 @@ aside.form-section {
 aside.order-info {
   width: 250px;
 }
-.loading-page{
+.loading-page {
   height: 18px;
   background-color: #f4f5f2;
+}
+/* edit bill */
+.item-items.edit-bill-ul {
+  display: flex;
+  flex-direction: column;
+}
+.edit-bill-ul li {
+  border-bottom: 1px solid #afaeadd2;
+  padding: 5px 0px;
+}
+.edit-bill-ul li:hover {
+  background-color: #eeebe8d2;
+}
+.decreament-btn, .delete-order-btn {
+  cursor: pointer;
+  border: 1px solid #afaeadd2;
+  border-radius: 4px;
+  padding: 0 8px;
+}
+.delete-order-btn{
+  padding: 0 10px;
+}
+.decreament-btn:hover, .delete-order-btn:hover{
+  background-color: #ebc9a5d2;
+}
+.decreament-btn:active, .delete-order-btn:active{
+  background-color: #ffffffd2;
 }

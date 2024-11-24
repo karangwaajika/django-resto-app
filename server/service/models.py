@@ -70,7 +70,7 @@ class TeaOrder(models.Model):
     qty = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
     total_tea = models.IntegerField(default=0)
-    sold_date = models.DateField(auto_now=True)
+    sold_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.tea.name
@@ -95,7 +95,7 @@ class MealOrder(models.Model):
     plate_nbr = models.IntegerField(default=0)
     price = models.IntegerField(default=0)
     total_meal = models.IntegerField(default=0)
-    sold_date = models.DateField(auto_now=True)
+    sold_date = models.DateTimeField(auto_now=True)
 
 
 class MealOrderTotal(models.Model):
@@ -119,7 +119,7 @@ class BeverageOrder(models.Model):
     sold_qty = models.IntegerField(default=0, blank=True)
     price = models.IntegerField(default=0)
     total_beverage = models.IntegerField(default=0)
-    sold_date = models.DateField(auto_now=True)
+    sold_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.beverage.name

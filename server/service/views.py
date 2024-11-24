@@ -316,9 +316,9 @@ def reorder(request):
 
             # check if it is a new beverage order
             try:
-                beverage_order = BeverageOrder.objects.get(
+                beverage_order = BeverageOrder.objects.filter(
                     order=order, beverage=beverage
-                )
+                )[:1]
                 beverage_order_total = BeverageOrderTotal.objects.get(
                     order=order, beverage=beverage
                 )
@@ -355,7 +355,7 @@ def reorder(request):
 
             # check if it is a new meal order
             try:
-                meal_order = MealOrder.objects.get(order=order, meal=meal)
+                meal_order = MealOrder.objects.filter(order=order, meal=meal)[:1]
                 meal_order_total = MealOrderTotal.objects.get(order=order, meal=meal)
                 meal_order_total.total_qty += item.get("mealQty")
                 meal_order_total.total_amount += item.get("mealQty") * item.get(
@@ -388,7 +388,7 @@ def reorder(request):
 
             # check if it is a new tea order
             try:
-                tea_order = TeaOrder.objects.get(order=order, tea=tea)
+                tea_order = TeaOrder.objects.filter(order=order, tea=tea)[:1]
                 tea_order_total = TeaOrderTotal.objects.get(order=order, tea=tea)
                 tea_order_total.total_qty += item.get("teaQty")
                 tea_order_total.total_amount += item.get("teaQty") * item.get(

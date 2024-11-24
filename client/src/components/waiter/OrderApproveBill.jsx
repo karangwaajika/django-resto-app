@@ -25,7 +25,7 @@ function OrderApproveBill({
                 <i className="far fa-circle-dot"></i>
               </div>
               <div className="item-text" style={{ fontWeight: "bold" }}>
-                Beverage
+                Beverage1
               </div>
             </div>
             <div

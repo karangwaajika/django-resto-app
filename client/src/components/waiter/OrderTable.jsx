@@ -88,7 +88,12 @@ export default function OrderTable({ orders, openModal }) {
                   {order.is_paid ? (
                     "-"
                   ) : (
-                    <i className="fa fa-pen-to-square text-primary"></i>
+                    <i
+                      className="fa fa-pen-to-square text-primary"
+                      onClick={() =>
+                        navigate(`/service/${order.id}/edit-order`)
+                      }
+                    ></i>
                   )}
                 </td>
               </tr>
