@@ -93,6 +93,14 @@ def record_order(request):
                 total_beverage=drink.get("beverageQty") * drink.get("beveragePrice"),
                 sold_date=date_today,
             )
+            # insert beverage total
+            BeverageOrderTotal.objects.create(
+                beverage=beverage,
+                order=order,
+                total_qty=drink.get("beverageQty"),
+                sold_price=drink.get("beveragePrice"),
+                total_amount=drink.get("beverageQty") * drink.get("beveragePrice"),
+            )
 
     if len(meals):
         for item in meals:
@@ -107,6 +115,13 @@ def record_order(request):
                 total_meal=item.get("mealPrice") * item.get("mealQty"),
                 sold_date=date_today,
             )
+            # insert meal total
+            MealOrderTotal.objects.create(
+                meal=meal,
+                order=order,
+                total_qty=item.get("mealQty"),
+                total_amount=item.get("mealPrice") * item.get("mealQty"),
+            )
 
     if len(teas):
         for item in teas:
@@ -120,6 +135,13 @@ def record_order(request):
                 price=item.get("teaPrice"),
                 total_tea=item.get("teaPrice") * item.get("teaQty"),
                 sold_date=date_today,
+            )
+            # insert tea total
+            TeaOrderTotal.objects.create(
+                tea=tea,
+                order=order,
+                total_qty=item.get("teaQty"),
+                total_amount=item.get("teaPrice") * item.get("teaQty"),
             )
 
     return Response(
@@ -148,7 +170,7 @@ def view_orders(request):
             Q(employee__first_name__icontains=request.data["search"])
             | Q(employee__last_name__icontains=request.data["search"])
             | Q(id__icontains=request.data["search"])
-            | Q(customer_name__icontains=request.data["search"])    
+            | Q(customer_name__icontains=request.data["search"])
         )
         orders = (
             Order.objects.filter(search_fields)
@@ -292,16 +314,25 @@ def reorder(request):
             )
             operate.update_beverage_stock()
 
-            BeverageOrder.objects.create(
-                beverage=beverage,
-                order=order,
-                open_qty=drink.get("beverageStockQty"),
-                left_qty=drink.get("beverageStockQty") - drink.get("beverageQty"),
-                sold_qty=drink.get("beverageQty"),
-                price=drink.get("beveragePrice"),
-                total_beverage=drink.get("beverageQty") * drink.get("beveragePrice"),
-                sold_date=date_today,
-            )
+            # check if it is a new beverage order
+            try:
+                beverage_order = BeverageOrder.objects.filter(
+                    order=order, beverage=beverage
+                )
+
+            except BeverageOrder.DoesNotExist:
+                #
+                BeverageOrder.objects.create(
+                    beverage=beverage,
+                    order=order,
+                    open_qty=drink.get("beverageStockQty"),
+                    left_qty=drink.get("beverageStockQty") - drink.get("beverageQty"),
+                    sold_qty=drink.get("beverageQty"),
+                    price=drink.get("beveragePrice"),
+                    total_beverage=drink.get("beverageQty")
+                    * drink.get("beveragePrice"),
+                    sold_date=date_today,
+                )
 
     if len(meals):
         for item in meals:
