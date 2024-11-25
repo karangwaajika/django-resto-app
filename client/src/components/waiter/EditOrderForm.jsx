@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { addComma } from "../../utils/addComma.mjs";
 import { convertToDateTime } from "../../utils/dateFormat.mjs";
+import PopUpMessage from "./PopUpMessage";
 
 function EditOrderForm({
   beverages,
@@ -10,7 +11,27 @@ function EditOrderForm({
   componentUsedIn,
   ...props
 }) {
+  const [message, setMessage] = useState("");
+  const [isPopUpMessage, setIsPopUpMessage] = useState(false);
+  const handlePopUpMessage = (buttonType, actionType) => {
+    if (buttonType == "delete") {
+      setMessage("Delete the whole beverage");
+      if (actionType == "onMouseEnter") {
+        setIsPopUpMessage(true);
+      } else {
+        setIsPopUpMessage(false);
+      }
+    } else {
+      setMessage("Decreament beverage Qty");
+      if (actionType == "onMouseEnter") {
+        setIsPopUpMessage(true);
+      } else {
+        setIsPopUpMessage(false);
+      }
+    }
+  };
   const editBeverage = (beverageId, sold_qty, btnClicked) => {
+    setIsPopUpMessage(false)
     props.setData((oldData) => {
       let newBeverages = [];
       if (btnClicked == "delete") {
@@ -54,7 +75,11 @@ function EditOrderForm({
         </div>
       </div>
 
-      <div className="bill-details" style={{ fontFamily: "century gothic" }}>
+      <div
+        className="bill-details"
+        style={{ fontFamily: "century gothic", position: "relative" }}
+      >
+        {isPopUpMessage && <PopUpMessage message={message} />}
         {beverages.length > 0 && (
           <div className="item-bill">
             <div className="item-header">
@@ -78,7 +103,15 @@ function EditOrderForm({
                         {item.beverage.name}({item.sold_qty} x {item.price}) ={" "}
                         {addComma(item.sold_qty * item.price)} frw
                       </div>
-                      <div className="decreament-btn">
+                      <div
+                        className="decreament-btn"
+                        onMouseEnter={() =>
+                          handlePopUpMessage("decreament", "onMouseEnter")
+                        }
+                        onMouseLeave={() =>
+                          handlePopUpMessage("decreament", "onMouseLeave")
+                        }
+                      >
                         {" "}
                         <i
                           className="fa fa-minus"
@@ -87,7 +120,15 @@ function EditOrderForm({
                           }
                         ></i>
                       </div>
-                      <div className="delete-order-btn text-danger">
+                      <div
+                        className="delete-order-btn text-danger"
+                        onMouseEnter={() =>
+                          handlePopUpMessage("delete", "onMouseEnter")
+                        }
+                        onMouseLeave={() =>
+                          handlePopUpMessage("delete", "onMouseLeave")
+                        }
+                      >
                         {" "}
                         <i
                           className="fa fa-times"

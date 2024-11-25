@@ -471,18 +471,34 @@ aside.order-info {
 .edit-bill-ul li:hover {
   background-color: #eeebe8d2;
 }
-.decreament-btn, .delete-order-btn {
+.decreament-btn,
+.delete-order-btn {
   cursor: pointer;
   border: 1px solid #afaeadd2;
   border-radius: 4px;
   padding: 0 8px;
 }
-.delete-order-btn{
+.delete-order-btn {
   padding: 0 10px;
 }
-.decreament-btn:hover, .delete-order-btn:hover{
+.decreament-btn:hover,
+.delete-order-btn:hover {
   background-color: #ebc9a5d2;
 }
-.decreament-btn:active, .delete-order-btn:active{
+.decreament-btn:active,
+.delete-order-btn:active {
   background-color: #ffffffd2;
+}
+.popup-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #faa78ed2;
+  color: black;
+  font-size: 12px;
+  position: absolute;
+  top: 10px;
+  left: 38%;
+  padding: 2px 20px;
+  z-index: 1;
 }
