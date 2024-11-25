@@ -3,6 +3,9 @@ import { addComma } from "../../utils/addComma.mjs";
 import { convertToDateTime } from "../../utils/dateFormat.mjs";
 import PopUpMessage from "./PopUpMessage";
 import ConfirmModal from "./ConfirmModal";
+import useEditOrder from "../../hooks/useEditOrder";
+import loadingImg from "/images/spin.gif";
+import FlashMessage from "../ui/FlashMessage";
 
 function EditOrderForm({
   beverages,
@@ -12,24 +15,36 @@ function EditOrderForm({
   componentUsedIn,
   ...props
 }) {
+  // total cost of a bill
+  let sumBeverage = 0;
+  let sumMeal = 0;
+  let sumTea = 0;
+  if (beverages.length > 0) {
+    for (let beverage of beverages) {
+      sumBeverage += beverage.sold_qty * beverage.price;
+    }
+  }
+  if (meals.length > 0) {
+    for (let meal of meals) {
+      sumMeal += meal.plate_nbr * meal.price;
+    }
+  }
+  if (teas.length > 0) {
+    for (let tea of teas) {
+      sumTea += tea.qty * tea.price;
+    }
+  }
+  let total = sumBeverage + sumMeal + sumTea;
+
   // handle pop-up message
   const [message, setMessage] = useState("");
   const [isPopUpMessage, setIsPopUpMessage] = useState(false);
-  const handlePopUpMessage = (buttonType, actionType) => {
-    if (buttonType == "delete") {
-      setMessage("Delete the whole beverage");
-      if (actionType == "onMouseEnter") {
-        setIsPopUpMessage(true);
-      } else {
-        setIsPopUpMessage(false);
-      }
+  const handlePopUpMessage = (actionType, message) => {
+    setMessage(message);
+    if (actionType == "onMouseEnter") {
+      setIsPopUpMessage(true);
     } else {
-      setMessage("Decreament beverage Qty");
-      if (actionType == "onMouseEnter") {
-        setIsPopUpMessage(true);
-      } else {
-        setIsPopUpMessage(false);
-      }
+      setIsPopUpMessage(false);
     }
   };
 
@@ -38,10 +53,7 @@ function EditOrderForm({
   const [isConfirmModalOpen, setConfirmModal] = useState(false);
   //handle the open and close of a modal
   const handleModal = () => {
-    setAnimation(isConfirmModalOpen ? "animated fadeOut" : "animated fadeIn");
-    setTimeout(() => {
-      setConfirmModal((oldModalState) => !oldModalState);
-    }, 1000);
+    setConfirmModal((oldModalState) => !oldModalState);
   };
   const [itemData, setItemData] = useState({
     itemId: 0,
@@ -61,6 +73,7 @@ function EditOrderForm({
         itemPrice: itemInfo.price,
         itemTotal: itemInfo.price * itemInfo.sold_qty,
         itemSoldDate: convertToDateTime(itemInfo.sold_date),
+        rawData: itemInfo,
       };
 
       setItemData(beverageData);
@@ -74,6 +87,7 @@ function EditOrderForm({
         itemPrice: itemInfo.price,
         itemTotal: itemInfo.price * itemInfo.qty,
         itemSoldDate: convertToDateTime(itemInfo.sold_date),
+        rawData: itemInfo,
       };
       setItemData(teaData);
       setConfirmModal(true);
@@ -86,6 +100,7 @@ function EditOrderForm({
         itemPrice: itemInfo.price,
         itemTotal: itemInfo.price * itemInfo.plate_nbr,
         itemSoldDate: convertToDateTime(itemInfo.sold_date),
+        rawData: itemInfo,
       };
       setItemData(mealData);
       setConfirmModal(true);
@@ -96,15 +111,10 @@ function EditOrderForm({
     setIsPopUpMessage(false);
     if (btnClicked == "delete") {
       handleConfirmModal("beverage", beverageData);
-      console.log("here");
     } else {
       if (beverageData.sold_qty == 1) {
         //delete beverage order
-        // newBeverages = oldData.order_beverages.filter(
-        //   (item) => item.id !== beverageData.id
-        // );
         handleConfirmModal("beverage", beverageData);
-        console.log("here");
       } else {
         props.setData((oldData) => {
           let newBeverages = [];
@@ -127,11 +137,9 @@ function EditOrderForm({
     setIsPopUpMessage(false);
     if (btnClicked == "delete") {
       handleConfirmModal("tea", teaData);
-      console.log("here");
     } else {
       if (teaData.qty == 1) {
         handleConfirmModal("tea", teaData);
-        console.log("here");
       } else {
         props.setData((oldData) => {
           let newTeas = [];
@@ -154,11 +162,9 @@ function EditOrderForm({
     setIsPopUpMessage(false);
     if (btnClicked == "delete") {
       handleConfirmModal("meal", mealData);
-      console.log("here");
     } else {
       if (mealData.plate_nbr == 1) {
         handleConfirmModal("meal", mealData);
-        console.log("here");
       } else {
         props.setData((oldData) => {
           let newMeals = [];
@@ -177,6 +183,13 @@ function EditOrderForm({
       }
     }
   };
+  const {
+    editOrder,
+    message: responseMessage,
+    setMessage: setResponseMessage,
+    clearMessage,
+    isLoading,
+  } = useEditOrder(props.setRefresh);
   return (
     <aside className="card order-info" style={{ flex: 1 }}>
       <div className="card-header">
@@ -185,7 +198,20 @@ function EditOrderForm({
           {componentUsedIn == "reorder"
             ? "Earlier Records"
             : "Order Records List"}
+          {" of Client: " + props.data.customer_name + props.data.id}
         </div>
+        {responseMessage && (
+          <FlashMessage
+            message={responseMessage.message}
+            isSuccess={responseMessage.success}
+            clearMessage={clearMessage}
+          />
+        )}
+        {isLoading && (
+          <div>
+            <img src={loadingImg} width={25} height={25} />
+          </div>
+        )}
       </div>
 
       <div
@@ -198,6 +224,7 @@ function EditOrderForm({
             itemData={itemData}
             closeModal={handleModal}
             animate={animation}
+            editOrder={() => editOrder(itemData.rawData)}
           />
         )}
         {beverages.length > 0 && (
@@ -226,32 +253,59 @@ function EditOrderForm({
                       <div
                         className="decreament-btn"
                         onMouseEnter={() =>
-                          handlePopUpMessage("decreament", "onMouseEnter")
+                          handlePopUpMessage(
+                            "onMouseEnter",
+                            "Decreament beverage Qty"
+                          )
                         }
                         onMouseLeave={() =>
-                          handlePopUpMessage("decreament", "onMouseLeave")
+                          handlePopUpMessage(
+                            "onMouseLeave",
+                            "Decreament beverage Qty"
+                          )
                         }
+                        onClick={() => editBeverage(item, "decreament")}
                       >
                         {" "}
-                        <i
-                          className="fa fa-minus"
-                          onClick={() => editBeverage(item, "decreament")}
-                        ></i>
+                        <i className="fa fa-minus"></i>
                       </div>
                       <div
                         className="delete-order-btn text-danger"
                         onMouseEnter={() =>
-                          handlePopUpMessage("delete", "onMouseEnter")
+                          handlePopUpMessage(
+                            "onMouseEnter",
+                            "Delete the whole beverage"
+                          )
                         }
                         onMouseLeave={() =>
-                          handlePopUpMessage("delete", "onMouseLeave")
+                          handlePopUpMessage(
+                            "onMouseLeave",
+                            "Delete the whole beverage"
+                          )
                         }
+                        onClick={() => editBeverage(item, "delete")}
                       >
                         {" "}
-                        <i
-                          className="fa fa-times"
-                          onClick={() => editBeverage(item, "delete")}
-                        ></i>
+                        <i className="fa fa-times"></i>
+                      </div>
+                      <div
+                        className="edit-order-btn text-success"
+                        onMouseEnter={() =>
+                          handlePopUpMessage(
+                            "onMouseEnter",
+                            "Save beverage changes"
+                          )
+                        }
+                        onMouseLeave={() =>
+                          handlePopUpMessage(
+                            "onMouseLeave",
+                            "Save beverage changes"
+                          )
+                        }
+                        onClick={() => editOrder(item)}
+                      >
+                        {" "}
+                        <i className="fa fa-check"></i>
                       </div>
                     </li>
                   );
@@ -283,19 +337,62 @@ function EditOrderForm({
                         {item.meal.name}({item.plate_nbr} x {item.price}) ={" "}
                         {addComma(item.total_meal)} frw
                       </div>
-                      <div className="decreament-btn">
+                      <div
+                        className="decreament-btn"
+                        onMouseEnter={() =>
+                          handlePopUpMessage(
+                            "onMouseEnter",
+                            "Decreament meal Qty"
+                          )
+                        }
+                        onMouseLeave={() =>
+                          handlePopUpMessage(
+                            "onMouseLeave",
+                            "Decreament meal Qty"
+                          )
+                        }
+                        onClick={() => editMeal(item, "decreament")}
+                      >
                         {" "}
-                        <i
-                          className="fa fa-minus"
-                          onClick={() => editMeal(item, "decreament")}
-                        ></i>
+                        <i className="fa fa-minus"></i>
                       </div>
-                      <div className="delete-order-btn text-danger">
+                      <div
+                        className="delete-order-btn text-danger"
+                        onMouseEnter={() =>
+                          handlePopUpMessage(
+                            "onMouseEnter",
+                            "Delete the whole meal"
+                          )
+                        }
+                        onMouseLeave={() =>
+                          handlePopUpMessage(
+                            "onMouseLeave",
+                            "Delete the whole meal"
+                          )
+                        }
+                        onClick={() => editMeal(item, "delete")}
+                      >
                         {" "}
-                        <i
-                          className="fa fa-times"
-                          onClick={() => editMeal(item, "delete")}
-                        ></i>
+                        <i className="fa fa-times"></i>
+                      </div>
+                      <div
+                        className="edit-order-btn text-success"
+                        onMouseEnter={() =>
+                          handlePopUpMessage(
+                            "onMouseEnter",
+                            "Save meal changes"
+                          )
+                        }
+                        onMouseLeave={() =>
+                          handlePopUpMessage(
+                            "onMouseLeave",
+                            "Save meal changes"
+                          )
+                        }
+                        onClick={() => editOrder(item)}
+                      >
+                        {" "}
+                        <i className="fa fa-check"></i>
                       </div>
                     </li>
                   );
@@ -327,19 +424,56 @@ function EditOrderForm({
                         {item.tea.name}({item.qty} x {item.price}) ={" "}
                         {addComma(item.total_tea)} frw
                       </div>
-                      <div className="decreament-btn">
+                      <div
+                        className="decreament-btn"
+                        onMouseEnter={() =>
+                          handlePopUpMessage(
+                            "onMouseEnter",
+                            "Decreament tea Qty"
+                          )
+                        }
+                        onMouseLeave={() =>
+                          handlePopUpMessage(
+                            "onMouseLeave",
+                            "Decreament tea Qty"
+                          )
+                        }
+                        onClick={() => editTea(item, "decreament")}
+                      >
                         {" "}
-                        <i
-                          className="fa fa-minus"
-                          onClick={() => editTea(item, "decreament")}
-                        ></i>
+                        <i className="fa fa-minus"></i>
                       </div>
-                      <div className="delete-order-btn text-danger">
+                      <div
+                        className="delete-order-btn text-danger"
+                        onMouseEnter={() =>
+                          handlePopUpMessage(
+                            "onMouseEnter",
+                            "Delete the whole tea"
+                          )
+                        }
+                        onMouseLeave={() =>
+                          handlePopUpMessage(
+                            "onMouseLeave",
+                            "Delete the whole tea"
+                          )
+                        }
+                        onClick={() => editTea(item, "delete")}
+                      >
                         {" "}
-                        <i
-                          className="fa fa-times"
-                          onClick={() => editTea(item, "delete")}
-                        ></i>
+                        <i className="fa fa-times"></i>
+                      </div>
+                      <div
+                        className="edit-order-btn text-success"
+                        onMouseEnter={() =>
+                          handlePopUpMessage("onMouseEnter", "Save tea changes")
+                        }
+                        onMouseLeave={() =>
+                          handlePopUpMessage("onMouseLeave", "Save tea changes")
+                        }
+                        onClick={() => editOrder(item)}
+                      >
+                        {" "}
+                        <i className="fa fa-check"></i>
                       </div>
                     </li>
                   );
@@ -352,7 +486,7 @@ function EditOrderForm({
           <div style={{ textAlign: "center" }}>
             Total:{" "}
             <i className="span span-success">
-              {addComma(overallTotal ? overallTotal : 0)} Rwf
+              {addComma(total ? total : 0)} Rwf
             </i>
           </div>
         ) : (

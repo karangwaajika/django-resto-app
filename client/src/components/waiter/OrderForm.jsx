@@ -59,8 +59,8 @@ function OrderForm({
       {props.componentUsedIn == "reorder" ? (
         <h1 style={{ marginBottom: "30px", fontFamily: "cursive" }}>
           ReOrder{" "}
-          <i className="span span-success">{props.orderId && props.orderId}</i>
-          -{props.customerName}
+          <i className="span span-success">{props.orderId && props.orderId}</i>-
+          {props.customerName}
         </h1>
       ) : (
         <h1 style={{ marginBottom: "30px", fontFamily: "cursive" }}>

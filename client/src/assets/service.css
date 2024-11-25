@@ -472,7 +472,8 @@ aside.order-info {
   background-color: #eeebe8d2;
 }
 .decreament-btn,
-.delete-order-btn {
+.delete-order-btn,
+.edit-order-btn {
   cursor: pointer;
   border: 1px solid #afaeadd2;
   border-radius: 4px;
@@ -501,4 +502,11 @@ aside.order-info {
   left: 38%;
   padding: 2px 20px;
   z-index: 1;
+}
+.edit-order-btn:hover {
+  background-color: white;
+}
+.edit-order-btn:active {
+  background-color: #79f8b2;
+  color: white;
 }
