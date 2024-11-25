@@ -61,10 +61,13 @@ function EditOrderForm({
     itemQty: 0,
     itemPrice: 0,
     itemTotal: 0,
-    ItemSoldDate: "",
+    itemSoldDate: "",
+    itemType: "",
+    rawData: {},
+    action: "",
   });
   // handle the retrieving of data
-  const handleConfirmModal = (itemType = null, itemInfo = 0) => {
+  const handleConfirmModal = (itemType, itemInfo, action = "") => {
     if (itemType == "beverage") {
       const beverageData = {
         itemId: itemInfo.id,
@@ -74,6 +77,8 @@ function EditOrderForm({
         itemTotal: itemInfo.price * itemInfo.sold_qty,
         itemSoldDate: convertToDateTime(itemInfo.sold_date),
         rawData: itemInfo,
+        itemType: itemType,
+        action: action,
       };
 
       setItemData(beverageData);
@@ -88,6 +93,8 @@ function EditOrderForm({
         itemTotal: itemInfo.price * itemInfo.qty,
         itemSoldDate: convertToDateTime(itemInfo.sold_date),
         rawData: itemInfo,
+        itemType: itemType,
+        action: action,
       };
       setItemData(teaData);
       setConfirmModal(true);
@@ -101,6 +108,8 @@ function EditOrderForm({
         itemTotal: itemInfo.price * itemInfo.plate_nbr,
         itemSoldDate: convertToDateTime(itemInfo.sold_date),
         rawData: itemInfo,
+        itemType: itemType,
+        action: action,
       };
       setItemData(mealData);
       setConfirmModal(true);
@@ -110,11 +119,11 @@ function EditOrderForm({
   const editBeverage = (beverageData, btnClicked) => {
     setIsPopUpMessage(false);
     if (btnClicked == "delete") {
-      handleConfirmModal("beverage", beverageData);
+      handleConfirmModal("beverage", beverageData, "delete");
     } else {
       if (beverageData.sold_qty == 1) {
         //delete beverage order
-        handleConfirmModal("beverage", beverageData);
+        handleConfirmModal("beverage", beverageData, "delete");
       } else {
         props.setData((oldData) => {
           let newBeverages = [];
@@ -136,10 +145,10 @@ function EditOrderForm({
   const editTea = (teaData, btnClicked) => {
     setIsPopUpMessage(false);
     if (btnClicked == "delete") {
-      handleConfirmModal("tea", teaData);
+      handleConfirmModal("tea", teaData, "delete");
     } else {
       if (teaData.qty == 1) {
-        handleConfirmModal("tea", teaData);
+        handleConfirmModal("tea", teaData, "delete");
       } else {
         props.setData((oldData) => {
           let newTeas = [];
@@ -161,10 +170,10 @@ function EditOrderForm({
   const editMeal = (mealData, btnClicked) => {
     setIsPopUpMessage(false);
     if (btnClicked == "delete") {
-      handleConfirmModal("meal", mealData);
+      handleConfirmModal("meal", mealData, "delete");
     } else {
       if (mealData.plate_nbr == 1) {
-        handleConfirmModal("meal", mealData);
+        handleConfirmModal("meal", mealData, "delete");
       } else {
         props.setData((oldData) => {
           let newMeals = [];
@@ -186,10 +195,9 @@ function EditOrderForm({
   const {
     editOrder,
     message: responseMessage,
-    setMessage: setResponseMessage,
     clearMessage,
     isLoading,
-  } = useEditOrder(props.setRefresh);
+  } = useEditOrder(props.setRefresh, props.data.id);
   return (
     <aside className="card order-info" style={{ flex: 1 }}>
       <div className="card-header">
@@ -224,7 +232,9 @@ function EditOrderForm({
             itemData={itemData}
             closeModal={handleModal}
             animate={animation}
-            editOrder={() => editOrder(itemData.rawData)}
+            editOrder={() =>
+              editOrder(itemData.rawData, itemData.itemType, itemData.action)
+            }
           />
         )}
         {beverages.length > 0 && (
@@ -302,7 +312,7 @@ function EditOrderForm({
                             "Save beverage changes"
                           )
                         }
-                        onClick={() => editOrder(item)}
+                        onClick={() => editOrder(item, "beverage")}
                       >
                         {" "}
                         <i className="fa fa-check"></i>
@@ -389,7 +399,7 @@ function EditOrderForm({
                             "Save meal changes"
                           )
                         }
-                        onClick={() => editOrder(item)}
+                        onClick={() => editOrder(item, "meal")}
                       >
                         {" "}
                         <i className="fa fa-check"></i>
@@ -470,7 +480,7 @@ function EditOrderForm({
                         onMouseLeave={() =>
                           handlePopUpMessage("onMouseLeave", "Save tea changes")
                         }
-                        onClick={() => editOrder(item)}
+                        onClick={() => editOrder(item, "tea")}
                       >
                         {" "}
                         <i className="fa fa-check"></i>
