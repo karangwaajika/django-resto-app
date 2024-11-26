@@ -8,9 +8,9 @@ from product.models import *
 class Order(models.Model):
 
     class OrderType(models.TextChoices):
-        DINE_IN = 1, "Dine-in"
-        ONLINE = 2, "Online"
-        TAKEAWAY = 3, "Takeaway"
+        DINE_IN = "1", "Dine-in"
+        ONLINE = "2", "Online"
+        TAKEAWAY = "3", "Takeaway"
 
     employee = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     is_paid = models.BooleanField(default=False)
