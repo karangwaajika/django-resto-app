@@ -321,9 +321,6 @@ def reorder(request):
 
             # check if it is a new beverage order
             try:
-                beverage_order = BeverageOrder.objects.filter(
-                    order=order, beverage=beverage
-                )[:1]
                 beverage_order_total = BeverageOrderTotal.objects.get(
                     order=order, beverage=beverage
                 )
@@ -333,7 +330,7 @@ def reorder(request):
                 ) * drink.get("beveragePrice")
                 beverage_order_total.save()
 
-            except BeverageOrder.DoesNotExist:
+            except BeverageOrderTotal.DoesNotExist:
 
                 # insert beverage total
                 BeverageOrderTotal.objects.create(
@@ -360,7 +357,6 @@ def reorder(request):
 
             # check if it is a new meal order
             try:
-                meal_order = MealOrder.objects.filter(order=order, meal=meal)[:1]
                 meal_order_total = MealOrderTotal.objects.get(order=order, meal=meal)
                 meal_order_total.total_qty += item.get("mealQty")
                 meal_order_total.total_amount += item.get("mealQty") * item.get(
@@ -368,7 +364,7 @@ def reorder(request):
                 )
                 meal_order_total.save()
 
-            except MealOrder.DoesNotExist:
+            except MealOrderTotal.DoesNotExist:
 
                 # insert meal total
                 MealOrderTotal.objects.create(
@@ -393,7 +389,6 @@ def reorder(request):
 
             # check if it is a new tea order
             try:
-                tea_order = TeaOrder.objects.filter(order=order, tea=tea)[:1]
                 tea_order_total = TeaOrderTotal.objects.get(order=order, tea=tea)
                 tea_order_total.total_qty += item.get("teaQty")
                 tea_order_total.total_amount += item.get("teaQty") * item.get(
@@ -401,7 +396,7 @@ def reorder(request):
                 )
                 tea_order_total.save()
 
-            except TeaOrder.DoesNotExist:
+            except TeaOrderTotal.DoesNotExist:
 
                 # insert tea total
                 TeaOrderTotal.objects.create(
@@ -538,7 +533,7 @@ def edit_order(request, order_id):
                     # update meal order total
                     old_meal_order_total.total_qty -= int(item.get("plate_nbr"))
                     old_meal_order_total.total_amount -= (
-                        int(item.get("plate_nbr")) * old_meal_order_total.sold_price
+                        int(item.get("plate_nbr")) * old_meal_order.price
                     )
                     old_meal_order_total.save()
 
@@ -547,6 +542,60 @@ def edit_order(request, order_id):
                 {
                     "success": False,
                     "message": "Meal order doesn't exist",
+                }
+            )
+
+    if item_type == "tea":
+        tea = Tea.objects.get(pk=item.get("tea").get("id"))
+        try:
+            old_tea_order = TeaOrder.objects.get(pk=item.get("id"))
+            old_tea_order_total = TeaOrderTotal.objects.get(order=order, tea=tea)
+            # for decreaming qty
+            if action == "decreament":
+                # check if no change has happened.
+                if item.get("qty") == old_tea_order.qty:
+                    return Response(
+                        {
+                            "success": False,
+                            "message": "You didn't take any action",
+                        }
+                    )
+
+                # update tea order
+                old_tea_order.qty -= int(item.get("qty"))
+                old_tea_order.total_tea -= int(item.get("qty")) * old_tea_order.price
+                old_tea_order.save()
+                # update tea order total
+                old_tea_order_total.total_qty -= int(item.get("qty"))
+                old_tea_order_total.total_amount -= (
+                    int(item.get("qty")) * old_tea_order.price
+                )
+                old_tea_order_total.save()
+
+            # for deleting the whole tea
+            else:
+
+                # delete tea order
+                old_tea_order.delete()
+                # delete tea total
+                if (
+                    old_tea_order_total.total_qty == 1
+                    or old_tea_order_total.total_qty == item.get("qty")
+                ):
+                    old_tea_order_total.delete()
+                else:
+                    # update tea order total
+                    old_tea_order_total.total_qty -= int(item.get("qty"))
+                    old_tea_order_total.total_amount -= (
+                        int(item.get("qty")) * old_tea_order.price
+                    )
+                    old_tea_order_total.save()
+
+        except TeaOrder.DoesNotExist or TeaOrderTotal.DoesNotExist:
+            return Response(
+                {
+                    "success": False,
+                    "message": "Tea order doesn't exist",
                 }
             )
 
