@@ -451,37 +451,38 @@ def edit_order(request, order_id):
                         }
                     )
                 # update beverage stock
-                beverage_stock.qty += int(item.get("sold_qty"))
+                return_qty = old_beverage_order.sold_qty - int(item.get("sold_qty"))
+                beverage_stock.qty += return_qty
                 beverage_stock.save()
                 # update beverage order
-                old_beverage_order.sold_qty -= int(item.get("sold_qty"))
+                old_beverage_order.sold_qty -= return_qty
                 old_beverage_order.total_beverage -= (
-                    int(item.get("sold_qty")) * old_beverage_order.price
+                    return_qty * old_beverage_order.price
                 )
                 old_beverage_order.save()
                 # update beverage order total
-                old_beverage_order_total.total_qty -= int(item.get("sold_qty"))
+                old_beverage_order_total.total_qty -= return_qty
                 old_beverage_order_total.total_amount -= (
-                    int(item.get("sold_qty")) * old_beverage_order_total.sold_price
+                    return_qty * old_beverage_order_total.sold_price
                 )
                 old_beverage_order_total.save()
 
             # for deleting the whole beverage
             else:
-
                 # update beverage stock
-                beverage_stock.qty += int(item.get("sold_qty"))
+                beverage_stock.qty += old_beverage_order.sold_qty
                 beverage_stock.save()
                 # delete beverage order
                 old_beverage_order.delete()
                 # delete beverage total
-                if old_beverage_order_total.total_qty == 1 or old_beverage_order_total.total_qty == item.get("sold_qty") :
+                if old_beverage_order_total.total_qty == old_beverage_order.sold_qty:
                     old_beverage_order_total.delete()
                 else:
                     # update beverage order total
-                    old_beverage_order_total.total_qty -= int(item.get("sold_qty"))
+                    old_beverage_order_total.total_qty -= old_beverage_order.sold_qty
                     old_beverage_order_total.total_amount -= (
-                        int(item.get("sold_qty")) * old_beverage_order_total.sold_price
+                        old_beverage_order.sold_qty
+                        * old_beverage_order_total.sold_price
                     )
                     old_beverage_order_total.save()
 
@@ -509,15 +510,14 @@ def edit_order(request, order_id):
                     )
 
                 # update meal order
-                old_meal_order.plate_nbr -= int(item.get("plate_nbr"))
-                old_meal_order.total_meal -= (
-                    int(item.get("plate_nbr")) * old_meal_order.price
-                )
+                return_plate_nbr = old_meal_order.plate_nbr - int(item.get("plate_nbr"))
+                old_meal_order.plate_nbr -= return_plate_nbr
+                old_meal_order.total_meal -= return_plate_nbr * old_meal_order.price
                 old_meal_order.save()
                 # update meal order total
-                old_meal_order_total.total_qty -= int(item.get("plate_nbr"))
+                old_meal_order_total.total_qty -= return_plate_nbr
                 old_meal_order_total.total_amount -= (
-                    int(item.get("plate_nbr")) * old_meal_order.price
+                    return_plate_nbr * old_meal_order.price
                 )
                 old_meal_order_total.save()
 
@@ -527,16 +527,13 @@ def edit_order(request, order_id):
                 # delete meal order
                 old_meal_order.delete()
                 # delete meal total
-                if (
-                    old_meal_order_total.total_qty == 1
-                    or old_meal_order_total.total_qty == item.get("plate_nbr")
-                ):
+                if old_meal_order_total.total_qty == old_meal_order.plate_nbr:
                     old_meal_order_total.delete()
                 else:
                     # update meal order total
-                    old_meal_order_total.total_qty -= int(item.get("plate_nbr"))
+                    old_meal_order_total.total_qty -= return_plate_nbr
                     old_meal_order_total.total_amount -= (
-                        int(item.get("plate_nbr")) * old_meal_order.price
+                        return_plate_nbr * old_meal_order.price
                     )
                     old_meal_order_total.save()
 
@@ -565,14 +562,13 @@ def edit_order(request, order_id):
                     )
 
                 # update tea order
-                old_tea_order.qty -= int(item.get("qty"))
-                old_tea_order.total_tea -= int(item.get("qty")) * old_tea_order.price
+                return_tea_qty = old_tea_order.qty - int(item.get("qty"))
+                old_tea_order.qty -= return_tea_qty
+                old_tea_order.total_tea -= return_tea_qty * old_tea_order.price
                 old_tea_order.save()
                 # update tea order total
-                old_tea_order_total.total_qty -= int(item.get("qty"))
-                old_tea_order_total.total_amount -= (
-                    int(item.get("qty")) * old_tea_order.price
-                )
+                old_tea_order_total.total_qty -= return_tea_qty
+                old_tea_order_total.total_amount -= return_tea_qty * old_tea_order.price
                 old_tea_order_total.save()
 
             # for deleting the whole tea
@@ -581,16 +577,13 @@ def edit_order(request, order_id):
                 # delete tea order
                 old_tea_order.delete()
                 # delete tea total
-                if (
-                    old_tea_order_total.total_qty == 1
-                    or old_tea_order_total.total_qty == item.get("qty")
-                ):
+                if old_tea_order_total.total_qty == old_tea_order.qty:
                     old_tea_order_total.delete()
                 else:
                     # update tea order total
-                    old_tea_order_total.total_qty -= int(item.get("qty"))
+                    old_tea_order_total.total_qty -= old_tea_order.qty
                     old_tea_order_total.total_amount -= (
-                        int(item.get("qty")) * old_tea_order.price
+                        old_tea_order.qty * old_tea_order.price
                     )
                     old_tea_order_total.save()
 

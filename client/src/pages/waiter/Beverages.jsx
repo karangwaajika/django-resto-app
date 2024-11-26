@@ -4,6 +4,7 @@ import InputField from "../../components/ui/InputField";
 import useFetchAutoComplete from "../../hooks/useFetchAutoComplete";
 import BeverageTable from "../../components/waiter/BeverageTable";
 import loaderPicture from "/images/loading-3.gif";
+import beverageImage from "/images/drink1.jpeg";
 
 function Beverages() {
   // handle fetch auto complete
@@ -23,9 +24,6 @@ function Beverages() {
   } = useFetchAutoComplete(url, search);
   return (
     <section className="menu">
-      <aside className="item-picture beverages">
-        <i style={{color:"white"}}>All Beverages</i>
-      </aside>
       <aside className="items">
         <div className="search-btn">
           <InputField
@@ -34,7 +32,7 @@ function Beverages() {
             id="search"
             label="Search"
             icon="fa-solid fa-search"
-            placeholder="... "
+            placeholder="search... "
             handleChange={(e) => setSearch(e.target.value)}
           />
         </div>

@@ -23,9 +23,6 @@ function Meal() {
   } = useFetchAutoComplete(url, search);
   return (
     <section className="menu">
-      <aside className="item-picture meal">
-        <i style={{ color: "white" }}>Dish List</i>
-      </aside>
       <aside className="items">
         <div className="search-btn">
           <InputField
@@ -34,7 +31,7 @@ function Meal() {
             id="search"
             label="Search"
             icon="fa-solid fa-search"
-            placeholder="... "
+            placeholder="search... "
             handleChange={(e) => setSearch(e.target.value)}
           />
         </div>

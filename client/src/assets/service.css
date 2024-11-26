@@ -152,74 +152,39 @@ main.service button {
 /* ################# MENU ############### */
 section.menu {
   display: flex;
-  width: 100%;
-}
-aside.item-picture {
-  display: flex;
   justify-content: center;
-  min-width: 40%;
+  align-items: center;
+}
 
-  background-repeat: no-repeat;
-  background-position-y: bottom;
-  background-size: cover;
-  min-height: 80vh;
-  border: 1px solid white;
-  border-radius: 10%;
-}
-aside.beverages {
-  background-image: url("/images/drink1.jpeg");
-}
-aside.smoothies {
-  background-image: url("/images/smoothies1.jpg");
-}
-aside.meal {
-  background-image: url("/images/food.jpg");
-}
 aside.items {
   display: flex;
   flex-direction: column;
   gap: 10px;
   min-width: 60%;
-  border: 1px solid white;
-  border-radius: 10%;
-  background-color: #9b8c5d;
+  border: 1px solid #000000;
+  border-radius: 10px;
   padding: 20px;
 }
-section.menu td,
-section.menu th {
+section.menu table {
+  border: 1px solid #c6cdc9;
   font-size: 13px;
-  padding: 5px;
-  text-align: center;
 }
-
-section.menu thead th {
-  font-size: 14px;
-}
-
 section.menu table caption,
 section.menu table th {
   color: white;
-  border-bottom: 1px solid white;
+  border: 1px solid #c6ccc9;
+  background-color: #252928d2;
 }
-
-section.menu td:hover {
-  background-color: #f3f3f3fb;
-  cursor: pointer;
+section.menu table tr {
+  border-top: 1px solid #c6ccc9;
 }
-.items .input-group {
-  border: 1px solid white;
+section.menu table tr:nth-of-type(2n) {
+  background-color: #eeebe8d2;
 }
-.items .input-group input {
-  background-color: #9b8c5d;
-  color: white;
-}
-.items .input-group .input-text {
-  border-left: 1px solid white;
-  color: white;
-}
-.items .input-group .input-icon {
-  border-right: 1px solid white;
-  color: white;
+section.menu table .far,
+section.menu table .fa-regular,
+section.menu table .fa {
+  font-size: 18px;
 }
 
 /* ######################## ORDER ################## */
