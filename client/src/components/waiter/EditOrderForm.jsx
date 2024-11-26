@@ -312,7 +312,7 @@ function EditOrderForm({
                             "Save beverage changes"
                           )
                         }
-                        onClick={() => editOrder(item, "beverage")}
+                        onClick={() => editOrder(item, "beverage","decreament")}
                       >
                         {" "}
                         <i className="fa fa-check"></i>

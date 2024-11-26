@@ -176,7 +176,10 @@ def view_orders(request):
             Order.objects.filter(search_fields)
             .order_by("-id")
             .prefetch_related(
-                "order_teas_total", "order_beverages_total", "order_meals_total", "employee"
+                "order_teas_total",
+                "order_beverages_total",
+                "order_meals_total",
+                "employee",
             )
             .annotate(
                 employee_fullname=employee_fullname,
@@ -189,7 +192,9 @@ def view_orders(request):
     orders = (
         Order.objects.all()
         .order_by("-id")
-        .prefetch_related("order_teas_total", "order_beverages_total", "order_meals_total")
+        .prefetch_related(
+            "order_teas_total", "order_beverages_total", "order_meals_total"
+        )
         .annotate(
             employee_fullname=employee_fullname,
         )
@@ -420,5 +425,82 @@ def reorder(request):
         {
             "success": True,
             "message": "Re-order recorded successfully",
+        }
+    )
+
+
+@api_view(["POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def edit_order(request, order_id):
+    order_details = request.data
+    item, item_type, action = order_details.values()
+    order = Order.objects.get(pk=order_id)
+
+    if item_type == "beverage":
+        beverage = Beverage.objects.get(pk=item.get("beverage").get("id"))
+        beverage_stock = BeverageStock.objects.get(beverage=beverage)
+        try:
+            old_beverage_order = BeverageOrder.objects.get(pk=item.get("id"))
+            old_beverage_order_total = BeverageOrderTotal.objects.get(
+                order=order, beverage=beverage
+            )
+            # for decreaming beverage qty
+            if action == "decreament":
+                # check if no change has happened.
+                if item.get("sold_qty") == old_beverage_order.sold_qty:
+                    return Response(
+                        {
+                            "success": False,
+                            "message": "You didn't take any action",
+                        }
+                    )
+                # update beverage stock
+                beverage_stock.qty += int(item.get("sold_qty"))
+                beverage_stock.save()
+                # update beverage order
+                old_beverage_order.sold_qty -= int(item.get("sold_qty"))
+                old_beverage_order.total_beverage -= (
+                    int(item.get("sold_qty")) * old_beverage_order.price
+                )
+                old_beverage_order.save()
+                # update beverage order total
+                old_beverage_order_total.total_qty -= int(item.get("sold_qty"))
+                old_beverage_order_total.total_amount -= (
+                    int(item.get("sold_qty")) * old_beverage_order_total.sold_price
+                )
+                old_beverage_order_total.save()
+
+            # for deleting the whole beverage
+            else:
+
+                # update beverage stock
+                beverage_stock.qty += int(item.get("sold_qty"))
+                beverage_stock.save()
+                # delete beverage order
+                old_beverage_order.delete()
+                # delete beverage total
+                if old_beverage_order_total.total_qty == 1:
+                    old_beverage_order_total.delete()
+                else:
+                    # update beverage order total
+                    old_beverage_order_total.total_qty -= int(item.get("sold_qty"))
+                    old_beverage_order_total.total_amount -= (
+                        int(item.get("sold_qty")) * old_beverage_order_total.sold_price
+                    )
+                    old_beverage_order_total.save()
+
+        except BeverageOrder.DoesNotExist or BeverageOrderTotal.DoesNotExist:
+            return Response(
+                {
+                    "success": False,
+                    "message": "Beverage order doesn't exist",
+                }
+            )
+
+    return Response(
+        {
+            "success": True,
+            "message": "Edit Order recorded successfully",
         }
     )
