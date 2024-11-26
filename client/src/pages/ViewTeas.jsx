@@ -1,4 +1,4 @@
-import "../assets/Tea.css";
+// import "../assets/Tea.css";
 import TeaTable from "../components/TeaTable";
 import InputField from "../components/ui/InputField";
 import loaderPicture from "/images/loading-3.gif";

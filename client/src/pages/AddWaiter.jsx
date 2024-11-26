@@ -1,4 +1,4 @@
-import "../assets/Waiter.css";
+// import "../assets/Waiter.css";
 import WaiterForm from "../components/WaiterForm";
 import { useState } from "react";
 import fieldValidation from "../utils/fieldValidation.mjs";
