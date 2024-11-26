@@ -312,7 +312,9 @@ function EditOrderForm({
                             "Save beverage changes"
                           )
                         }
-                        onClick={() => editOrder(item, "beverage","decreament")}
+                        onClick={() =>
+                          editOrder(item, "beverage", "decreament")
+                        }
                       >
                         {" "}
                         <i className="fa fa-check"></i>
@@ -345,7 +347,7 @@ function EditOrderForm({
                       <div>{convertToDateTime(item.sold_date)}</div>
                       <div style={{ flexGrow: 1 }}>
                         {item.meal.name}({item.plate_nbr} x {item.price}) ={" "}
-                        {addComma(item.total_meal)} frw
+                        {addComma(item.plate_nbr * item.price)} frw
                       </div>
                       <div
                         className="decreament-btn"
@@ -399,7 +401,7 @@ function EditOrderForm({
                             "Save meal changes"
                           )
                         }
-                        onClick={() => editOrder(item, "meal")}
+                        onClick={() => editOrder(item, "meal", "decreament")}
                       >
                         {" "}
                         <i className="fa fa-check"></i>
@@ -432,7 +434,7 @@ function EditOrderForm({
                       <div>{convertToDateTime(item.sold_date)}</div>
                       <div style={{ flexGrow: 1 }}>
                         {item.tea.name}({item.qty} x {item.price}) ={" "}
-                        {addComma(item.total_tea)} frw
+                        {addComma(item.qty * item.price)} frw
                       </div>
                       <div
                         className="decreament-btn"
@@ -480,7 +482,7 @@ function EditOrderForm({
                         onMouseLeave={() =>
                           handlePopUpMessage("onMouseLeave", "Save tea changes")
                         }
-                        onClick={() => editOrder(item, "tea")}
+                        onClick={() => editOrder(item, "tea", "decreament")}
                       >
                         {" "}
                         <i className="fa fa-check"></i>

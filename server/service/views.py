@@ -497,6 +497,58 @@ def edit_order(request, order_id):
                     "message": "Beverage order doesn't exist",
                 }
             )
+    if item_type == "meal":
+        meal = Meal.objects.get(pk=item.get("meal").get("id"))
+        try:
+            old_meal_order = MealOrder.objects.get(pk=item.get("id"))
+            old_meal_order_total = MealOrderTotal.objects.get(order=order, meal=meal)
+            # for decreaming plate qty
+            if action == "decreament":
+                # check if no change has happened.
+                if item.get("plate_nbr") == old_meal_order.plate_nbr:
+                    return Response(
+                        {
+                            "success": False,
+                            "message": "You didn't take any action",
+                        }
+                    )
+
+                # update meal order
+                old_meal_order.plate_nbr -= int(item.get("plate_nbr"))
+                old_meal_order.total_meal -= (
+                    int(item.get("plate_nbr")) * old_meal_order.price
+                )
+                old_meal_order.save()
+                # update meal order total
+                old_meal_order_total.total_qty -= int(item.get("plate_nbr"))
+                old_meal_order_total.total_amount -= (
+                    int(item.get("plate_nbr")) * old_meal_order.price
+                )
+                old_meal_order_total.save()
+
+            # for deleting the whole meal
+            else:
+
+                # delete meal order
+                old_meal_order.delete()
+                # delete meal total
+                if old_meal_order_total.total_qty == 1:
+                    old_meal_order_total.delete()
+                else:
+                    # update meal order total
+                    old_meal_order_total.total_qty -= int(item.get("plate_nbr"))
+                    old_meal_order_total.total_amount -= (
+                        int(item.get("plate_nbr")) * old_meal_order_total.sold_price
+                    )
+                    old_meal_order_total.save()
+
+        except MealOrder.DoesNotExist or MealOrderTotal.DoesNotExist:
+            return Response(
+                {
+                    "success": False,
+                    "message": "Meal order doesn't exist",
+                }
+            )
 
     return Response(
         {
