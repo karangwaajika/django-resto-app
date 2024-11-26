@@ -475,7 +475,7 @@ def edit_order(request, order_id):
                 # delete beverage order
                 old_beverage_order.delete()
                 # delete beverage total
-                if old_beverage_order_total.total_qty == 1:
+                if old_beverage_order_total.total_qty == 1 or old_beverage_order_total.total_qty == item.get("sold_qty") :
                     old_beverage_order_total.delete()
                 else:
                     # update beverage order total
@@ -527,7 +527,10 @@ def edit_order(request, order_id):
                 # delete meal order
                 old_meal_order.delete()
                 # delete meal total
-                if old_meal_order_total.total_qty == 1:
+                if (
+                    old_meal_order_total.total_qty == 1
+                    or old_meal_order_total.total_qty == item.get("plate_nbr")
+                ):
                     old_meal_order_total.delete()
                 else:
                     # update meal order total
