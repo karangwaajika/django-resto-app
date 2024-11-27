@@ -34,6 +34,7 @@ import WaiterOrders from "./pages/waiter/WaiterOrders.jsx";
 import ApproveBill from "./pages/waiter/ApproveBill.jsx";
 import ReOrder from "./pages/waiter/ReOrder.jsx";
 import EditOrder from "./pages/waiter/EditOrder.jsx";
+import ProtectDashboards from "./utils/ProtectDashboards.jsx";
 
 const router = createBrowserRouter([
   {
@@ -42,7 +43,7 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
   },
   {
-    element: <ProtectPage />,
+    element: <ProtectDashboards />,
     children: [
       {
         element: <Dashboard />,
