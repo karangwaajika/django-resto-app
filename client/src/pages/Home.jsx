@@ -1,4 +1,4 @@
-// import "../assets/Home.css";
+import "../assets/Home.css";
 import LoginForm from "../components/LoginForm";
 import NavbarHome from "../components/NavbarHome";
 import lolImg from "/images/lol.jpg";

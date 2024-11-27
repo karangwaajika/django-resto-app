@@ -1,6 +1,6 @@
 import DashboardNavbar from "../components/DashboardNavbar";
 import DashboardSideBar from "../components/DashboardSideBar";
-// import "../assets/Dashboard.css";
+import "../assets/Dashboard.css";
 import { Outlet } from "react-router-dom";
 import useProtectPage from "../hooks/useProtectPage";
 import { createContext } from "react";
