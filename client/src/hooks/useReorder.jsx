@@ -47,19 +47,9 @@ export default function useReOrder(
       setMessage({ status: false, message: "You haven't added any item !!!" });
     }
     if (Object.keys(validatedFields).length == 0 && !isRecordsEmpty) {
-      // submitForms();
-      const x = {
-        order_id: form.orderId,
-        order_type: form.orderType,
-        customer_name: form.customerName,
-        beverages: beverageRecords,
-        meals: mealRecords,
-        teas: teaRecords,
-      };
       form.customerName = form.customerName ? form.customerName : customerName;
       form.orderId = orderId;
       submitForms();
-      console.log(x);
     }
   };
   const handleChange = (e) => {

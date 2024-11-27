@@ -93,6 +93,7 @@ function Order() {
           handleTeaChange={handleTeaChange}
           setTeaForm={setTeaForm}
           orderId={data.order_id}
+          inPage = "recordOrder"
         />
         <Bill
           beverages={beverageRecords}

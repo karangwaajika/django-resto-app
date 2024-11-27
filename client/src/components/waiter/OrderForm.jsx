@@ -2,12 +2,10 @@ import React, { useState } from "react";
 import Button from "../ui/Button";
 import InputField from "../ui/InputField";
 import FlashMessage from "../ui/FlashMessage";
-import ButtonLoading from "../ui/ButtonLoading";
-import loadingImg from "/images/n-loading.gif";
-import useFetchAutoComplete from "../../hooks/useFetchAutoComplete";
 import useFetchItem from "../../hooks/useFetchItem";
 import ItemList from "./ItemList";
 import loaderPicture from "/images/loading-3.gif";
+import { useNavigate } from "react-router-dom";
 
 function OrderForm({
   message,
@@ -53,6 +51,8 @@ function OrderForm({
     message: teaMessage,
     clearMessage: teaClearMessage,
   } = useFetchItem(teaUrl, props.teaForm.teaName);
+
+  const navigate = useNavigate();
 
   return (
     <aside className="form">
@@ -258,9 +258,9 @@ function OrderForm({
             onChange={handleChange}
             errorfield={fieldError.orderType && "error-field"}
           >
-            <option value={1}>Dine-in</option>
-            <option value={2}>To-Go</option>
-            <option value={3}>Online</option>
+            <option value="1">Dine-in</option>
+            <option value="2">To-Go</option>
+            <option value="3">Online</option>
           </select>
           <span className="input-text">OrderType</span>
         </div>
@@ -273,7 +273,16 @@ function OrderForm({
           onClick={submitForm}
         />
 
-        <Button text="New Bill" className="btn-outline-service" name="" />
+        <Button
+          text="Go Back"
+          className="btn-outline-service"
+          name=""
+          onClick={() => {
+            return props.inPage == "recordOrder"
+              ? navigate("/service/home")
+              : navigate("/service/my-services");
+          }}
+        />
       </div>
       {/* </form> */}
       <div

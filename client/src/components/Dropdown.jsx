@@ -22,7 +22,7 @@ export default function Dropdown({ closeModal, animate, user, logout }) {
           <p>{user.email ? user.email : "no-email@gmail.com"}</p>
         </article>
       </div>
-      <div className="buttons">
+      <div className="buttons" style={{gap: "5px"}}>
         <Button text="Update" className="btn-light" />
         <Button text="Logout" className="btn-dark" onClick={logout} />
       </div>

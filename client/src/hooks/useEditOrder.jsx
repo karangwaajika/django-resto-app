@@ -12,7 +12,6 @@ export default function useEditOrder(setRefresh, orderId) {
   };
 
   const submitForms = (item, itemType, action) => {
-    console.log(action)
     setIsLoading(true);
     const isDevelopment = import.meta.env.MODE === "production";
     const url = isDevelopment

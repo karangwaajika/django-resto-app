@@ -22,7 +22,6 @@ export default function useRetrieveOrder(url, isRefresh) {
       })
       .then((res) => {
         setData(res.data.data);
-        console.log(res.data.data);
       })
       .catch((err) => {
         setMessage({

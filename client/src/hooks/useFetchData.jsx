@@ -19,7 +19,6 @@ export default function useFetchData(url) {
       })
       .then((res) => {
         setData(res.data.data);
-        console.log(res.data.data)
       })
       .catch((err) => {
         setMessage({
