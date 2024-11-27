@@ -104,6 +104,7 @@ export default function AddWaiter() {
         submitForm={validateSubmitForm}
         clearMessage={clearMessage}
         fieldError={fieldError}
+        inPage="addWaiter"
       />
       <div className="card form-validation-rules">
         <div className="card-header">

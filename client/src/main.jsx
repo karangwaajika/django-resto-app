@@ -35,6 +35,8 @@ import ApproveBill from "./pages/waiter/ApproveBill.jsx";
 import ReOrder from "./pages/waiter/ReOrder.jsx";
 import EditOrder from "./pages/waiter/EditOrder.jsx";
 import ProtectDashboards from "./utils/ProtectDashboards.jsx";
+import UpdateUser from "./pages/waiter/UpdateUser.jsx";
+import EditUser from "./pages/EditUser.jsx";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +85,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/view-waiters",
             element: <ViewWaiters />,
+          },
+          {
+            path: "/dashboard/update-profile",
+            element: <EditUser />,
           },
         ],
       },
@@ -133,6 +139,10 @@ const router = createBrowserRouter([
           {
             path: "/service/:orderId/edit-order",
             element: <EditOrder />,
+          },
+          {
+            path: "/service/update-profile",
+            element: <UpdateUser />,
           },
         ],
       },

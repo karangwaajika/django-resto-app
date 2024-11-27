@@ -156,3 +156,22 @@ def logout_user(request, user_id):
         return Response({"success": True, "message": "Logout successfuly"})
     except User.DoesNotExist:
         return Response({"success": False, "message": "User doen't exist!!"})
+
+
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+@api_view(["POST"])
+def update_user(request):
+    user_data = request.data
+    first_name, last_name, username, password, user_id = user_data.values()
+    try:
+        user = User.objects.get(pk=user_id)
+        user.first_name = first_name if first_name else user.first_name
+        user.last_name = last_name if last_name else user.last_name
+        user.username = username if username else user.username
+        if password:
+            user.set_password(request.data["password"])
+        user.save()
+        return Response({"success": True, "message": "User updated successfully"})
+    except User.DoesNotExist:
+        return Response({"success": False, "message": "User doen't exist!!"})

@@ -12,6 +12,7 @@ export default function WaiterForm({
   submitForm,
   clearMessage,
   fieldError,
+  ...props
 }) {
   return (
     <div className="waiter-form">
@@ -38,7 +39,9 @@ export default function WaiterForm({
                   errorfield={fieldError.firstName && "error-field"}
                   label="First_name"
                   icon="fa-solid fa-user"
-                  placeholder="First Name"
+                  placeholder={
+                    props.user.first_name ? props.user.first_name : "First Name"
+                  }
                   handleChange={handleChange}
                   value={form.firstName}
                 />
@@ -54,7 +57,9 @@ export default function WaiterForm({
                   errorfield={fieldError.lastName && "error-field"}
                   label="Last_name"
                   icon="fa-solid fa-user"
-                  placeholder="Last Name"
+                  placeholder={
+                    props.user.last_name ? props.user.last_name : "Last Name"
+                  }
                   handleChange={handleChange}
                   value={form.lastName}
                 />
@@ -106,35 +111,45 @@ export default function WaiterForm({
                 errorfield={fieldError.username && "error-field"}
                 label="username"
                 icon="fa fa-user"
-                placeholder="username"
+                placeholder={
+                  props.user.username ? props.user.username : "Username"
+                }
                 handleChange={handleChange}
                 value={form.userName}
               />
             </div>
             <div className="tasks">
               <fieldset className="input-group radio-fieldset">
-                <legend>Choose user roll</legend>
-                <div className="bartender">
-                  <input
-                    type="radio"
-                    id="Bartender"
-                    name="task"
-                    value="1"
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="Bartender">Bartender</label>
-                </div>
-                <div className="waiter">
-                  <input
-                    type="radio"
-                    id="Waiter"
-                    name="task"
-                    value="0"
-                    checked={form.task == "0"}
-                    onChange={handleChange}
-                  />
-                  <label htmlFor="Waiter">Waiter</label>
-                </div>
+                <legend>
+                  {props.inPage ? "Choose user roll " : "Your role"}
+                </legend>
+                {props.inPage == "addWaiter" ? (
+                  <>
+                    <div className="bartender">
+                      <input
+                        type="radio"
+                        id="Bartender"
+                        name="task"
+                        value="1"
+                        onChange={handleChange}
+                      />
+                      <label htmlFor="Bartender">Bartender</label>
+                    </div>
+                    <div className="waiter">
+                      <input
+                        type="radio"
+                        id="Waiter"
+                        name="task"
+                        value="0"
+                        checked={form.task == "0"}
+                        onChange={handleChange}
+                      />
+                      <label htmlFor="Waiter">Waiter</label>
+                    </div>
+                  </>
+                ) : (
+                  props.userRole
+                )}
               </fieldset>
             </div>
 

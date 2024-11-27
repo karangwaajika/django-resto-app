@@ -1,5 +1,8 @@
+import { useState } from "react";
 import Button from "./ui/Button";
+import { useNavigate } from "react-router-dom";
 export default function Dropdown({ closeModal, animate, user, logout }) {
+  const navigate = useNavigate();
   return (
     <div
       className={`card dropdown ${animate}`}
@@ -22,8 +25,12 @@ export default function Dropdown({ closeModal, animate, user, logout }) {
           <p>{user.email ? user.email : "no-email@gmail.com"}</p>
         </article>
       </div>
-      <div className="buttons" style={{gap: "5px"}}>
-        <Button text="Update" className="btn-light" />
+      <div className="buttons" style={{ gap: "5px" }}>
+        <Button
+          text="Update"
+          className="btn-light"
+          onClick={() => navigate("/dashboard/update-profile")}
+        />
         <Button text="Logout" className="btn-dark" onClick={logout} />
       </div>
     </div>
