@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "product.apps.ProductConfig",
     "service.apps.ServiceConfig",
     "django_extensions",
+    "reports.apps.ReportsConfig",
 ]
 
 MIDDLEWARE = [
