@@ -149,11 +149,15 @@ button.btn-success-outline {
   border: 1px solid #00c851;
   color: #00c851;
 }
-button.btn-success-outline:hover,
-button.btn-success-outline:active {
+button.btn-success-outline:hover {
   background: #00c851;
   border: 1px solid #00c851;
   color: #ffffff;
+}
+button.btn-success-outline:active {
+  background: #ffffff;
+  border: 1px solid #00c851;
+  color: #00c851;
 }
 
 button.btn-warning {

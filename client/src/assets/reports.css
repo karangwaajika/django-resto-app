@@ -1,0 +1,35 @@
+/* table */
+section table.table-report {
+  border: 1px solid #c6cdc9;
+  font-size: 13px;
+}
+section table.table-report caption,
+section table.table-report th {
+  color: white;
+  border: 1px solid #c6ccc9;
+  background-color: #252928d2;
+}
+section table.table-report tr {
+  border-top: 1px solid #c6ccc9;
+}
+section table.table-report tr:nth-of-type(2n) {
+  background-color: #eeebe8d2;
+}
+section table.table-report .far,
+section table.table-report .fa-regular,
+section table.table-report .fa {
+  font-size: 18px;
+}
+.table-report .fa:hover,
+.table-report .far:hover,
+.table-report .fa-regular:hover {
+  cursor: pointer;
+}
+.table-report .fa:active,
+.table-report .far:active,
+.table-report .fa-regular:active {
+  color: white;
+}
+.table-report .fa-trash-can {
+  color: #aff5af;
+}

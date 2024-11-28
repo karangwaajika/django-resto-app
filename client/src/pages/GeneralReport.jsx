@@ -1,12 +1,13 @@
-import Button from "../components/ui/Button";
+import OrdersReportTable from "../components/OrdersReportTable";
 import ButtonIcon from "../components/ui/ButtonIcon";
-import ButtonLoading from "../components/ui/ButtonLoading";
 import CustomDatePicker from "../components/ui/CustomDatePicker";
 import InputField from "../components/ui/InputField";
 import loaderPicture from "/images/loading-3.gif";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
+import BillDetailsModal from "../components/BillDetailsModal";
 
 export default function GeneralReport() {
   // handle fetch auto complete
@@ -21,7 +22,7 @@ export default function GeneralReport() {
       onClick={onClick}
       value={value}
       height="30px"
-      width="245px"
+      width="240px"
     />
   ));
   const ToDateInput = React.forwardRef(({ value, onClick }, ref) => (
@@ -32,10 +33,56 @@ export default function GeneralReport() {
       onClick={onClick}
       value={value}
       height="30px"
-      width="245px"
+      width="240px"
     />
   ));
 
+  const isDevelopment = import.meta.env.MODE === "production";
+  const url = isDevelopment
+    ? import.meta.env.VITE_REACT_APP_GENERAL_REPORT_API_DEPLOY
+    : import.meta.env.VITE_REACT_APP_GENERAL_REPORT_API;
+  const {
+    data,
+    isLoading,
+    message,
+    setData,
+    setMessage,
+    setIsLoading,
+    clearMessage,
+  } = useFetchAutoComplete(url, search);
+
+  // handle bill modal
+  const [beverageItems, setBeverageItem] = useState([]);
+  const [mealItems, setMealItem] = useState([]);
+  const [teaItems, setTeaItem] = useState([]);
+  const [singleOrder, setSingleOrder] = useState({});
+  const [billTotal, setBillTotal] = useState(0);
+
+  const [animation, setAnimation] = useState("animated fadeIn");
+  const [clickedRow, setClickedRow] = useState(null);
+  const [openBillModal, setOpenBillModal] = useState(false);
+  const handleBillModal = (
+    orderIndex,
+    beverages,
+    meals,
+    teas,
+    billTotal,
+    singleOrder
+  ) => {
+    // get targeted order id
+
+    setClickedRow(orderIndex);
+    setBeverageItem(beverages);
+    setMealItem(meals);
+    setTeaItem(teas);
+    setBillTotal(billTotal);
+    setSingleOrder(singleOrder);
+
+    setAnimation(openBillModal ? "animated fadeOut" : "animated fadeIn");
+    setTimeout(() => {
+      setOpenBillModal((oldModalState) => !oldModalState);
+    }, 1000);
+  };
   return (
     <div className="view-beverage-content">
       <div className="beverage-header">
@@ -43,13 +90,13 @@ export default function GeneralReport() {
         <p style={{ fontSize: "14px" }}>
           Filter date range to retrieve the desired information
         </p>
-        {/* {message && (
+        {message && (
           <FlashMessage
             message={message.message}
             isSuccess={message.success}
             clearMessage={clearMessage}
           />
-        )} */}
+        )}
       </div>
       <div
         style={{
@@ -70,7 +117,7 @@ export default function GeneralReport() {
             icon="fa-solid fa-filter"
             placeholder="Search ... "
             handleChange={(e) => setSearch(e.target.value)}
-            width="250px"
+            width="240px"
           />
           <DatePicker
             selected={startDate}
@@ -100,6 +147,24 @@ export default function GeneralReport() {
           height="30px"
         />
       </div>
+      <OrdersReportTable orders={data} openModal={handleBillModal} />
+      {openBillModal && (
+        <BillDetailsModal
+          beverages={beverageItems}
+          teas={teaItems}
+          meals={mealItems}
+          billTotal={billTotal}
+          closeModal={handleBillModal}
+          animate={animation}
+          orderIndex={clickedRow}
+          order={singleOrder}
+        />
+      )}
+      {isLoading && (
+        <div className="loader-service">
+          <img src={loaderPicture} width={100} height={100} />
+        </div>
+      )}
     </div>
   );
 }

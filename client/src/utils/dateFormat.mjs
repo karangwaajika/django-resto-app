@@ -5,7 +5,7 @@ export const convertToDateTime = (date_to_format) => {
   const date = newDate.getDate();
   const hour = newDate.getHours();
   const minute = newDate.getMinutes();
-  const dateTime = `[${year}-${month}-${date} at ${hour}h:${minute}']`
+  const dateTime = `[${year}-${month}-${date} at ${hour}h:${minute}']`;
   return dateTime;
 };
 

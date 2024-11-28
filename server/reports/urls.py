@@ -1,4 +1,4 @@
 from django.urls import path
 from . import views
 
-urlpatterns = [path("reports", views.report, name="report")]
+urlpatterns = [path("generate_all", views.generate_all, name="report")]
