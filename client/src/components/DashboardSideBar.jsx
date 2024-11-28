@@ -15,7 +15,7 @@ export default function DashboardSideBar() {
           />
           <figcaption style={{ color: "white" }}>
             {user.first_name && user.first_name}{" "}
-            {user.last_name && user.last_nam}
+            {user.last_name && user.last_name}
           </figcaption>
         </figure>
         <p>
@@ -77,6 +77,23 @@ export default function DashboardSideBar() {
             <NavLink to="/dashboard/view-waiters" className="link">
               <i className="fa fa-users "></i>
               View Waiters
+            </NavLink>
+          </li>
+          <li
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <NavLink to="" className="link">
+              Reports
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/general-report" className="link">
+              <i className="fa fa-folder "></i>
+              General Report
             </NavLink>
           </li>
         </ul>

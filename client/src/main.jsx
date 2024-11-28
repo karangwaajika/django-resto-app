@@ -37,6 +37,7 @@ import EditOrder from "./pages/waiter/EditOrder.jsx";
 import ProtectDashboards from "./utils/ProtectDashboards.jsx";
 import UpdateUser from "./pages/waiter/UpdateUser.jsx";
 import EditUser from "./pages/EditUser.jsx";
+import GeneralReport from "./pages/GeneralReport.jsx";
 
 const router = createBrowserRouter([
   {
@@ -89,6 +90,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/update-profile",
             element: <EditUser />,
+          },
+          {
+            path: "/dashboard/general-report",
+            element: <GeneralReport />,
           },
         ],
       },
