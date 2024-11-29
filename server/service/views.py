@@ -21,6 +21,7 @@ from .operation import *
 from django.db.models import Q, F, Case, When, CharField, Value
 from django.db.models.aggregates import Count, Sum
 from django.db.models.functions import Concat
+from django.utils import timezone
 
 
 # Create your views here.
@@ -163,14 +164,16 @@ def view_orders(request):
         "employee__last_name",
         output_field=CharField(),
     )
+    yesterday = timezone.now() - timezone.timedelta(days=1)
+    yesterday_date = str(yesterday).split(" ", maxsplit=1)[0]
 
     if request.method == "POST" and request.data["search"]:
         # search inside order table and all items tables such as beverage, tea, and meal.
         search_fields = (
-            Q(employee__first_name__icontains=request.data["search"])
-            | Q(employee__last_name__icontains=request.data["search"])
-            | Q(id__icontains=request.data["search"])
-            | Q(customer_name__icontains=request.data["search"])
+            Q(employee__first_name__icontains=request.data["search"], updated_at__date__gte = yesterday_date)
+            | Q(employee__last_name__icontains=request.data["search"], updated_at__date__gte = yesterday_date)
+            | Q(id__icontains=request.data["search"], updated_at__date__gte = yesterday_date)
+            | Q(customer_name__icontains=request.data["search"], updated_at__date__gte = yesterday_date)
         )
         orders = (
             Order.objects.filter(search_fields)
@@ -190,7 +193,7 @@ def view_orders(request):
         return Response({"success": True, "data": serializer.data})
 
     orders = (
-        Order.objects.all()
+        Order.objects.filter(updated_at__date__gte = yesterday_date)
         .order_by("-id")
         .prefetch_related(
             "order_teas_total", "order_beverages_total", "order_meals_total"
