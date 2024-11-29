@@ -8,11 +8,13 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
 import BillDetailsModal from "../components/BillDetailsModal";
-import FlashMessage from "../components/ui/FlashMessage"
+import FlashMessage from "../components/ui/FlashMessage";
+import useFetchReports from "../hooks/useFetchReports";
 
 export default function GeneralReport() {
   // handle fetch auto complete
   const [search, setSearch] = useState("");
+  const [isSubmit, setIsSubmit] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const FromDateInput = React.forwardRef(({ value, onClick }, ref) => (
@@ -50,7 +52,7 @@ export default function GeneralReport() {
     setMessage,
     setIsLoading,
     clearMessage,
-  } = useFetchAutoComplete(url, search);
+  } = useFetchReports(url, search, startDate, endDate, isSubmit, setIsSubmit);
 
   // handle bill modal
   const [beverageItems, setBeverageItem] = useState([]);
@@ -146,6 +148,7 @@ export default function GeneralReport() {
           className="btn btn-success-outline"
           width="235px"
           height="30px"
+          onClick={() => setIsSubmit((oldState) => !oldState)}
         />
       </div>
       <OrdersReportTable orders={data} openModal={handleBillModal} />
