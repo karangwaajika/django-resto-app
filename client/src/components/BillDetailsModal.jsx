@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { addComma } from "../utils/addComma.mjs";
 import { Link } from "react-router-dom";
 import { useReactToPrint } from "react-to-print";
+import { convertToDateTime } from "../utils/dateFormat.mjs";
 
 function BillDetailsModal({
   beverages,
@@ -15,13 +16,12 @@ function BillDetailsModal({
 }) {
   const contentRef = useRef();
   const reactToPrintFn = useReactToPrint({ contentRef });
-  let remainder = order.amount_to_pay
-  if (order.overall_total == order.momo + order.cash){
-    remainder = 0
+  let remainder = order.amount_to_pay;
+  if (order.overall_total == order.momo + order.cash) {
+    remainder = 0;
   }
   return (
     <div className={`modal ${animate}`}>
-      
       <div className="modal-content" style={{ width: "300px" }}>
         <div className="modal-header">
           <h2 style={{ fontFamily: "cursive" }}>L&#128514;L Bar-Resto Bill</h2>
@@ -45,7 +45,10 @@ function BillDetailsModal({
         <div className="modal-body" ref={contentRef}>
           <aside className="card order-info">
             <div className="card-header">
-              <div style={{ fontFamily: "cursive" }}>Bill Records</div>
+              <div style={{ fontFamily: "cursive" }}>
+                {" "}
+                Client : {order.customer_name}
+              </div>
             </div>
             <div
               className="card-header"
@@ -124,6 +127,47 @@ function BillDetailsModal({
                           style={{ width: "50%" }}
                         ></div>
                       )}
+                    </li>
+                  </ul>
+                </div>
+                <div className="card-footer" style={{fontSize:"11px", borderTop: "1px solid #80808080"}}>
+                  <ul>
+                    
+                    <li
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                      }}
+                    >
+                      Created :{convertToDateTime(order.created_at)}
+                    </li>
+                    <li
+                      style={{
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        alignItems: "center",
+                      }}
+                    >
+                      Updated :{convertToDateTime(order.updated_at)}
+                    </li>
+                    <li
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      ------------Comment-------------
+                    </li>
+                    <li
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      {order.comment ? order.comment : "No comment"}
                     </li>
                   </ul>
                 </div>
