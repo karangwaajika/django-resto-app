@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
 import BillDetailsModal from "../components/BillDetailsModal";
+import FlashMessage from "../components/ui/FlashMessage"
 
 export default function GeneralReport() {
   // handle fetch auto complete
