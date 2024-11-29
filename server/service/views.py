@@ -219,8 +219,10 @@ def approve_bill(request, order_id):
 
         order.cash += int(cash)
         order.momo += int(momo)
-
+        
         if cash == 0 and momo == 0:
+            order.comment = comment
+            order.save()
             return Response(
                 {
                     "success": True,
