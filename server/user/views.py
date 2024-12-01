@@ -175,3 +175,14 @@ def update_user(request):
         return Response({"success": True, "message": "User updated successfully"})
     except User.DoesNotExist:
         return Response({"success": False, "message": "User doen't exist!!"})
+    
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+@api_view(["GET"])
+def get_user(request, user_id):
+    try:
+        user = User.objects.get(pk=user_id)
+        user_serializer = UserSerializer(user)
+        return Response({"success": True, "data": user_serializer.data})
+    except User.DoesNotExist:
+        return Response({"success": False, "message": "User doen't exist!!"})
