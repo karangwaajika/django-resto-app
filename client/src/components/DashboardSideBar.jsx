@@ -102,6 +102,12 @@ export default function DashboardSideBar() {
               Waiter Report
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard/unpaid-reports" className="link">
+              <i className="fa fa-folder "></i>
+              Debt Report
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </div>

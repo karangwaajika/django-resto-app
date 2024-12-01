@@ -41,6 +41,7 @@ import EditUser from "./pages/EditUser.jsx";
 import GeneralReport from "./pages/GeneralReport.jsx";
 import WaitersOrders from "./pages/WaitersOrders.jsx";
 import WaiterReport from "./pages/WaiterReport.jsx";
+import UnpaidReport from "./pages/UnpaidReport.jsx";
 
 const router = createBrowserRouter([
   {
@@ -105,6 +106,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/waiter/:waiterId/orders",
             element: <WaiterReport />,
+          },
+          {
+            path: "/dashboard/unpaid-reports",
+            element: <UnpaidReport />,
           },
         ],
       },
