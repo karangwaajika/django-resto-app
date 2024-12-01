@@ -42,6 +42,7 @@ import GeneralReport from "./pages/GeneralReport.jsx";
 import WaitersOrders from "./pages/WaitersOrders.jsx";
 import WaiterReport from "./pages/WaiterReport.jsx";
 import UnpaidReport from "./pages/UnpaidReport.jsx";
+import ApprovePayment from "./pages/ApprovePayment.jsx";
 
 const router = createBrowserRouter([
   {
@@ -110,6 +111,10 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/unpaid-reports",
             element: <UnpaidReport />,
+          },
+          {
+            path: "/dashboard/approve/:orderId/bill",
+            element: <ApprovePayment />,
           },
         ],
       },

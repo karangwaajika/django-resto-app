@@ -150,7 +150,7 @@ export default function UnpaidReport() {
           onClick={() => setIsSubmit((oldState) => !oldState)}
         />
       </div>
-      <OrdersReportTable orders={data} openModal={handleBillModal} />
+      <OrdersReportTable orders={data} openModal={handleBillModal} isPage = "unpaidReport"/>
       {openBillModal && (
         <BillDetailsModal
           beverages={beverageItems}

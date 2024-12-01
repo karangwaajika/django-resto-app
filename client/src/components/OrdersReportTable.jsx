@@ -1,7 +1,7 @@
 import { addComma } from "../utils/addComma.mjs";
 import { useNavigate } from "react-router-dom";
 import { convertToDateTime } from "../utils/dateFormat.mjs";
-export default function OrdersReportTable({ orders, openModal }) {
+export default function OrdersReportTable({ orders, openModal, ...props }) {
   const navigate = useNavigate();
   let income = 0;
   let expectedIncome = 0;
@@ -18,6 +18,7 @@ export default function OrdersReportTable({ orders, openModal }) {
             <th>Status</th>
             <th>Details</th>
             <th>Waiter</th>
+            {(props.isPage == "unpaidReport" && <th>Approve Payment</th>)}
           </tr>
         </thead>
         <tbody>
@@ -80,6 +81,20 @@ export default function OrdersReportTable({ orders, openModal }) {
                       ></i>
                     </td>
                     <td data-cell="Waiter">{order.employee_fullname}</td>
+                    {props.isPage == "unpaidReport" && (
+                      <td data-cell="Approve" style={{ textAlign: "center" }}>
+                        {order.is_paid ? (
+                          "-"
+                        ) : (
+                          <i
+                            className="far fa-check-square text-success"
+                            onClick={() =>
+                              navigate(`/dashboard/approve/${order.id}/bill`)
+                            }
+                          ></i>
+                        )}
+                      </td>
+                    )}
                   </tr>
                 </>
               );
@@ -92,7 +107,7 @@ export default function OrdersReportTable({ orders, openModal }) {
             </tr>
           )}
           <tr>
-            <td colSpan={7}>
+            <td colSpan={8}>
               Paid <i className="span span-success">{addComma(income)} frw</i>{" "}
               Expected{" "}
               <i className="span span-dark">{addComma(expectedIncome)} frw</i>{" "}
