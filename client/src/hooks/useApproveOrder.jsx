@@ -66,8 +66,8 @@ export default function useApproveOrder(
       .post(
         url + "/" + form.orderId,
         {
-          cash: form.cash,
-          momo: form.momo,
+          cash: form.cash ? form.cash: 0 ,
+          momo: form.momo ? form.momo : 0,
           customer_name: form.customerName,
           comment: form.comment,
         },

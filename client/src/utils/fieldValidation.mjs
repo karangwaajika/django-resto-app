@@ -186,7 +186,7 @@ export default function fieldValidation({
       if (arg.teaQty < 0) {
         errorsValidation.momo = "no negative number";
       } else if (!/^[0-9]+$/.test(arg.momo)) {
-        errorsValidation.momo = "Only digits are allowed";
+        errorsValidation.momo = "Only digits are allowed so set Zero insted";
       }
     }
   }
@@ -195,7 +195,7 @@ export default function fieldValidation({
       if (arg.teaQty < 0) {
         errorsValidation.cash = "no negative number";
       } else if (!/^[0-9]+$/.test(arg.cash)) {
-        errorsValidation.cash = "Only digits are allowed";
+        errorsValidation.cash = "Only digits are allowed so set Zero insted";
       }
     }
   }
