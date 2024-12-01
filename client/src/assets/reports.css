@@ -68,16 +68,23 @@ input.typing-area:focus {
   padding: 5px;
   padding-bottom: 8px;
 }
-.item-icon{
+.item-icon {
   font-size: 10px;
 }
-.item-icon:hover{
+.item-icon:hover {
   color: white;
   cursor: pointer;
   border-radius: 5px;
 }
-.item-icon:active{
+.item-icon:active {
   color: black;
   cursor: pointer;
   border-radius: 5px;
+}
+.icon-link:hover {
+  cursor: pointer;
+}
+.icon-link:active {
+  cursor: pointer;
+  color: white;
 }

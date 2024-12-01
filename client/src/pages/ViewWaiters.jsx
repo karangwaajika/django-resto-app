@@ -11,7 +11,7 @@ import WaiterPasswordModal from "../components/WaiterPasswordModal";
 // for importiing employees data and states to make parent component rerender
 export const employeesDataContext = createContext();
 
-export default function ViewBeverages() {
+export default function ViewWaiters() {
   // handle fetch auto complete
   const [search, setSearch] = useState("");
   const isDevelopment = import.meta.env.MODE === "production";

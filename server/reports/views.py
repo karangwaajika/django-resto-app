@@ -54,7 +54,6 @@ def generate_all(request):
             | Q(
                 id__icontains=search,
                 updated_at__date__range=(start_date, end_date),
-                is_paid=True,
             )
             | Q(
                 customer_name__icontains=search,
@@ -86,6 +85,91 @@ def generate_all(request):
 
     orders = (
         Order.objects.filter(updated_at__date=today)
+        .order_by("-id")
+        .prefetch_related(
+            "order_teas_total", "order_beverages_total", "order_meals_total", "employee"
+        )
+        .annotate(
+            employee_fullname=employee_fullname,
+        )
+    )
+
+    serializer = OrderSerializer(orders[:10], many=True)
+
+    return Response({"success": False, "data": serializer.data})
+
+
+@api_view(["GET", "POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def waiter_report(request, user_id):
+    employee_fullname = Concat(
+        "employee__first_name",
+        Value(" "),
+        "employee__last_name",
+        output_field=CharField(),
+    )
+    today = timezone.now()
+    try:
+        user = User.objects.get(pk=user_id)
+    except User.DoesNotExist:
+        return Response({"success": False, "message": "User doesn't exist"})
+
+    if request.method == "POST":
+        search = request.data["search"]
+        paid_choice = ["unpaid", "paid"]
+        start_date = request.data["start_date"].split("T", maxsplit=1)[0]
+        end_date = request.data["end_date"].split("T", maxsplit=1)[0]
+
+        search_fields = (
+            Q(
+                employee__first_name__icontains=search,
+                updated_at__date__range=(start_date, end_date),
+                employee=user,
+            )
+            | Q(
+                employee__last_name__icontains=search,
+                updated_at__date__range=(start_date, end_date),
+                employee=user,
+            )
+            | Q(
+                id__icontains=search,
+                updated_at__date__range=(start_date, end_date),
+                employee=user,
+            )
+            | Q(
+                customer_name__icontains=search,
+                updated_at__date__range=(start_date, end_date),
+                employee=user,
+            )
+        )
+        if search.lower() in paid_choice:
+            is_paid = True if search == "paid" else False
+            search_fields = Q(
+                updated_at__date__range=(start_date, end_date),
+                is_paid=is_paid,
+                employee=user,
+            )
+
+        orders = (
+            Order.objects.filter(search_fields)
+            .order_by("-id")
+            .prefetch_related(
+                "order_teas_total",
+                "order_beverages_total",
+                "order_meals_total",
+                "employee",
+            )
+            .annotate(
+                employee_fullname=employee_fullname,
+            )
+        )
+
+        serializer = OrderSerializer(orders, many=True)
+        return Response({"success": True, "data": serializer.data})
+
+    orders = (
+        Order.objects.filter(updated_at__date=today, employee=user)
         .order_by("-id")
         .prefetch_related(
             "order_teas_total", "order_beverages_total", "order_meals_total", "employee"

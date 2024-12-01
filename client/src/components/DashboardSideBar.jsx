@@ -96,6 +96,12 @@ export default function DashboardSideBar() {
               General Report
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/dashboard/waiters-orders" className="link">
+              <i className="fa fa-folder "></i>
+              Waiter Report
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </div>

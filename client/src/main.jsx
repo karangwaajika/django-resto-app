@@ -39,6 +39,8 @@ import ProtectDashboards from "./utils/ProtectDashboards.jsx";
 import UpdateUser from "./pages/waiter/UpdateUser.jsx";
 import EditUser from "./pages/EditUser.jsx";
 import GeneralReport from "./pages/GeneralReport.jsx";
+import WaitersOrders from "./pages/WaitersOrders.jsx";
+import WaiterReport from "./pages/WaiterReport.jsx";
 
 const router = createBrowserRouter([
   {
@@ -95,6 +97,14 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/general-report",
             element: <GeneralReport />,
+          },
+          {
+            path: "/dashboard/waiters-orders",
+            element: <WaitersOrders />,
+          },
+          {
+            path: "/dashboard/waiter/:waiterId/orders",
+            element: <WaiterReport />,
           },
         ],
       },
