@@ -33,3 +33,51 @@ section table.table-report .fa {
 .table-report .fa-trash-can {
   color: #aff5af;
 }
+/* mutiple input */
+.input-container {
+  display: flex;
+  border: 1px solid #808080;
+  border-radius: 5px;
+  font-size: 14px;
+  height: 30px;
+}
+
+input.typing-area {
+  border: none;
+  height: 100%;
+  width: 100%;
+  color: black;
+  cursor: text;
+}
+input.typing-area:focus {
+  outline: none;
+}
+.input-items {
+  display: flex;
+  padding: 5px;
+  gap: 5px;
+}
+.input-item {
+  background-color: rgb(194, 230, 247);
+  color: black;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  align-items: center;
+  padding: 5px;
+  padding-bottom: 8px;
+}
+.item-icon{
+  font-size: 10px;
+}
+.item-icon:hover{
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.item-icon:active{
+  color: black;
+  cursor: pointer;
+  border-radius: 5px;
+}

@@ -345,6 +345,10 @@ button.btn-outline-service:active {
   background-color: green;
   color: white;
 }
+.span-dark {
+  background-color: black;
+  color: white;
+}
 .span-danger {
   background-color: rgba(240, 25, 25, 0.986);
   color: white;
