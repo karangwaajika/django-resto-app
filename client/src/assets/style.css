@@ -38,25 +38,6 @@
   flex-grow: 1;
 }
 
-/* MOBILE  <= 481px*/
-@media screen and (max-width: 481px) {
-  .main {
-    color: red;
-  }
-}
-/* TABLET >= 768px*/
-@media screen and (min-width: 768px) {
-  .main {
-    color: blue;
-  }
-}
-/* LAPTOP >= 1025px*/
-@media screen and (min-width: 1025px) {
-  .main {
-    color: green;
-  }
-}
-
 /* input */
 .input-group {
   display: flex;

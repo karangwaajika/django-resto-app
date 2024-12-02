@@ -11,8 +11,12 @@ function App() {
       </header>
       <main className="main main-home">
         <div className="overlay">
-          <div className="login-text">
-            <h3>Welcome Back!!</h3>
+          <div className="login-text" >
+            <h3 style={{fontFamily:"cursive"}}>Welcome Back L&#128514;L Staff!!</h3>
+            <p>Login to start your daily stask!</p>
+          </div>
+          <div className="login-text-large-device" >
+            <h1 style={{fontFamily:"cursive"}}>L&#128514;L Management I.S Platform</h1>
             <p>Login to start your daily stask!</p>
           </div>
           <LoginForm />

@@ -1,3 +1,66 @@
+/* MOBILE  <= 481px*/
+@media screen and (max-width: 481px) {
+  .login-text-large-device {
+    display: none;
+  }
+}
+/* SMALL */
+@media screen and (min-width: 481px) {
+  /* .main {
+    color: red;
+  } */
+  .login-text-large-device {
+    display: none;
+  }
+  .login-form {
+    width: 400px;
+    align-self: flex-end;
+  }
+  .main-home .contact-text {
+    width: 100%;
+  }
+}
+/* TABLET >= 768px*/
+@media screen and (min-width: 768px) {
+  /* .main {
+    color: blue;
+  } */
+  .login-text-large-device {
+    display: none;
+  }
+  .main-home .contact-text {
+    width: 100%;
+  }
+  .main-home .login-text {
+    font-size: 14px;
+  }
+  .login-form {
+    width: 500px;
+    align-self: flex-end;
+  }
+}
+/* LAPTOP >= 1025px*/
+@media screen and (min-width: 1025px) {
+  /* .main {
+    color: green;
+  } */
+  .main-home .contact-text {
+    width: 100%;
+  }
+  .main-home .login-text {
+    font-size: 14px;
+  }
+  .login-form {
+    width: 600px;
+    align-self: flex-end;
+  }
+  .login-text {
+    display: none;
+  }
+  .login-text-large-device {
+    display: block;
+  }
+}
 .navbar-home {
   display: flex;
   justify-content: space-between;
@@ -48,7 +111,7 @@
   color: white;
   font-size: 12px;
   margin-top: 10px;
-  width: 130px;
+  width: 250px;
   text-align: left;
 }
 .contact-text {
@@ -63,4 +126,7 @@
   background-image: url("/images/lol.jpg");
   background-size: contain;
   background-repeat: no-repeat;
+}
+.login-text-large-device {
+  color: white;
 }
