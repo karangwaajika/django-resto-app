@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
-function Footer() {
-  return (
-    <div className='footer'>
-      Footer
-    </div>
-  )
+function Footer({ subClass }) {
+  return <div className={`footer ${subClass}`}></div>;
 }
 
-export default Footer
+export default Footer;

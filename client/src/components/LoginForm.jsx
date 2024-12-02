@@ -65,52 +65,48 @@ export default function LoginForm() {
       });
   };
   return (
-    <div className="login-container">
-      <div className="overlay">
-        <div className="login-form">
-          <div className="card" style={{ opacity: 0.8 }}>
-            <div className="card-header">Sign in</div>
-            {message && (
-              <FlashMessage
-                message={message.message}
-                isSuccess={message.success}
-                clearMessage={clearMessage}
+    <div className="login-form">
+      <div className="card" style={{ opacity: 0.8 }}>
+        <div className="card-header">Sign in</div>
+        {message && (
+          <FlashMessage
+            message={message.message}
+            isSuccess={message.success}
+            clearMessage={clearMessage}
+          />
+        )}
+        <div className="card-body">
+          <form onSubmit={submitForm} className="form form-home">
+            <InputField
+              type="text"
+              name="username"
+              id="username"
+              label="Username"
+              icon="fa-solid fa-user"
+              placeholder="username"
+              handleChange={handleChange}
+            />
+            <InputField
+              type="password"
+              name="password"
+              id="password"
+              label="Password"
+              icon="fa-solid fa-lock"
+              placeholder="*************"
+              handleChange={handleChange}
+            />
+            {isLoading ? (
+              <ButtonLoading
+                text="Login"
+                className="btn-dark"
+                img={loadingImg}
               />
+            ) : (
+              <Button text="Login" className="btn-dark" />
             )}
-            <div className="card-body">
-              <form onSubmit={submitForm}>
-                <InputField
-                  type="text"
-                  name="username"
-                  id="username"
-                  label="Username"
-                  icon="fa-solid fa-user"
-                  placeholder="username"
-                  handleChange={handleChange}
-                />
-                <InputField
-                  type="password"
-                  name="password"
-                  id="password"
-                  label="Password"
-                  icon="fa-solid fa-lock"
-                  placeholder="*************"
-                  handleChange={handleChange}
-                />
-                {isLoading ? (
-                  <ButtonLoading
-                    text="Login"
-                    className="btn-dark"
-                    img={loadingImg}
-                  />
-                ) : (
-                  <Button text="Login" className="btn-dark" />
-                )}
-              </form>
-            </div>
-            <div className="card-footer"></div>
-          </div>
+          </form>
         </div>
+        <div className="card-footer"></div>
       </div>
     </div>
   );
