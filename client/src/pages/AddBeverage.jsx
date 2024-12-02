@@ -1,4 +1,3 @@
-import "../assets/Beverage.css";
 import BeverageBrandForm from "../components/BeverageBrandForm";
 import { useState } from "react";
 import useAddBeverageBrand from "../hooks/useAddBeverageBrand";

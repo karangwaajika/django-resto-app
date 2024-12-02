@@ -1,4 +1,3 @@
-import "../../assets/service.css";
 import { createContext } from "react";
 import useProtectPage from "../../hooks/useProtectPage";
 import Navbar from "../../components/waiter/Navbar";

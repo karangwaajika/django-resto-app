@@ -1,4 +1,4 @@
-import "../assets/Meal.css";
+
 import BeverageTable from "../components/BeverageTable";
 import InputField from "../components/ui/InputField";
 import loaderPicture from "/images/loading-3.gif";

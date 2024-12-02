@@ -1,13 +1,14 @@
-import "../assets/Home.css";
 import LoginForm from "../components/LoginForm";
 import NavbarHome from "../components/NavbarHome";
 import lolImg from "/images/lol.jpg";
+import Footer from "../components/Footer";
 
 function App() {
   return (
     <div className="app-container">
-      <NavbarHome />
-      <LoginForm />
+      <header>Header</header>
+      <main>Main</main>
+      <footer>Footer</footer>
     </div>
   );
 }

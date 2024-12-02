@@ -1,4 +1,3 @@
-import "../assets/Tea.css";
 import TeaForm from "../components/TeaForm";
 import { useState } from "react";
 import axios from "axios";

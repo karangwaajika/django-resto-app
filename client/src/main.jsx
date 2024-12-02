@@ -1,14 +1,6 @@
 import React from "react";
-import "./assets/Beverage.css";
-import "./assets/Dashboard.css";
-import "./assets/Home.css";
-import "./assets/Meal.css";
-import "./assets/service.css";
-import "./assets/Tea.css";
-import "./assets/Waiter.css";
 import "./assets/style.css";
-import "./assets/animate.css";
-import "./assets/reports.css";
+
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home.jsx";
