@@ -6,7 +6,6 @@ import DropdownProfile from "./DropdownProfile";
 import DropdownMenu from "./DropdownMenu";
 
 export default function Navbar() {
-  const [isBarClicked, setIsBarClicked] = useState(false);
   const date = Date.now();
   const user = useContext(userContext);
   const navigate = useNavigate();
@@ -36,40 +35,35 @@ export default function Navbar() {
 
   return (
     <nav className="service">
-      <div className="toggle-btn">
-        <i
-          id="bar"
-          onClick={() => setIsBarClicked((oldState) => !oldState)}
-          className={
-            isBarClicked ? "icon-click fa fa-times" : "icon-click fa fa-bars"
-          }
-        ></i>
+      <div className="left-info">
+        <ul className="links">
+          <li>
+            <NavLink to="/service/home">Home</NavLink>
+          </li>
+          <li className="menu">
+            <Link to="#" onClick={() => handleModal("menu")}>
+              Menu <i className="fa fa-caret-down"></i>
+            </Link>
+            {openMenuModal && (
+              <DropdownMenu closeModal={handleModal} animate={animation} />
+            )}
+          </li>
+          <li>
+            <NavLink to="/service/orders">Bill</NavLink>
+          </li>
+          <li>
+            <NavLink to="/service/service">Record Order</NavLink>
+          </li>
+          <li>
+            <NavLink to="/service/my-services">My services</NavLink>
+          </li>
+        </ul>
       </div>
-      <ul className={`links ${isBarClicked && "active"}`}>
-        <li>
-          <NavLink to="/service/home">Home</NavLink>
-        </li>
-        <li className="menu">
-          <Link to="#" onClick={() => handleModal("menu")}>
-            Menu <i className="fa fa-caret-down"></i>
-          </Link>
-          {openMenuModal && (
-            <DropdownMenu closeModal={handleModal} animate={animation} />
-          )}
-        </li>
-        <li>
-          <NavLink to="/service/orders">Bill</NavLink>
-        </li>
-        <li>
-          <NavLink to="/service/service">Record Order</NavLink>
-        </li>
-        <li>
-          <NavLink to="/service/my-services">My services</NavLink>
-        </li>
-      </ul>
-      <div className="navbar-date">{formatToDateString(date)}</div>
+      <div className="date" style={{ marginRight: "100px" }}>
+        {formatToDateString(date)}
+      </div>
       <div className="right-info">
-        <div className="name nowrap">
+        <div className="name">
           {user.first_name && user.first_name}{" "}
           {user.last_name && user.last_name}
         </div>
@@ -82,6 +76,14 @@ export default function Navbar() {
           <i className="fa fa-caret-down"></i>
         </Link>
       </div>
+      {openProfileModal && (
+        <DropdownProfile
+          closeModal={handleModal}
+          animate={animation}
+          user={user}
+          logout={logout}
+        />
+      )}
     </nav>
   );
 }

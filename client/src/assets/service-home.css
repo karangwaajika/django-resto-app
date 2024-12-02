@@ -1,0 +1,113 @@
+.app-container.service {
+  font-weight: 500;
+  font-size: 15px;
+}
+nav.service {
+  background-color: #9b8c5d;
+  overflow: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 50px;
+}
+
+nav.service .right-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+nav.service .links a:hover,
+nav.service .links a.active {
+  color: white;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.caret-down .fa:active,
+nav.service .links a:active {
+  color: black;
+}
+
+nav.service ul.links {
+  display: flex;
+  list-style: none;
+  gap: 10px;
+}
+nav.service .links a {
+  text-decoration: none;
+  color: black;
+}
+
+nav.service .navbar-date {
+  font-weight: bold;
+  color: white;
+  font-size: small;
+  margin-top: 4px;
+  margin-right: 100px;
+  white-space: nowrap;
+}
+.toggle-btn {
+  display: none;
+}
+/* MOBILE  <= 481px*/
+@media screen and (max-width: 481px) {
+  .toggle-btn {
+    display: block;
+  }
+  nav.service ul.links,
+  nav.service .navbar-date {
+    display: none;
+  }
+  nav.service {
+    padding: 10px 10px;
+  }
+  nav.service ul.links {
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    /* to separe from nav */
+    position: fixed;
+    top: 45px;
+    left: -300px;
+    width: 200px;
+    height: 100vh;
+    background-color: #cfc195;
+    box-shadow: 0 40px 60px rgba(rgb(238, 220, 139, 0.1));
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  ul.links li {
+    display: flex;
+    text-decoration: none;
+    border-bottom: 1px solid #7c7979;
+    padding: 5px;
+    width: 100%;
+  }
+  /* to refer to toggle */
+  nav.service ul.links.active {
+    left: 0px;
+  }
+}
+/* SMALL */
+@media screen and (min-width: 481px) {
+  nav.service .navbar-date {
+    display: none;
+  }
+  nav.service {
+    padding: 10px 10px;
+  }
+}
+/* TABLET >= 768px*/
+@media screen and (min-width: 768px) {
+  nav.service {
+    padding: 10px 50px;
+  }
+  nav.service .navbar-date {
+    display: none;
+  }
+}
+/* LAPTOP >= 1025px*/
+@media screen and (min-width: 1025px) {
+}

@@ -7,12 +7,13 @@ export const userContext = createContext();
 function Service() {
   const { userInfo } = useProtectPage();
   return (
-    <main className="service">
+    <div className="app-container service">
       <userContext.Provider value={Object.keys(userInfo).length && userInfo}>
-        <Navbar />
-        <Outlet context={userInfo} />
+        <header className="header">
+          <Navbar />
+        </header>
       </userContext.Provider>
-    </main>
+    </div>
   );
 }
 

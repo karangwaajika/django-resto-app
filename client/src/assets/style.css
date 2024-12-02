@@ -286,3 +286,16 @@ button.btn-light:active {
   opacity: 0.5;
   border-radius: 80%;
 }
+
+/* avoid wrapping text */
+a,
+.nowrap {
+  white-space: nowrap;
+}
+
+.icon-click{
+    cursor: pointer;
+}
+.icon-click:active{
+    color:white
+}
