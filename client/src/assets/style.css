@@ -382,7 +382,7 @@ th {
     border-bottom: 1px solid rgb(216, 213, 213);
     white-space: nowrap;
   }
-  tr{
+  tr {
     border-bottom: 1px solid black;
   }
   td::before {
@@ -514,4 +514,11 @@ article p {
   flex-direction: column;
   gap: 20px;
   padding: 0 50px;
+}
+/* fieldset */
+.radio-fieldset {
+  width: 300px;
+  display: flex;
+  justify-content: space-around;
+  margin: auto;
 }

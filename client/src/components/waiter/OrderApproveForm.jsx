@@ -106,7 +106,7 @@ function OrderApproveForm({
         </div>
       </div>
       <div className="card-footer">
-        <form onSubmit={submitForm}>
+        <form onSubmit={submitForm} className="form" style={{gap:"10px"}}>
           <div
             style={{
               display: "flex",

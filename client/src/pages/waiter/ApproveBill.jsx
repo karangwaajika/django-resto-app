@@ -35,6 +35,7 @@ function ApproveBill({}) {
 
   return (
     <section className="approve-bill">
+      <h3 className="approve-h3">Approve Payment</h3>
       <OrderApproveForm
         order={data}
         isLoading={isLoading}

@@ -353,13 +353,15 @@ section table.order-table .fa {
 /* approve bill */
 section.approve-bill {
   display: flex;
-  justify-content: space-between;
-  padding: 0 150px;
-  gap: 20px;
+  justify-content: flex-start;
+  gap: 10px;
+  margin: auto;
+}
+.approve-h3 {
+  display: none;
 }
 aside.form-section {
-  flex-grow: 1;
-  width: 300px;
+  width: 600px;
   padding: 20px;
 }
 aside.order-info {
@@ -458,6 +460,17 @@ section.menu table .fa-regular,
 section.menu table .fa {
   font-size: 18px;
 }
+.list-order-item {
+  gap: 20px;
+}
+.list-order-item-btns {
+  display: flex;
+  gap: 15px;
+}
+.form-row {
+  display: flex;
+  justify-content: space-between;
+}
 
 /* ############################################ RESPONSIVENESS ############################## */
 /* MOBILE  <= 481px*/
@@ -552,15 +565,71 @@ section.menu table .fa {
   .content-header h2 {
     font-size: 20px;
   }
+
+  section.approve-bill {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  aside.form-section {
+    width: 100%;
+    padding: 20px;
+  }
+  aside.order-info {
+    width: 100%;
+  }
+  .approve-h3 {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+  }
+  aside.form-section {
+    width: 500px;
+  }
+  .td-row.list-order-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .header-edit-text {
+    font-size: 15px;
+  }
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
 }
 
 /* SMALL */
-@media screen and (min-width: 481px) {
+@media screen and (max-width: 768px) {
   nav.service .navbar-date {
     display: none;
   }
   nav.service {
     padding: 10px 10px;
+  }
+  section.approve-bill {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 12px;
+  }
+  aside.form-section {
+    width: 100%;
+    padding: 20px;
+  }
+  aside.order-info {
+    width: 100%;
+  }
+  .td-row.list-order-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .header-edit-text {
+    font-size: 15px;
   }
 }
 /* TABLET >= 768px*/

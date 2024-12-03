@@ -199,9 +199,9 @@ function EditOrderForm({
     isLoading,
   } = useEditOrder(props.setRefresh, props.data.id);
   return (
-    <aside className="card order-info" style={{ flex: 1 }}>
+    <aside className="card order-info edit-orders" style={{ width: "100%" }}>
       <div className="card-header">
-        <div style={{ fontFamily: "cursive" }}>
+        <div style={{ fontFamily: "cursive" }} className="header-edit-text">
           {" "}
           {componentUsedIn == "reorder"
             ? "Earlier Records"
@@ -254,70 +254,72 @@ function EditOrderForm({
               <ul className="item-items edit-bill-ul">
                 {beverages.map((item, i) => {
                   return (
-                    <li key={i} className="td-row" style={{ gap: "20px" }}>
+                    <li key={i} className="td-row list-order-item">
                       <div>{convertToDateTime(item.sold_date)}</div>
                       <div style={{ flexGrow: 1 }}>
                         {item.beverage.name}({item.sold_qty} x {item.price}) ={" "}
                         {addComma(item.sold_qty * item.price)} frw
                       </div>
-                      <div
-                        className="decreament-btn"
-                        onMouseEnter={() =>
-                          handlePopUpMessage(
-                            "onMouseEnter",
-                            "Decreament beverage Qty"
-                          )
-                        }
-                        onMouseLeave={() =>
-                          handlePopUpMessage(
-                            "onMouseLeave",
-                            "Decreament beverage Qty"
-                          )
-                        }
-                        onClick={() => editBeverage(item, "decreament")}
-                      >
-                        {" "}
-                        <i className="fa fa-minus"></i>
-                      </div>
-                      <div
-                        className="delete-order-btn text-danger"
-                        onMouseEnter={() =>
-                          handlePopUpMessage(
-                            "onMouseEnter",
-                            "Delete the whole beverage"
-                          )
-                        }
-                        onMouseLeave={() =>
-                          handlePopUpMessage(
-                            "onMouseLeave",
-                            "Delete the whole beverage"
-                          )
-                        }
-                        onClick={() => editBeverage(item, "delete")}
-                      >
-                        {" "}
-                        <i className="fa fa-times"></i>
-                      </div>
-                      <div
-                        className="edit-order-btn text-success"
-                        onMouseEnter={() =>
-                          handlePopUpMessage(
-                            "onMouseEnter",
-                            "Save beverage changes"
-                          )
-                        }
-                        onMouseLeave={() =>
-                          handlePopUpMessage(
-                            "onMouseLeave",
-                            "Save beverage changes"
-                          )
-                        }
-                        onClick={() =>
-                          editOrder(item, "beverage", "decreament")
-                        }
-                      >
-                        {" "}
-                        <i className="fa fa-check"></i>
+                      <div className="list-order-item-btns">
+                        <div
+                          className="decreament-btn"
+                          onMouseEnter={() =>
+                            handlePopUpMessage(
+                              "onMouseEnter",
+                              "Decreament beverage Qty"
+                            )
+                          }
+                          onMouseLeave={() =>
+                            handlePopUpMessage(
+                              "onMouseLeave",
+                              "Decreament beverage Qty"
+                            )
+                          }
+                          onClick={() => editBeverage(item, "decreament")}
+                        >
+                          {" "}
+                          <i className="fa fa-minus"></i>
+                        </div>
+                        <div
+                          className="delete-order-btn text-danger"
+                          onMouseEnter={() =>
+                            handlePopUpMessage(
+                              "onMouseEnter",
+                              "Delete the whole beverage"
+                            )
+                          }
+                          onMouseLeave={() =>
+                            handlePopUpMessage(
+                              "onMouseLeave",
+                              "Delete the whole beverage"
+                            )
+                          }
+                          onClick={() => editBeverage(item, "delete")}
+                        >
+                          {" "}
+                          <i className="fa fa-times"></i>
+                        </div>
+                        <div
+                          className="edit-order-btn text-success"
+                          onMouseEnter={() =>
+                            handlePopUpMessage(
+                              "onMouseEnter",
+                              "Save beverage changes"
+                            )
+                          }
+                          onMouseLeave={() =>
+                            handlePopUpMessage(
+                              "onMouseLeave",
+                              "Save beverage changes"
+                            )
+                          }
+                          onClick={() =>
+                            editOrder(item, "beverage", "decreament")
+                          }
+                        >
+                          {" "}
+                          <i className="fa fa-check"></i>
+                        </div>
                       </div>
                     </li>
                   );
@@ -343,68 +345,70 @@ function EditOrderForm({
               <ul className="item-items edit-bill-ul">
                 {meals.map((item, i) => {
                   return (
-                    <li key={i} className="td-row" style={{ gap: "20px" }}>
+                    <li key={i} className="td-row list-order-item">
                       <div>{convertToDateTime(item.sold_date)}</div>
                       <div style={{ flexGrow: 1 }}>
                         {item.meal.name}({item.plate_nbr} x {item.price}) ={" "}
                         {addComma(item.plate_nbr * item.price)} frw
                       </div>
-                      <div
-                        className="decreament-btn"
-                        onMouseEnter={() =>
-                          handlePopUpMessage(
-                            "onMouseEnter",
-                            "Decreament meal Qty"
-                          )
-                        }
-                        onMouseLeave={() =>
-                          handlePopUpMessage(
-                            "onMouseLeave",
-                            "Decreament meal Qty"
-                          )
-                        }
-                        onClick={() => editMeal(item, "decreament")}
-                      >
-                        {" "}
-                        <i className="fa fa-minus"></i>
-                      </div>
-                      <div
-                        className="delete-order-btn text-danger"
-                        onMouseEnter={() =>
-                          handlePopUpMessage(
-                            "onMouseEnter",
-                            "Delete the whole meal"
-                          )
-                        }
-                        onMouseLeave={() =>
-                          handlePopUpMessage(
-                            "onMouseLeave",
-                            "Delete the whole meal"
-                          )
-                        }
-                        onClick={() => editMeal(item, "delete")}
-                      >
-                        {" "}
-                        <i className="fa fa-times"></i>
-                      </div>
-                      <div
-                        className="edit-order-btn text-success"
-                        onMouseEnter={() =>
-                          handlePopUpMessage(
-                            "onMouseEnter",
-                            "Save meal changes"
-                          )
-                        }
-                        onMouseLeave={() =>
-                          handlePopUpMessage(
-                            "onMouseLeave",
-                            "Save meal changes"
-                          )
-                        }
-                        onClick={() => editOrder(item, "meal", "decreament")}
-                      >
-                        {" "}
-                        <i className="fa fa-check"></i>
+                      <div className="list-order-item-btns">
+                        <div
+                          className="decreament-btn"
+                          onMouseEnter={() =>
+                            handlePopUpMessage(
+                              "onMouseEnter",
+                              "Decreament meal Qty"
+                            )
+                          }
+                          onMouseLeave={() =>
+                            handlePopUpMessage(
+                              "onMouseLeave",
+                              "Decreament meal Qty"
+                            )
+                          }
+                          onClick={() => editMeal(item, "decreament")}
+                        >
+                          {" "}
+                          <i className="fa fa-minus"></i>
+                        </div>
+                        <div
+                          className="delete-order-btn text-danger"
+                          onMouseEnter={() =>
+                            handlePopUpMessage(
+                              "onMouseEnter",
+                              "Delete the whole meal"
+                            )
+                          }
+                          onMouseLeave={() =>
+                            handlePopUpMessage(
+                              "onMouseLeave",
+                              "Delete the whole meal"
+                            )
+                          }
+                          onClick={() => editMeal(item, "delete")}
+                        >
+                          {" "}
+                          <i className="fa fa-times"></i>
+                        </div>
+                        <div
+                          className="edit-order-btn text-success"
+                          onMouseEnter={() =>
+                            handlePopUpMessage(
+                              "onMouseEnter",
+                              "Save meal changes"
+                            )
+                          }
+                          onMouseLeave={() =>
+                            handlePopUpMessage(
+                              "onMouseLeave",
+                              "Save meal changes"
+                            )
+                          }
+                          onClick={() => editOrder(item, "meal", "decreament")}
+                        >
+                          {" "}
+                          <i className="fa fa-check"></i>
+                        </div>
                       </div>
                     </li>
                   );
@@ -430,62 +434,70 @@ function EditOrderForm({
               <ul className="item-items edit-bill-ul">
                 {teas.map((item, i) => {
                   return (
-                    <li key={i} className="td-row" style={{ gap: "20px" }}>
+                    <li key={i} className="td-row list-order-item">
                       <div>{convertToDateTime(item.sold_date)}</div>
                       <div style={{ flexGrow: 1 }}>
                         {item.tea.name}({item.qty} x {item.price}) ={" "}
                         {addComma(item.qty * item.price)} frw
                       </div>
-                      <div
-                        className="decreament-btn"
-                        onMouseEnter={() =>
-                          handlePopUpMessage(
-                            "onMouseEnter",
-                            "Decreament tea Qty"
-                          )
-                        }
-                        onMouseLeave={() =>
-                          handlePopUpMessage(
-                            "onMouseLeave",
-                            "Decreament tea Qty"
-                          )
-                        }
-                        onClick={() => editTea(item, "decreament")}
-                      >
-                        {" "}
-                        <i className="fa fa-minus"></i>
-                      </div>
-                      <div
-                        className="delete-order-btn text-danger"
-                        onMouseEnter={() =>
-                          handlePopUpMessage(
-                            "onMouseEnter",
-                            "Delete the whole tea"
-                          )
-                        }
-                        onMouseLeave={() =>
-                          handlePopUpMessage(
-                            "onMouseLeave",
-                            "Delete the whole tea"
-                          )
-                        }
-                        onClick={() => editTea(item, "delete")}
-                      >
-                        {" "}
-                        <i className="fa fa-times"></i>
-                      </div>
-                      <div
-                        className="edit-order-btn text-success"
-                        onMouseEnter={() =>
-                          handlePopUpMessage("onMouseEnter", "Save tea changes")
-                        }
-                        onMouseLeave={() =>
-                          handlePopUpMessage("onMouseLeave", "Save tea changes")
-                        }
-                        onClick={() => editOrder(item, "tea", "decreament")}
-                      >
-                        {" "}
-                        <i className="fa fa-check"></i>
+                      <div className="list-order-item-btns">
+                        <div
+                          className="decreament-btn"
+                          onMouseEnter={() =>
+                            handlePopUpMessage(
+                              "onMouseEnter",
+                              "Decreament tea Qty"
+                            )
+                          }
+                          onMouseLeave={() =>
+                            handlePopUpMessage(
+                              "onMouseLeave",
+                              "Decreament tea Qty"
+                            )
+                          }
+                          onClick={() => editTea(item, "decreament")}
+                        >
+                          {" "}
+                          <i className="fa fa-minus"></i>
+                        </div>
+                        <div
+                          className="delete-order-btn text-danger"
+                          onMouseEnter={() =>
+                            handlePopUpMessage(
+                              "onMouseEnter",
+                              "Delete the whole tea"
+                            )
+                          }
+                          onMouseLeave={() =>
+                            handlePopUpMessage(
+                              "onMouseLeave",
+                              "Delete the whole tea"
+                            )
+                          }
+                          onClick={() => editTea(item, "delete")}
+                        >
+                          {" "}
+                          <i className="fa fa-times"></i>
+                        </div>
+                        <div
+                          className="edit-order-btn text-success"
+                          onMouseEnter={() =>
+                            handlePopUpMessage(
+                              "onMouseEnter",
+                              "Save tea changes"
+                            )
+                          }
+                          onMouseLeave={() =>
+                            handlePopUpMessage(
+                              "onMouseLeave",
+                              "Save tea changes"
+                            )
+                          }
+                          onClick={() => editOrder(item, "tea", "decreament")}
+                        >
+                          {" "}
+                          <i className="fa fa-check"></i>
+                        </div>
                       </div>
                     </li>
                   );

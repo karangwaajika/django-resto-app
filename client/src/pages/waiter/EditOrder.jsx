@@ -37,8 +37,8 @@ function EditOrder() {
             teas={Object.values(data).length > 0 ? data.order_teas : []}
             meals={Object.values(data).length > 0 ? data.order_meals : []}
             data={data}
-            setData = {setData}
-            setRefresh = {setRefresh}
+            setData={setData}
+            setRefresh={setRefresh}
             overallTotal={data.overall_total}
             isLoading={isLoading}
           />
