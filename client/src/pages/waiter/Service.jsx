@@ -12,6 +12,9 @@ function Service() {
         <header className="header">
           <Navbar />
         </header>
+        <main className="main">
+          <Outlet context={userInfo} />
+        </main>
       </userContext.Provider>
     </div>
   );

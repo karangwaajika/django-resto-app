@@ -9,13 +9,13 @@ function HeaderSection() {
       <h5 style={{ textAlign: "center", fontSize: "15px", fontWeight: 400 }}>
         <i>Waiters Home Page</i>
       </h5>
-      <section className="header-section">
+      <section className="header-section" style={{marginBottom:"10px"}}>
         <h3 style={{ fontFamily: "monospace" }}>Lol Resto Bar</h3>
         <p>Waiter platform for recording orders</p>
         <Button
           text="Record order"
           className="btn-outline-lighter"
-          width="25%"
+          width="300px"
           onClick={()=>navigate("/service/service")}
         />
       </section>

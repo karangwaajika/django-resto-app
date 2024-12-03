@@ -23,10 +23,10 @@
   /* this 100% to make them block element */
   grid-template-columns: 100%;
 }
-.header,
+/* .header,
 .footer {
   position: sticky;
-}
+} */
 .header {
   top: 0;
 }
