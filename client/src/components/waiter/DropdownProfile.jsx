@@ -6,6 +6,7 @@ export default function DropdownProfile({ closeModal, animate, user, logout }) {
     <div
       className={`card dropdown ${animate}`}
       onMouseLeave={() => closeModal("profile")}
+      onClick={() => closeModal("profile")}
     >
       <div className="profile">
         <article>

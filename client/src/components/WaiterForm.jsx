@@ -39,9 +39,7 @@ export default function WaiterForm({
                   errorfield={fieldError.firstName && "error-field"}
                   label="First_name"
                   icon="fa-solid fa-user"
-                  placeholder={
-                    props.user.first_name ? props.user.first_name : "First Name"
-                  }
+                  placeholder={"First Name"}
                   handleChange={handleChange}
                   value={form.firstName}
                 />
@@ -57,9 +55,7 @@ export default function WaiterForm({
                   errorfield={fieldError.lastName && "error-field"}
                   label="Last_name"
                   icon="fa-solid fa-user"
-                  placeholder={
-                    props.user.last_name ? props.user.last_name : "Last Name"
-                  }
+                  placeholder={"Last Name"}
                   handleChange={handleChange}
                   value={form.lastName}
                 />
@@ -111,9 +107,7 @@ export default function WaiterForm({
                 errorfield={fieldError.username && "error-field"}
                 label="username"
                 icon="fa fa-user"
-                placeholder={
-                  props.user.username ? props.user.username : "Username"
-                }
+                placeholder={"Username"}
                 handleChange={handleChange}
                 value={form.userName}
               />

@@ -49,6 +49,37 @@ nav.service .navbar-date {
 .toggle-btn {
   display: none;
 }
+
+.menu {
+  position: relative;
+}
+.dropdown-menu {
+  position: absolute;
+  top: 40px;
+  width: 250px;
+  z-index: 1;
+}
+.dropdown-menu ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+/* use flex in a otherwise use li below*/
+/* .dropdown-menu ul li{
+  border-bottom: 1px solid #7c7979;
+  padding: 10px;
+} */
+.dropdown-menu ul li a {
+  display: flex;
+  text-decoration: none;
+  border-bottom: 1px solid #7c7979;
+  padding: 10px;
+}
+.dropdown-menu ul li a:hover {
+  background-color: #9b8c5d;
+  color: white;
+}
+
 /* MOBILE  <= 481px*/
 @media screen and (max-width: 481px) {
   .toggle-btn {
@@ -89,6 +120,18 @@ nav.service .navbar-date {
   nav.service ul.links.active {
     left: 0px;
   }
+  .dropdown-menu {
+    position: absolute;
+    top: 35px;
+    width: 190px;
+    z-index: 1;
+  }
+  .dropdown-menu ul li a {
+    display: flex;
+    text-decoration: none;
+    border-bottom: none;
+    padding: 0;
+  }
 }
 /* SMALL */
 @media screen and (min-width: 481px) {
@@ -110,4 +153,7 @@ nav.service .navbar-date {
 }
 /* LAPTOP >= 1025px*/
 @media screen and (min-width: 1025px) {
+  nav.service .navbar-date {
+    display: block;
+  }
 }

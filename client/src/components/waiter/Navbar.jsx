@@ -82,6 +82,14 @@ export default function Navbar() {
           <i className="fa fa-caret-down"></i>
         </Link>
       </div>
+      {openProfileModal && (
+        <DropdownProfile
+          closeModal={handleModal}
+          animate={animation}
+          user={user}
+          logout={logout}
+        />
+      )}
     </nav>
   );
 }

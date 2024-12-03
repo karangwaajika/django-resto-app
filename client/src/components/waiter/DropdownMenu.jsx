@@ -6,6 +6,7 @@ function DropdownMenu({ closeModal, animate }) {
     <div
       className={`card dropdown-menu ${animate}`}
       onMouseLeave={() => closeModal("menu")}
+      onClick={() => closeModal("menu")}
     >
       <ul>
         <li>
