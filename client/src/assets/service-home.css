@@ -148,6 +148,155 @@ section .card-body {
   cursor: pointer;
 }
 
+/* ######################## ORDER ################## */
+
+section.order {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
+}
+/* 
+#use width 10px to make item have static width this works in wrap as item wont shrink
+min-width/height just for the starting size to allow extra to fit in
+#parent, set height using vh or % is relative to the browser for item its relative to parent
+means it wont wrap using %. the size is reponsive to its parent
+#flex for item in container is used to take controll of at what size to grown or shrink
+
+*/
+.order-section {
+  display: flex;
+  justify-content: space-between;
+  min-height: 500px;
+  border: 1px solid #9b8c5d;
+  border-radius: 5px;
+  text-align: center;
+}
+.order-section .bill {
+  border-left: 1px solid #9b8c5d;
+  width: 20%;
+}
+aside.order-info {
+  width: 250px;
+}
+.order-section aside.form {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px;
+  justify-content: start;
+}
+.section-menus,
+.order-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+.type,
+aside.form .order-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 70%;
+  align-self: center;
+}
+button.btn-outline-service {
+  background-color: #7c6c3b;
+  border: 1px solid #7c6c3b;
+  color: white;
+}
+button.btn-outline-service:hover {
+  background-color: transparent;
+  border: 1px solid #7c6c3b;
+  color: black;
+}
+button.btn-outline-service:active {
+  background-color: #7c6c3b;
+  border: 1px solid #7c6c3b;
+  color: white;
+}
+.add-btn {
+  background-color: #7c6c3b;
+  color: white;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.add-btn:hover {
+  background-color: transparent;
+  color: black;
+  border: 1px solid #7c6c3b;
+}
+.add-btn:active {
+  background-color: #7c6c3b;
+  color: white;
+}
+/* dropdwon-list */
+.type.beverage {
+  position: relative;
+}
+.type.meal {
+  position: relative;
+}
+.type.smoothy {
+  position: relative;
+}
+.dropdown-list {
+  position: absolute;
+  top: 30px;
+  width: 250px;
+  z-index: 1;
+}
+.dropdown-list ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+
+.dropdown-list ul li {
+  display: flex;
+  text-decoration: none;
+  border-bottom: 1px solid #7c7979;
+  padding: 10px;
+}
+.dropdown-list ul li:hover {
+  background-color: #9b8c5d;
+  color: white;
+  cursor: pointer;
+}
+
+/* ########################### Bill ###################### */
+.bill,
+.bill-details {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  font-size: 14px;
+}
+.item-bill {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.item-header {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+}
+.item-items {
+  list-style: none;
+  font-size: 12px;
+  text-align: left;
+  margin-left: 20px;
+}
+
+/* ############################################ RESPONSIVENESS ############################## */
 /* MOBILE  <= 481px*/
 @media screen and (max-width: 481px) {
   .toggle-btn {
@@ -202,7 +351,40 @@ section .card-body {
     border-bottom: none;
     padding: 0;
   }
+  .section-menus,
+  .order-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .order-section {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #9b8c5d;
+    border-radius: 5px;
+    text-align: center;
+  }
+  aside.order-info {
+    width: 100%;
+  }
+  .type {
+    width: 100%;
+  }
+  .section-menus {
+    margin-top: -10px;
+  }
+  aside.form .order-details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    align-self: center;
+  }
+  .order-buttons {
+    margin-top: 20px;
+  }
 }
+
 /* SMALL */
 @media screen and (min-width: 481px) {
   nav.service .navbar-date {
