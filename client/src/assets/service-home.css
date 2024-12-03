@@ -296,6 +296,169 @@ button.btn-outline-service:active {
   margin-left: 20px;
 }
 
+.loader-service {
+  width: 30%;
+  position: absolute;
+  left: 30%;
+  top: 25%;
+}
+.loader-service img {
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.5;
+  border-radius: 80%;
+}
+/* table */
+section table.order-table {
+  border: 1px solid #c6cdc9;
+  font-size: 13px;
+}
+section table.order-table caption,
+section table.order-table th {
+  color: white;
+  border: 1px solid #c6ccc9;
+  background-color: #252928d2;
+}
+section table.order-table tr {
+  border-top: 1px solid #c6ccc9;
+}
+section table.order-table tr:nth-of-type(2n) {
+  background-color: #eeebe8d2;
+}
+section table.order-table .far,
+section table.order-table .fa-regular,
+section table.order-table .fa {
+  font-size: 18px;
+}
+/* action buttons */
+.order-table .fa:hover,
+.order-table .far:hover,
+.order-table .fa-regular:hover {
+  cursor: pointer;
+}
+.order-table .fa:active,
+.order-table .far:active,
+.order-table .fa-regular:active {
+  color: white;
+}
+.order-table .fa-trash-can {
+  color: #aff5af;
+}
+.td-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* approve bill */
+section.approve-bill {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 150px;
+  gap: 20px;
+}
+aside.form-section {
+  flex-grow: 1;
+  width: 300px;
+  padding: 20px;
+}
+aside.order-info {
+  width: 250px;
+}
+.loading-page {
+  height: 18px;
+  background-color: #f4f5f2;
+}
+/* edit bill */
+.item-items.edit-bill-ul {
+  display: flex;
+  flex-direction: column;
+}
+.edit-bill-ul li {
+  border-bottom: 1px solid #afaeadd2;
+  padding: 5px 0px;
+}
+.edit-bill-ul li:hover {
+  background-color: #eeebe8d2;
+}
+.decreament-btn,
+.delete-order-btn,
+.edit-order-btn {
+  cursor: pointer;
+  border: 1px solid #afaeadd2;
+  border-radius: 4px;
+  padding: 0 8px;
+}
+.delete-order-btn {
+  padding: 0 10px;
+}
+.decreament-btn:hover,
+.delete-order-btn:hover {
+  background-color: #ebc9a5d2;
+}
+.decreament-btn:active,
+.delete-order-btn:active {
+  background-color: #ffffffd2;
+}
+.popup-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #faa78ed2;
+  color: black;
+  font-size: 12px;
+  position: absolute;
+  top: 10px;
+  left: 38%;
+  padding: 2px 20px;
+  z-index: 1;
+}
+.edit-order-btn:hover {
+  background-color: white;
+}
+.edit-order-btn:active {
+  background-color: #79f8b2;
+  color: white;
+}
+
+/* ################# MENU ############### */
+section.menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+aside.items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 60%;
+  border: 1px solid #000000;
+  border-radius: 10px;
+  padding: 20px;
+}
+section.menu table {
+  border: 1px solid #c6cdc9;
+  font-size: 13px;
+}
+section.menu table caption,
+section.menu table th {
+  color: white;
+  border: 1px solid #c6ccc9;
+  background-color: #252928d2;
+}
+section.menu table tr {
+  border-top: 1px solid #c6ccc9;
+}
+section.menu table tr:nth-of-type(2n) {
+  background-color: #eeebe8d2;
+}
+section.menu table .far,
+section.menu table .fa-regular,
+section.menu table .fa {
+  font-size: 18px;
+}
+
 /* ############################################ RESPONSIVENESS ############################## */
 /* MOBILE  <= 481px*/
 @media screen and (max-width: 481px) {
@@ -382,6 +545,12 @@ button.btn-outline-service:active {
   }
   .order-buttons {
     margin-top: 20px;
+  }
+  .content {
+    padding: 0 10px;
+  }
+  .content-header h2 {
+    font-size: 20px;
   }
 }
 

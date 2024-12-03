@@ -377,7 +377,13 @@ th {
     display: none;
   }
   td {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgb(216, 213, 213);
+    white-space: nowrap;
+  }
+  tr{
+    border-bottom: 1px solid black;
   }
   td::before {
     content: attr(data-cell) ": ";
@@ -501,4 +507,11 @@ article p {
 .span-danger {
   background-color: rgba(240, 25, 25, 0.986);
   color: white;
+}
+/* content */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 50px;
 }

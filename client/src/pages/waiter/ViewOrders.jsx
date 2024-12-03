@@ -45,8 +45,8 @@ function ViewOrders() {
     }, 1000);
   };
   return (
-    <section className="view-meal-content">
-      <div className="meal-header">
+    <section className="content">
+      <div className="content-header">
         <h2>List of all orders recorded by the waiters</h2>
         <p style={{ fontSize: "14px" }}>
           Search by waiter, customer name, and menu items

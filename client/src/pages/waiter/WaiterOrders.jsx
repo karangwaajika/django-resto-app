@@ -21,8 +21,8 @@ function WaiterOrders() {
     clearMessage,
   } = useFetchAutoComplete(url, search);
   return (
-    <section className="view-meal-content">
-      <div className="meal-header">
+    <section className="content">
+      <div className="content-header">
         <h2>List of My recorded orders</h2>
         <p style={{ fontSize: "14px" }}>
           Search by waiter, customer name, and menu items

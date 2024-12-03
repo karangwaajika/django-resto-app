@@ -25,7 +25,7 @@ function OrderApproveBill({
                 <i className="far fa-circle-dot"></i>
               </div>
               <div className="item-text" style={{ fontWeight: "bold" }}>
-                Beverage1
+                Beverage
               </div>
             </div>
             <div
@@ -36,8 +36,8 @@ function OrderApproveBill({
                 {beverages.map((item, i) => {
                   return (
                     <li key={i}>
-                      {item.beverage.name}({item.total_qty} x {item.sold_price}) ={" "}
-                      {addComma(item.total_amount)} frw
+                      {item.beverage.name}({item.total_qty} x {item.sold_price})
+                      = {addComma(item.total_amount)} frw
                     </li>
                   );
                 })}
