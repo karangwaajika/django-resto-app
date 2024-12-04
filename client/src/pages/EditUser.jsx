@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import WaiterForm from "../components/WaiterForm";
 import useUpdateUser from "../hooks/useUpdateUser";
 import { userContext } from "./Dashboard";
+import UpdateWaiterForm from "../components/UpdateWaiterForm";
 
 function EditUser() {
   const user = useContext(userContext);
@@ -29,7 +30,7 @@ function EditUser() {
       <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
         <h1>Update your profile</h1>
 
-        <WaiterForm
+        <UpdateWaiterForm
           message={message}
           isLoading={isLoading}
           form={form}
@@ -37,7 +38,6 @@ function EditUser() {
           submitForm={validateSubmitForm}
           clearMessage={clearMessage}
           fieldError={fieldError}
-          userRole="Manager"
           user={user ? user : { first_name: "", last_name: "", username: "" }}
         />
       </div>
