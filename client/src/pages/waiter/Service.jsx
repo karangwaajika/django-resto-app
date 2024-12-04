@@ -12,7 +12,7 @@ function Service() {
         <header className="header">
           <Navbar />
         </header>
-        <main className="main">
+        <main className="main service-home">
           <Outlet context={userInfo} />
         </main>
       </userContext.Provider>

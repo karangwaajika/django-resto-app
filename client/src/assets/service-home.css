@@ -96,6 +96,9 @@ nav.service .navbar-date {
 }
 
 /* ############ HOMEPAGE ############### */
+.service-home {
+  gap: 10px;
+}
 .header-section {
   min-height: 200px;
   background-image: url("/images/bg1.avif");
