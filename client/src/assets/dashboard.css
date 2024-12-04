@@ -1,0 +1,141 @@
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* left side navigation bar */
+.left-side {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-image: url("/images/bg1.avif");
+  background-position: left;
+  background-size: cover;
+}
+.left-nav {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(26, 2, 2, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.left-side .left-nav .left-ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.left-side .left-ul a {
+  text-decoration: none;
+  border-bottom: 1px solid #7c7979;
+  color: white;
+  display: flex;
+  gap: 30px;
+  font-size: 15px;
+  padding: 5px;
+}
+.left-ul a .fa {
+  align-self: center;
+}
+
+.left-side .left-ul a:hover {
+  background-color: white;
+  color: black;
+}
+.left-side .left-ul li a.active {
+  background-color: white;
+  color: black;
+}
+
+.right-side {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.right-side .right-nav {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  background: linear-gradient(#996a23ee, #e0e4e4ee);
+  box-shadow: 1px 3px 3px rgb(104, 102, 102);
+  color: black;
+  min-height: 50px;
+  padding: 0 10px;
+}
+.right-side .right-nav .right-ul {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+}
+.right-side .right-ul a {
+  text-decoration: none;
+  border-right: 1px solid white;
+  width: 100px;
+  padding: 13px;
+  color: black;
+}
+
+.right-side .profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+.right-side .profile button {
+  height: 30px;
+}
+
+/* main content */
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* toggle */
+.toggle-btn-dashboard {
+  display: none;
+}
+
+/* MOBILE  <= 481px*/
+@media screen and (max-width: 481px) {
+  .left-side {
+    transition: 0.2s;
+    position: fixed;
+    left: -300px;
+  }
+  .left-side.active {
+    transition: 0.2s;
+    position: fixed;
+    left: 0px;
+    z-index: 1;
+  }
+  .toggle-btn-dashboard {
+    display: block;
+  }
+  .navbar-dashboard-text{
+    display: none;
+  }
+}
+/* SMALL */
+@media screen and (min-width: 481px) {
+  /* .main {
+      color: red;
+    } */
+}
+/* TABLET >= 768px*/
+@media screen and (min-width: 768px) {
+  /* .main {
+      color: blue;
+    } */
+}
+/* LAPTOP >= 1025px*/
+@media screen and (min-width: 1025px) {
+  /* .main {
+      color: green;
+    } */
+}

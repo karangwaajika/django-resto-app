@@ -1,11 +1,23 @@
 import { NavLink } from "react-router-dom";
 import { userContext } from "../pages/Dashboard";
 import { useContext } from "react";
-export default function DashboardSideBar() {
+export default function DashboardSideBar({...props}) {
+
   const user = useContext(userContext);
   return (
     <div className="left-nav">
       <article>
+      <div className="toggle-btn-dashboard">
+        <i
+          id="bar"
+          onClick={() => props.setIsBarClicked((oldState) => !oldState)}
+          className={
+            props.isBarClicked
+              ? "icon-click fa fa-times"
+              : "icon-click fa fa-bars"
+          }
+        ></i>
+      </div>
         <figure>
           <img
             src="/images/userm2.png"

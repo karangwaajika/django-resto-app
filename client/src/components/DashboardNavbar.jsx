@@ -3,7 +3,7 @@ import Dropdown from "../components/Dropdown";
 import { useState } from "react";
 import { userContext } from "../pages/Dashboard";
 import { useContext } from "react";
-export default function DashboardNavbar() {
+export default function DashboardNavbar({ ...props }) {
   const user = useContext(userContext);
   const navigate = useNavigate();
   const [animation, setAnimation] = useState("animated fadeIn");
@@ -21,9 +21,21 @@ export default function DashboardNavbar() {
     localStorage.removeItem(import.meta.env.VITE_REACT_APP_TOKEN);
     navigate("/");
   };
+
   return (
     <nav className="right-nav">
-      <p>Restaurant Managing Dashboard</p>
+      <div className="toggle-btn-dashboard">
+        <i
+          id="bar"
+          onClick={() => props.setIsBarClicked((oldState) => !oldState)}
+          className={
+            props.isBarClicked
+              ? "icon-click fa fa-times"
+              : "icon-click fa fa-bars"
+          }
+        ></i>
+      </div>
+      <p className="navbar-dashboard-text">Restaurant Managing Dashboard</p>
       <ul className="right-ul"></ul>
       <div className="profile">
         <div className="name">
