@@ -2,7 +2,7 @@ import { formatToDateString } from "../utils/dateFormat.mjs";
 import { addComma } from "../utils/addComma.mjs";
 export default function mealTable({ meals, openEditModal, openDeleteModal }) {
   return (
-    <table className="meal-table">
+    <table className="dashboard-content-table">
       <thead>
         <tr>
           <th>#</th>
@@ -24,14 +24,16 @@ export default function mealTable({ meals, openEditModal, openDeleteModal }) {
                 <td data-cell="Price">{addComma(meal.price)}</td>
                 <td data-cell="Date">{formatToDateString(meal.created_at)}</td>
                 <td data-cell="Action">
-                  <i
-                    className="fa fa-pen-to-square text-primary"
-                    onClick={() => openEditModal(index, "edit")}
-                  ></i>{" "}
-                  <i
-                    className="fa fa-trash-can"
-                    onClick={() => openDeleteModal(index, "delete")}
-                  ></i>
+                  <div className="action-btns">
+                    <i
+                      className="fa fa-pen-to-square text-primary"
+                      onClick={() => openEditModal(index, "edit")}
+                    ></i>{" "}
+                    <i
+                      className="fa fa-trash-can"
+                      onClick={() => openDeleteModal(index, "delete")}
+                    ></i>
+                  </div>
                 </td>
               </tr>
             );

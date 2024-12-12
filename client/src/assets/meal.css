@@ -1,0 +1,24 @@
+.add-meal-content .card {
+  width: 600px;
+}
+.meal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* MOBILE  <= 481px*/
+@media (max-width: 481px) {
+  .add-meal-content,
+  .view-meal-content {
+    padding: 0 10px;
+  }
+  .add-meal-content .card {
+    width: 100%;
+  }
+  .action-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+}

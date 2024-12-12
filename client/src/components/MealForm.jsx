@@ -14,7 +14,6 @@ export default function MealForm({
   fieldError,
 }) {
   return (
-    <div className="meal-form">
       <div className="card" style={{ border: "1px solid black" }}>
         <div className="card-header">Meal/Dish Form</div>
         {message && (
@@ -25,7 +24,7 @@ export default function MealForm({
           />
         )}
         <div className="card-body">
-          <form onSubmit={submitForm}>
+          <form onSubmit={submitForm} className="meal-form">
             {fieldError.name && <i className="error-text">{fieldError.name}</i>}
             <InputField
               type="text"
@@ -104,6 +103,5 @@ export default function MealForm({
         </div>
         <div className="card-footer"></div>
       </div>
-    </div>
   );
 }
