@@ -4,6 +4,7 @@ import "./assets/home.css";
 import "./assets/service-home.css";
 import "./assets/animation.css";
 import "./assets/dashboard.css";
+import "./assets/tea.css";
 
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";

@@ -2,7 +2,7 @@ import { formatToDateString } from "../utils/dateFormat.mjs";
 import { addComma } from "../utils/addComma.mjs";
 export default function TeaTable({ teas, openEditModal, openDeleteModal }) {
   return (
-    <table className="tea-table">
+    <table className="dashboard-content-table">
       {/* <caption>Tea/Coffe List</caption> */}
       <thead>
         <tr>
@@ -25,14 +25,16 @@ export default function TeaTable({ teas, openEditModal, openDeleteModal }) {
                 <td data-cell="Price">{addComma(tea.price)}</td>
                 <td data-cell="Date">{formatToDateString(tea.created_at)}</td>
                 <td data-cell="Action">
-                  <i
-                    className="fa fa-pen-to-square text-primary"
-                    onClick={() => openEditModal(index, "edit")}
-                  ></i>{" "}
-                  <i
-                    className="fa fa-trash-can"
-                    onClick={() => openDeleteModal(index, "delete")}
-                  ></i>
+                  <div className="action-btns">
+                    <i
+                      className="fa fa-pen-to-square text-primary"
+                      onClick={() => openEditModal(index, "edit")}
+                    ></i>{" "}
+                    <i
+                      className="fa fa-trash-can"
+                      onClick={() => openDeleteModal(index, "delete")}
+                    ></i>
+                  </div>
                 </td>
               </tr>
             );

@@ -1,0 +1,24 @@
+.add-tea-content .card {
+  width: 600px;
+}
+.tea-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* MOBILE  <= 481px*/
+@media (max-width: 481px) {
+  .add-tea-content,
+  .view-tea-content {
+    padding: 0 10px;
+  }
+  .add-tea-content .card {
+    width: 100%;
+  }
+  .action-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+}

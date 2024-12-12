@@ -1,3 +1,49 @@
+/* content common design */
+.add-waiter-content,
+.view-waiter-content,
+.add-meal-content,
+.view-meal-content,
+.add-tea-content,
+.view-tea-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 50px;
+}
+
+/* table */
+table.dashboard-content-table {
+  border: 1px solid #c6cdc9;
+  font-size: 13px;
+}
+table.dashboard-content-table caption,
+table.dashboard-content-table th {
+  color: white;
+  border: 1px solid #c6ccc9;
+  background-color: #252928d2;
+}
+table.dashboard-content-table tr {
+  border-top: 1px solid #c6ccc9;
+}
+table.dashboard-content-table tr:nth-of-type(2n) {
+  background-color: #eeebe8d2;
+}
+table.dashboard-content-table .far,
+table.dashboard-content-table .fa-regular,
+table.dashboard-content-table .fa {
+  font-size: 18px;
+}
+/* action buttons */
+table.dashboard-content-table .fa:hover {
+  cursor: pointer;
+}
+table.dashboard-content-table .fa:active {
+  color: white;
+}
+table.dashboard-content-table .fa-trash-can {
+  color: red;
+}
+/* dashboard style */
 .dashboard-container {
   display: flex;
   min-height: 100vh;
@@ -103,6 +149,10 @@
 
 /* MOBILE  <= 481px*/
 @media screen and (max-width: 481px) {
+  .left-nav {
+    height: 100vh;
+    overflow: scroll;
+  }
   .left-side {
     transition: 0.2s;
     position: fixed;
@@ -117,7 +167,7 @@
   .toggle-btn-dashboard {
     display: block;
   }
-  .navbar-dashboard-text{
+  .navbar-dashboard-text {
     display: none;
   }
 }
