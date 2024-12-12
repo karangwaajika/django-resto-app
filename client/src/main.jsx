@@ -8,6 +8,7 @@ import "./assets/tea.css";
 import "./assets/meal.css";
 import "./assets/beverage.css";
 import "./assets/waiter.css";
+import "./assets/report.css";
 
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";

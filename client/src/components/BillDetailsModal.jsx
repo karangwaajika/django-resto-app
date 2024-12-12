@@ -25,7 +25,7 @@ function BillDetailsModal({
       <div className="modal-content" style={{ width: "300px" }}>
         <div className="modal-header">
           <h2 style={{ fontFamily: "cursive" }}>L&#128514;L Bar-Resto Bill</h2>
-          <div className="modal-close-button">
+          <div className="modal-close-button bill-print-section">
             <i
               className="fa fa-rectangle-xmark"
               onClick={() => {
@@ -51,7 +51,7 @@ function BillDetailsModal({
               </div>
             </div>
             <div
-              className="card-header"
+              className="card-header bill-header"
               style={{ fontSize: "12px", textAlign: "left" }}
             >
               <div className="card">

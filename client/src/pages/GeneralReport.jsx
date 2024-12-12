@@ -10,6 +10,7 @@ import useFetchAutoComplete from "../hooks/useFetchAutoComplete";
 import BillDetailsModal from "../components/BillDetailsModal";
 import FlashMessage from "../components/ui/FlashMessage";
 import useFetchReports from "../hooks/useFetchReports";
+import ReportInputField from "../components/ui/ReportInputField";
 
 export default function GeneralReport() {
   // handle fetch auto complete
@@ -24,8 +25,6 @@ export default function GeneralReport() {
       reff={ref}
       onClick={onClick}
       value={value}
-      height="30px"
-      width="240px"
     />
   ));
   const ToDateInput = React.forwardRef(({ value, onClick }, ref) => (
@@ -35,8 +34,6 @@ export default function GeneralReport() {
       reff={ref}
       onClick={onClick}
       value={value}
-      height="30px"
-      width="240px"
     />
   ));
 
@@ -101,18 +98,12 @@ export default function GeneralReport() {
           />
         )}
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          gap: "20px",
-        }}
-      >
+      <div className="general-header">
         <div
           className="search-btn"
           style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}
         >
-          <InputField
+          <ReportInputField
             type="search"
             name="search"
             id="search"
@@ -120,7 +111,6 @@ export default function GeneralReport() {
             icon="fa-solid fa-filter"
             placeholder="Search ... "
             handleChange={(e) => setSearch(e.target.value)}
-            width="240px"
           />
           <DatePicker
             selected={startDate}
@@ -142,14 +132,15 @@ export default function GeneralReport() {
             dateFormat="yyyy-MM-dd"
           />
         </div>
-
-        <ButtonIcon
-          text="FILTER"
-          className="btn btn-success-outline"
-          width="235px"
-          height="30px"
-          onClick={() => setIsSubmit((oldState) => !oldState)}
-        />
+        <div className="report-btn">
+          <ButtonIcon
+            text="FILTER"
+            className="btn btn-success-outline"
+            width="235px"
+            height="30px"
+            onClick={() => setIsSubmit((oldState) => !oldState)}
+          />
+        </div>
       </div>
       <OrdersReportTable orders={data} openModal={handleBillModal} />
       {openBillModal && (

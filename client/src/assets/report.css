@@ -1,0 +1,157 @@
+/* table */
+section table.table-report {
+  border: 1px solid #c6cdc9;
+  font-size: 13px;
+}
+section table.table-report caption,
+section table.table-report th {
+  color: white;
+  border: 1px solid #c6ccc9;
+  background-color: #252928d2;
+}
+section table.table-report tr {
+  border-top: 1px solid #c6ccc9;
+}
+section table.table-report tr:nth-of-type(2n) {
+  background-color: #eeebe8d2;
+}
+section table.table-report .far,
+section table.table-report .fa-regular,
+section table.table-report .fa {
+  font-size: 18px;
+}
+.table-report .fa:hover,
+.table-report .far:hover,
+.table-report .fa-regular:hover {
+  cursor: pointer;
+}
+.table-report .fa:active,
+.table-report .far:active,
+.table-report .fa-regular:active {
+  color: white;
+}
+.table-report .fa-trash-can {
+  color: #aff5af;
+}
+/* mutiple input */
+.input-container {
+  display: flex;
+  border: 1px solid #808080;
+  border-radius: 5px;
+  font-size: 14px;
+  height: 30px;
+}
+
+input.typing-area {
+  border: none;
+  height: 100%;
+  width: 100%;
+  color: black;
+  cursor: text;
+}
+input.typing-area:focus {
+  outline: none;
+}
+.input-items {
+  display: flex;
+  padding: 5px;
+  gap: 5px;
+}
+.input-item {
+  background-color: rgb(194, 230, 247);
+  color: black;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  align-items: center;
+  padding: 5px;
+  padding-bottom: 8px;
+}
+.item-icon {
+  font-size: 10px;
+}
+.item-icon:hover {
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.item-icon:active {
+  color: black;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.icon-link:hover {
+  cursor: pointer;
+}
+.icon-link:active {
+  cursor: pointer;
+  color: white;
+}
+
+.general-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.overal-total-td {
+  display: flex;
+  gap: 10px;
+}
+.action-btns {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+.datetime,
+.input-report {
+  width: 230px;
+  height: 30px;
+}
+
+/* MOBILE  <= 481px*/
+@media (max-width: 481px) {
+  .input-group.datetime,
+  .input-group.input-report {
+    width: 300px;
+  }
+  .report-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .bill-header,
+  .bill-print-section .fa-print {
+    display: none;
+  }
+  .item-items {
+    font-size: 11px;
+  }
+
+  .modal-header h2 {
+    font-size: 16px;
+  }
+
+  .general-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .overal-total-td {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  .overal-total-tr {
+    display: flex;
+    gap: 0px;
+  }
+  .action-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+}

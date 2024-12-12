@@ -1,4 +1,4 @@
-export default function InputField({
+export default function ReportInputField({
   type,
   name,
   id,
@@ -11,7 +11,7 @@ export default function InputField({
   height,
   width,
   errorMessage,
-  readOnly
+  readOnly,
 }) {
   const inputWidth = width ? width : "100%";
   return (
@@ -19,7 +19,6 @@ export default function InputField({
       {errorMessage && <i className="error-text">{errorMessage}</i>}
       <div
         className={`input-group ${errorfield && "error-field"} input-report`}
-        style={{ height: height, width: inputWidth }}
       >
         <span className="input-icon">
           <i className={icon}></i>

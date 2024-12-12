@@ -18,7 +18,7 @@ export default function OrdersReportTable({ orders, openModal, ...props }) {
             <th>Status</th>
             <th>Details</th>
             <th>Waiter</th>
-            {(props.isPage == "unpaidReport" && <th>Approve Payment</th>)}
+            {props.isPage == "unpaidReport" && <th>Approve Payment</th>}
           </tr>
         </thead>
         <tbody>
@@ -40,28 +40,14 @@ export default function OrdersReportTable({ orders, openModal, ...props }) {
                     </td>
                     <td data-cell="Status">
                       {order.is_paid ? (
-                        <div
-                          className="span"
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            fontWeight: 400,
-                          }}
-                        >
-                          <i className="fa fa-check text-success"></i> Paid
+                        <div className="action-btns">
+                          <i className="fa fa-check text-success"></i>{" "}
+                          <div>Paid</div>
                         </div>
                       ) : (
-                        <div
-                          className="span"
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                            fontWeight: 400,
-                          }}
-                        >
-                          <i className="fa fa-xmark text-danger"></i> Unpaid
+                        <div className="action-btns">
+                          <i className="fa fa-xmark text-danger"></i>{" "}
+                          <div>Unpaid</div>
                         </div>
                       )}
                     </td>
@@ -106,15 +92,26 @@ export default function OrdersReportTable({ orders, openModal, ...props }) {
               </td>
             </tr>
           )}
-          <tr>
+          <tr className="overal-total-tr">
             <td colSpan={8}>
-              Paid <i className="span span-success">{addComma(income)} frw</i>{" "}
-              Expected{" "}
-              <i className="span span-dark">{addComma(expectedIncome)} frw</i>{" "}
-              Unpaid{" "}
-              <i className="span span-danger">
-                {addComma(expectedIncome - income)} frw
-              </i>
+              <div className="overal-total-td">
+                <div>
+                  Paid{" "}
+                  <i className="span span-success">{addComma(income)} frw</i>{" "}
+                </div>
+                <div>
+                  Expected{" "}
+                  <i className="span span-dark">
+                    {addComma(expectedIncome)} frw
+                  </i>{" "}
+                </div>
+                <div>
+                  Unpaid{" "}
+                  <i className="span span-danger">
+                    {addComma(expectedIncome - income)} frw
+                  </i>
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
