@@ -48,7 +48,7 @@ export default function DeleteBeverageModal({
           </div>
         </div>
         <div className="modal-footer">
-          <div className="delete-options">
+          <div className="delete-options" style={{gap: "10px"}}>
             <Button
               text="Cancel"
               className="btn-danger-outline"

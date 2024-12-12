@@ -172,6 +172,9 @@ table.dashboard-content-table .fa-trash-can {
   .navbar-dashboard-text {
     display: none;
   }
+  .modal {
+    padding: 0 10px;
+  }
 }
 /* SMALL */
 @media screen and (min-width: 481px) {

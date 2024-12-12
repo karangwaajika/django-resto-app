@@ -34,7 +34,7 @@ export default function EditBeverageModal({
         </div>
 
         <div className="modal-body">
-          <form onSubmit={submitForm}>
+          <form onSubmit={submitForm} className="beverage-form">
             {fieldError.name && <i className="error-text">{fieldError.name}</i>}
             <InputField
               type="text"

@@ -13,7 +13,7 @@ export default function Button({
       className={className}
       onClick={onClick}
       name={name}
-      style={{ width: btnWidth, height: height }}
+      style={{ width: btnWidth, height: height, textWrap: "nowrap" }}
     >
       {text}
     </button>

@@ -24,7 +24,7 @@ export default function WaiterPasswordModal({
     <div className={`modal ${animate}`} onClick={handleCloseModal}>
       <div className="modal-content ">
         <div className="modal-header">
-          <h2>Change {employee.first_name} password</h2>
+          <h2 className="waiter-pass-text">Change {employee.first_name} password</h2>
           <div
             className="modal-close-button"
             onClick={() => closeModal(employeeIndex, "password")}
@@ -34,7 +34,7 @@ export default function WaiterPasswordModal({
         </div>
 
         <div className="modal-body">
-          <form onSubmit={submitForm}>
+          <form onSubmit={submitForm} className="beverage-form">
             {fieldError.password && (
               <i className="error-text">{fieldError.password}</i>
             )}

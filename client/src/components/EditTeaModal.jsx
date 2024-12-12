@@ -24,7 +24,7 @@ export default function EditTeaModal({
     <div className={`modal ${animate}`} onClick={handleCloseModal}>
       <div className="modal-content ">
         <div className="modal-header">
-          <h2>Update Subject</h2>
+          <h2>Update Smoothy</h2>
           <div
             className="modal-close-button"
             onClick={() => closeModal(teaIndex, "edit")}
@@ -34,7 +34,7 @@ export default function EditTeaModal({
         </div>
 
         <div className="modal-body">
-          <form onSubmit={submitForm}>
+          <form onSubmit={submitForm} className="tea-form">
             {fieldError.name && <i className="error-text">{fieldError.name}</i>}
             <InputField
               type="text"
