@@ -15,7 +15,6 @@ export default function WaiterForm({
   ...props
 }) {
   return (
-    <div className="waiter-form">
       <div className="card" style={{ border: "1px solid black" }}>
         <div className="card-header">Employee Form</div>
         {message && (
@@ -27,8 +26,8 @@ export default function WaiterForm({
         )}
         <div className="card-body">
           <form onSubmit={submitForm} className="form" style={{ gap: "10px" }}>
-            <div className="form-row">
-              <div className="first-name">
+            <div className="waiter-form-row" >
+              <div className="first-name" style={{width:"100%"}}>
                 {fieldError.firstName && (
                   <i className="error-text">{fieldError.firstName}</i>
                 )}
@@ -44,7 +43,7 @@ export default function WaiterForm({
                   value={form.firstName}
                 />
               </div>
-              <div className="last-name">
+              <div className="last-name" style={{width:"100%"}}>
                 {fieldError.lastName && (
                   <i className="error-text">{fieldError.lastName}</i>
                 )}
@@ -61,8 +60,8 @@ export default function WaiterForm({
                 />
               </div>
             </div>
-            <div className="form-row">
-              <div className="password">
+            <div className="waiter-form-row" >
+              <div className="password" style={{width:"100%"}}>
                 {fieldError.password && (
                   <i className="error-text">{fieldError.password}</i>
                 )}
@@ -78,7 +77,7 @@ export default function WaiterForm({
                   value={form.password}
                 />
               </div>
-              <div className="confirm-password">
+              <div className="confirm-password" style={{width:"100%"}}>
                 {fieldError.confirmPassword && (
                   <i className="error-text">{fieldError.confirmPassword}</i>
                 )}
@@ -153,6 +152,5 @@ export default function WaiterForm({
         </div>
         <div className="card-footer"></div>
       </div>
-    </div>
   );
 }

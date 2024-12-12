@@ -1,7 +1,7 @@
 import { formatToDateString } from "../utils/dateFormat.mjs";
 export default function EmployeeTable({ employees, openModal }) {
   return (
-    <table className="waiter-table">
+    <table className="dashboard-content-table">
       <thead>
         <tr>
           <th>#</th>
@@ -25,22 +25,26 @@ export default function EmployeeTable({ employees, openModal }) {
                   {formatToDateString(employee.date_joined)}
                 </td>
                 <td data-cell="Role">
-                  {employee.is_staff ? "Bartender" : "Waiter"}{" "}
-                  <i
-                    className="fa fa-pen-to-square text-warning"
-                    onClick={() => openModal(index, "role")}
-                  ></i>
+                  <div className="action-btn">
+                    {employee.is_staff ? "Bartender" : "Waiter"}{" "}
+                    <i
+                      className="fa fa-pen-to-square text-warning"
+                      onClick={() => openModal(index, "role")}
+                    ></i>
+                  </div>
                 </td>
                 <td data-cell="Active" style={{ textAlign: "center" }}>
-                  {employee.is_active ? (
-                    <i className="fa fa-check-square text-success"></i>
-                  ) : (
-                    <i className="fa fa-square-xmark text-danger"></i>
-                  )}{" "}
-                  <i
-                    className="fa fa-pen-to-square"
-                    onClick={() => openModal(index, "activate")}
-                  ></i>
+                  <div className="action-btns">
+                    {employee.is_active ? (
+                      <i className="fa fa-check-square text-success"></i>
+                    ) : (
+                      <i className="fa fa-square-xmark text-danger"></i>
+                    )}{" "}
+                    <i
+                      className="fa fa-pen-to-square"
+                      onClick={() => openModal(index, "activate")}
+                    ></i>
+                  </div>
                 </td>
                 <td data-cell="Password">
                   <i

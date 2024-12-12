@@ -89,7 +89,7 @@ export default function AddWaiter() {
     <div className="add-waiter-content">
       <div className="waiter-header" style={{ textAlign: "center" }}>
         <h2>Add Waiter/Bartender</h2>
-        <p style={{ fontSize: "14px" }}>
+        <p className="waiter-text">
           The Form below provides Username and Password so that waiter or
           bartender can sign in in order to insert client order.
         </p>

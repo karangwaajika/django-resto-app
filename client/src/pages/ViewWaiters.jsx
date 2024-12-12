@@ -57,8 +57,8 @@ export default function ViewWaiters() {
   };
 
   return (
-    <div className="view-beverage-content">
-      <div className="beverage-header">
+    <div className="view-waiter-content">
+      <div className="waiter-header">
         <h2>List of Employees</h2>
         <p style={{ fontSize: "14px" }}>
           Search by names to retrieve the desired information

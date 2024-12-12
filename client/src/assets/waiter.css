@@ -1,0 +1,47 @@
+.waiter-form-row {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+.waiter-text {
+  font-size: 14px;
+}
+/* MOBILE  <= 481px*/
+@media (max-width: 481px) {
+  .add-waiter-content,
+  .view-waiter-content {
+    padding: 0 10px;
+  }
+  .waiter-header h2 {
+    font-size: 18px;
+  }
+  .waiter-header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .waiter-header .waiter-text {
+    font-size: 12px;
+  }
+  .waiter-text {
+    display: flex;
+    justify-content: left;
+  }
+  .radio-fieldset {
+    width: 100%;
+  }
+
+  .form-validation-rules .list-group-item {
+    font-size: 14px;
+  }
+  .waiter-form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .action-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+}
