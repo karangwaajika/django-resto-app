@@ -6,7 +6,7 @@ export default function BeverageTable({
   openDeleteModal,
 }) {
   return (
-    <table className="beverage-table">
+    <table className="dashboard-content-table">
       <thead>
         <tr>
           <th>#</th>
@@ -32,14 +32,16 @@ export default function BeverageTable({
                   {formatToDateString(beverage.updated_at)}
                 </td>
                 <td data-cell="Action">
-                  <i
-                    className="fa fa-pen-to-square text-primary"
-                    onClick={() => openEditModal(index, "edit")}
-                  ></i>{" "}
-                  <i
-                    className="fa fa-trash-can"
-                    onClick={() => openDeleteModal(index, "delete")}
-                  ></i>
+                  <div className="action-btns">
+                    <i
+                      className="fa fa-pen-to-square text-primary"
+                      onClick={() => openEditModal(index, "edit")}
+                    ></i>{" "}
+                    <i
+                      className="fa fa-trash-can"
+                      onClick={() => openDeleteModal(index, "delete")}
+                    ></i>
+                  </div>
                 </td>
               </tr>
             );

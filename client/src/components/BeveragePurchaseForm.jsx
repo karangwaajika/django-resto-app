@@ -32,7 +32,7 @@ export default function BeveragePurchaseForm({
           />
         )}
         <div className="card-body">
-          <form onSubmit={submitForm}>
+          <form onSubmit={submitForm} className="beverage-form">
             {fieldError.beverage && (
               <i className="error-text">{fieldError.beverage}</i>
             )}

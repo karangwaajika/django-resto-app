@@ -1,0 +1,38 @@
+.beverage-forms {
+  display: flex;
+  gap: 10px;
+}
+.beverage-add-form {
+  width: 40%;
+}
+.beverage-purchase-form {
+  width: 60%;
+}
+.beverage-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* MOBILE  <= 481px*/
+@media (max-width: 481px) {
+  .add-beverage-content,
+  .view-beverage-content {
+    padding: 0 10px;
+  }
+  .beverage-forms {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 10px;
+  }
+  .beverage-add-form,
+  .beverage-purchase-form {
+    width: 100%;
+  }
+  .action-btns {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+}
