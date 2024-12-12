@@ -11,6 +11,7 @@ import FlashMessage from "../components/ui/FlashMessage";
 import useFetchReports from "../hooks/useFetchReports";
 import { useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
+import ReportInputField from "../components/ui/ReportInputField";
 
 export default function WaiterReport() {
   // handle fetch auto complete
@@ -25,8 +26,6 @@ export default function WaiterReport() {
       reff={ref}
       onClick={onClick}
       value={value}
-      height="30px"
-      width="240px"
     />
   ));
   const ToDateInput = React.forwardRef(({ value, onClick }, ref) => (
@@ -36,8 +35,6 @@ export default function WaiterReport() {
       reff={ref}
       onClick={onClick}
       value={value}
-      height="30px"
-      width="240px"
     />
   ));
 
@@ -96,7 +93,6 @@ export default function WaiterReport() {
       setOpenBillModal((oldModalState) => !oldModalState);
     }, 1000);
   };
-  console.log(userData);
   return (
     <div className="view-beverage-content">
       <div className="beverage-header">
@@ -118,18 +114,12 @@ export default function WaiterReport() {
           />
         )}
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          gap: "20px",
-        }}
-      >
+      <div className="general-header">
         <div
           className="search-btn"
           style={{ display: "flex", gap: "5px", flexWrap: "wrap" }}
         >
-          <InputField
+          <ReportInputField
             type="search"
             name="search"
             id="search"
@@ -137,7 +127,6 @@ export default function WaiterReport() {
             icon="fa-solid fa-filter"
             placeholder="Search ... "
             handleChange={(e) => setSearch(e.target.value)}
-            width="240px"
           />
           <DatePicker
             selected={startDate}
@@ -159,14 +148,15 @@ export default function WaiterReport() {
             dateFormat="yyyy-MM-dd"
           />
         </div>
-
-        <ButtonIcon
-          text="FILTER"
-          className="btn btn-success-outline"
-          width="235px"
-          height="30px"
-          onClick={() => setIsSubmit((oldState) => !oldState)}
-        />
+        <div className="report-btn">
+          <ButtonIcon
+            text="FILTER"
+            className="btn btn-success-outline"
+            width="235px"
+            height="30px"
+            onClick={() => setIsSubmit((oldState) => !oldState)}
+          />
+        </div>
       </div>
       <OrdersReportTable orders={data} openModal={handleBillModal} />
       {openBillModal && (

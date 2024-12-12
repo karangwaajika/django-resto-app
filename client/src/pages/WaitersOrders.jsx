@@ -46,7 +46,7 @@ export default function WaitersOrders() {
         />
       </div>
 
-      <table className="waiter-table">
+      <table className="dashboard-content-table">
         <thead>
           <tr>
             <th>#</th>
