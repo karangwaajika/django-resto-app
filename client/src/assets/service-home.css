@@ -180,7 +180,7 @@ means it wont wrap using %. the size is reponsive to its parent
   width: 20%;
 }
 aside.order-info {
-  width: 250px;
+  width: 300px;
 }
 .order-section aside.form {
   flex-grow: 1;
@@ -367,9 +367,7 @@ aside.form-section {
   width: 600px;
   padding: 20px;
 }
-aside.order-info {
-  width: 250px;
-}
+
 .loading-page {
   height: 18px;
   background-color: #f4f5f2;
