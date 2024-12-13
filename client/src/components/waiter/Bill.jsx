@@ -1,7 +1,7 @@
 import React from "react";
 import { addComma } from "../../utils/addComma.mjs";
 
-function Bill({ beverages, teas, meals, componentUsedIn }) {
+function Bill({ beverages, removeBeverage, teas, meals, componentUsedIn }) {
   let sumBeverage = 0;
   let sumMeal = 0;
   let sumTea = 0;
@@ -50,6 +50,15 @@ function Bill({ beverages, teas, meals, componentUsedIn }) {
                       {item.beverageName}({item.beverageQty} x{" "}
                       {item.beveragePrice}) ={" "}
                       {addComma(item.beverageQty * item.beveragePrice)} frw
+                      <i
+                        className="fa fa-times text-danger"
+                        style={{
+                          fontSize: "13px",
+                          marginLeft: "10px",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => removeBeverage(i)}
+                      ></i>
                     </li>
                   );
                 })}

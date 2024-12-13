@@ -16,6 +16,7 @@ function Order() {
     addBeverage,
     setBeverageForm,
     setBeverageRecords,
+    removeBeverage,
   } = useRecordBeverage();
   // meal inputs
   const {
@@ -93,10 +94,11 @@ function Order() {
           handleTeaChange={handleTeaChange}
           setTeaForm={setTeaForm}
           orderId={data.order_id}
-          inPage = "recordOrder"
+          inPage="recordOrder"
         />
         <Bill
           beverages={beverageRecords}
+          removeBeverage={removeBeverage}
           meals={mealRecords}
           teas={teaRecords}
         />

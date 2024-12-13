@@ -2,6 +2,12 @@ import { useState } from "react";
 import fieldValidation from "../utils/fieldValidation.mjs";
 export default function useRecordBeverage() {
   const [beverageRecords, setBeverageRecords] = useState([]);
+  const removeBeverage = (index) => {
+    setBeverageRecords((oldList) => {
+      const newList = oldList.filter((_, i) => i != index);
+      return newList;
+    });
+  };
   const [beverageForm, setBeverageForm] = useState({
     beverageName: "",
     beverageQty: 0,
@@ -66,5 +72,6 @@ export default function useRecordBeverage() {
     addBeverage,
     setBeverageForm,
     setBeverageRecords,
+    removeBeverage
   };
 }
