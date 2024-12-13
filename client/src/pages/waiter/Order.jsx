@@ -27,6 +27,7 @@ function Order() {
     handleMealChange,
     setMealForm,
     setMealRecords,
+    removeMeal,
   } = useRecordMeal();
   // smoothy input
   const {
@@ -37,6 +38,7 @@ function Order() {
     addTea,
     setTeaForm,
     setTeaRecords,
+    removeTea,
   } = useRecordTea();
 
   // get last order ID
@@ -100,7 +102,9 @@ function Order() {
           beverages={beverageRecords}
           removeBeverage={removeBeverage}
           meals={mealRecords}
+          removeMeal={removeMeal}
           teas={teaRecords}
+          removeTea={removeTea}
         />
       </div>
     </section>

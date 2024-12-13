@@ -2,6 +2,12 @@ import { useState } from "react";
 import fieldValidation from "../utils/fieldValidation.mjs";
 export default function useRecordMeal() {
   const [mealRecords, setMealRecords] = useState([]);
+  const removeMeal = (index) => {
+    setMealRecords((oldList) => {
+      const newList = oldList.filter((_, i) => i != index);
+      return newList;
+    });
+  };
   const [mealForm, setMealForm] = useState({
     mealName: "",
     mealQty: 0,
@@ -51,6 +57,7 @@ export default function useRecordMeal() {
     handleMealChange,
     addMeal,
     setMealForm,
-    setMealRecords
+    setMealRecords,
+    removeMeal,
   };
 }

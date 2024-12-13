@@ -2,6 +2,12 @@ import { useState } from "react";
 import fieldValidation from "../utils/fieldValidation.mjs";
 export default function useRecordTea() {
   const [teaRecords, setTeaRecords] = useState([]);
+  const removeTea = (index) => {
+    setTeaRecords((oldList) => {
+      const newList = oldList.filter((_, i) => i != index);
+      return newList;
+    });
+  };
   const [teaForm, setTeaForm] = useState({
     teaName: "",
     teaQty: 0,
@@ -54,6 +60,7 @@ export default function useRecordTea() {
     handleTeaChange,
     setTeaForm,
     addTea,
-    setTeaRecords
+    setTeaRecords,
+    removeTea,
   };
 }
