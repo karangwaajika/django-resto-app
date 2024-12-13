@@ -6,6 +6,7 @@ export default function useRecordBeverage() {
     beverageName: "",
     beverageQty: 0,
     beveragePrice: 0,
+    beverageStockQty: 0,
   });
 
   const handleBeverageChange = (e) => {
@@ -26,27 +27,34 @@ export default function useRecordBeverage() {
     setFieldError(validatedFields);
 
     if (Object.keys(validatedFields).length == 0) {
-      // add beverage records into an array
-      beverageForm.beverageQty = parseInt(beverageForm.beverageQty);
-      if (beverageRecords.length == 0) {
-        beverageRecords.push(beverageForm);
+      if (beverageForm.beverageQty > beverageForm.beverageStockQty) {
+        setFieldError({
+          beverageQty:
+            "You only have " + beverageForm.beverageStockQty + " in the stock",
+        });
       } else {
-        let isNewBeverage = true;
-        for (let item of beverageRecords) {
-          if (item.beverageName === beverageForm.beverageName) {
-            isNewBeverage = false;
-            item.beverageQty += beverageForm.beverageQty;
+        // add beverage records into an array
+        beverageForm.beverageQty = parseInt(beverageForm.beverageQty);
+        if (beverageRecords.length == 0) {
+          beverageRecords.push(beverageForm);
+        } else {
+          let isNewBeverage = true;
+          for (let item of beverageRecords) {
+            if (item.beverageName === beverageForm.beverageName) {
+              isNewBeverage = false;
+              item.beverageQty += beverageForm.beverageQty;
+            }
+          }
+          if (isNewBeverage) {
+            beverageRecords.push(beverageForm);
           }
         }
-        if (isNewBeverage) {
-          beverageRecords.push(beverageForm);
-        }
+        setBeverageForm({
+          beverageName: "",
+          beverageQty: 0,
+          beveragePrice: 0,
+        });
       }
-      setBeverageForm({
-        beverageName: "",
-        beverageQty: 0,
-        beveragePrice: 0,
-      });
     }
   };
 
@@ -57,6 +65,6 @@ export default function useRecordBeverage() {
     handleBeverageChange,
     addBeverage,
     setBeverageForm,
-    setBeverageRecords
+    setBeverageRecords,
   };
 }
