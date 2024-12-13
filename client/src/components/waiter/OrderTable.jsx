@@ -1,8 +1,11 @@
 import { addComma } from "../../utils/addComma.mjs";
 import { useNavigate } from "react-router-dom";
 import { convertToDateTime } from "../../utils/dateFormat.mjs";
+import { userContext } from "../../pages/waiter/Service";
+import { useContext } from "react";
 export default function OrderTable({ orders, openModal }) {
   const navigate = useNavigate();
+  const user = useContext(userContext);
   return (
     <table className="order-table">
       <thead>
@@ -85,15 +88,25 @@ export default function OrderTable({ orders, openModal }) {
                   ></i>
                 </td>
                 <td data-cell="Edit">
-                  {order.is_paid ? (
-                    "-"
+                  {console.log(order)}
+                  {user.is_staff ? (
+                    order.is_paid ? (
+                      <i
+                        className="fa fa-pen-to-square text-primary"
+                        onClick={() =>
+                          navigate(`/service/${order.id}/edit-order`)
+                        }
+                      ></i>
+                    ) : (
+                      <i
+                        className="fa fa-pen-to-square text-primary"
+                        onClick={() =>
+                          navigate(`/service/${order.id}/edit-order`)
+                        }
+                      ></i>
+                    )
                   ) : (
-                    <i
-                      className="fa fa-pen-to-square text-primary"
-                      onClick={() =>
-                        navigate(`/service/${order.id}/edit-order`)
-                      }
-                    ></i>
+                    "-"
                   )}
                 </td>
               </tr>

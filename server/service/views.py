@@ -167,13 +167,43 @@ def view_orders(request):
     yesterday = timezone.now() - timezone.timedelta(days=1)
     yesterday_date = str(yesterday).split(" ", maxsplit=1)[0]
 
+    # get all the users' ids
+    users_id = []
+    if request.user.is_staff:
+        for user in User.objects.values("id").all():
+            users_id.append(user["id"])
+
     if request.method == "POST" and request.data["search"]:
         # search inside order table and all items tables such as beverage, tea, and meal.
         search_fields = (
-            Q(employee__first_name__icontains=request.data["search"], updated_at__date__gte = yesterday_date)
-            | Q(employee__last_name__icontains=request.data["search"], updated_at__date__gte = yesterday_date)
-            | Q(id__icontains=request.data["search"], updated_at__date__gte = yesterday_date)
-            | Q(customer_name__icontains=request.data["search"], updated_at__date__gte = yesterday_date)
+            Q(
+                employee__first_name__icontains=request.data["search"],
+                updated_at__date__gte=yesterday_date,
+                employee__in=(
+                    [request.user.id] if not request.user.is_staff else users_id
+                ),
+            )
+            | Q(
+                employee__last_name__icontains=request.data["search"],
+                updated_at__date__gte=yesterday_date,
+                employee__in=(
+                    [request.user.id] if not request.user.is_staff else users_id
+                ),
+            )
+            | Q(
+                id__icontains=request.data["search"],
+                updated_at__date__gte=yesterday_date,
+                employee__in=(
+                    [request.user.id] if not request.user.is_staff else users_id
+                ),
+            )
+            | Q(
+                customer_name__icontains=request.data["search"],
+                updated_at__date__gte=yesterday_date,
+                employee__in=(
+                    [request.user.id] if not request.user.is_staff else users_id
+                ),
+            )
         )
         orders = (
             Order.objects.filter(search_fields)
@@ -193,7 +223,86 @@ def view_orders(request):
         return Response({"success": True, "data": serializer.data})
 
     orders = (
-        Order.objects.filter(updated_at__date__gte = yesterday_date)
+        Order.objects.filter(
+            updated_at__date__gte=yesterday_date,
+            employee__in=[request.user.id] if not request.user.is_staff else users_id,
+        )
+        .order_by("-id")
+        .prefetch_related(
+            "order_teas_total", "order_beverages_total", "order_meals_total"
+        )
+        .annotate(
+            employee_fullname=employee_fullname,
+        )
+    )
+
+    serializer = OrderSerializer(orders, many=True)
+
+    return Response({"success": True, "data": serializer.data})
+
+
+@api_view(["GET", "POST"])
+@authentication_classes([SessionAuthentication, TokenAuthentication])
+@permission_classes([IsAuthenticated])
+def view_my_services(request):
+
+    employee_fullname = Concat(
+        "employee__first_name",
+        Value(" "),
+        "employee__last_name",
+        output_field=CharField(),
+    )
+    yesterday = timezone.now() - timezone.timedelta(days=1)
+    yesterday_date = str(yesterday).split(" ", maxsplit=1)[0]
+
+    # get all the users' ids
+
+    if request.method == "POST" and request.data["search"]:
+        # search inside order table and all items tables such as beverage, tea, and meal.
+        search_fields = (
+            Q(
+                employee__first_name__icontains=request.data["search"],
+                updated_at__date__gte=yesterday_date,
+                employee=request.user.id,
+            )
+            | Q(
+                employee__last_name__icontains=request.data["search"],
+                updated_at__date__gte=yesterday_date,
+                employee=request.user.id,
+            )
+            | Q(
+                id__icontains=request.data["search"],
+                updated_at__date__gte=yesterday_date,
+                employee=request.user.id,
+            )
+            | Q(
+                customer_name__icontains=request.data["search"],
+                updated_at__date__gte=yesterday_date,
+                employee=request.user.id,
+            )
+        )
+        orders = (
+            Order.objects.filter(search_fields)
+            .order_by("-id")
+            .prefetch_related(
+                "order_teas_total",
+                "order_beverages_total",
+                "order_meals_total",
+                "employee",
+            )
+            .annotate(
+                employee_fullname=employee_fullname,
+            )
+        )
+
+        serializer = OrderSerializer(orders, many=True)
+        return Response({"success": True, "data": serializer.data})
+
+    orders = (
+        Order.objects.filter(
+            updated_at__date__gte=yesterday_date,
+            employee=request.user.id,
+        )
         .order_by("-id")
         .prefetch_related(
             "order_teas_total", "order_beverages_total", "order_meals_total"
@@ -219,7 +328,7 @@ def approve_bill(request, order_id):
 
         order.cash += int(cash)
         order.momo += int(momo)
-        
+
         if cash == 0 and momo == 0:
             order.comment = comment
             order.save()

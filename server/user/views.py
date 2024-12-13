@@ -51,6 +51,7 @@ def login(request):
 @authentication_classes([SessionAuthentication, TokenAuthentication])
 @permission_classes([IsAuthenticated])
 def protect_page(request):
+    print(request.user)
     serializer_user = UserSerializer(request.user)
     return Response(
         {

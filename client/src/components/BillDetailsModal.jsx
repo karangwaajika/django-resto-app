@@ -43,7 +43,7 @@ function BillDetailsModal({
           </div>
         </div>
         <div className="modal-body" ref={contentRef}>
-          <aside className="card order-info">
+          <aside className="card orderr-info">
             <div className="card-header">
               <div style={{ fontFamily: "cursive" }}>
                 {" "}

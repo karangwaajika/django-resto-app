@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import *
 from product.serializers import *
+from user.serializers import *
 
 
 class TeaOrderSerializer(serializers.ModelSerializer):
@@ -66,6 +67,7 @@ class OrderSerializer(serializers.ModelSerializer):
     order_teas_total = TeaOrderTotalSerializer(read_only=True, many=True)
     order_meals_total = MealOrderTotalSerializer(read_only=True, many=True)
     employee_fullname = serializers.CharField()
+    employee = UserSerializer(read_only=True)
 
     class Meta:
         model = Order
