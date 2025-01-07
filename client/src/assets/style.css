@@ -449,10 +449,7 @@ th {
   display: flex;
   justify-content: space-between;
 }
-.loader {
-  position: relative;
-  top: 0;
-}
+
 
 /* admin profile */
 article,

@@ -4,6 +4,7 @@ import ButtonLoading from "./ui/ButtonLoading";
 import FlashMessage from "./ui/FlashMessage";
 import loadingImg from "/images/n-loading.gif";
 import useFetchData from "../hooks/useFetchData";
+import { useState } from "react";
 
 export default function BeveragePurchaseForm({
   message,
@@ -50,9 +51,9 @@ export default function BeveragePurchaseForm({
                 id="beverage"
                 className="input-field"
               >
-                <option value="">Select Brand............</option>
+                <option value="" key={0}>Select Brand............</option>
                 {data.map((beverage, index) => {
-                  return <option value={beverage.id}>{beverage.name}</option>;
+                  return <option value={beverage.id} key={beverage.id}>{beverage.name}</option>;
                 })}
               </select>
               <span className="input-text">Beverage</span>

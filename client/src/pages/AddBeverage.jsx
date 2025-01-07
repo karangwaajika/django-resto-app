@@ -19,7 +19,7 @@ export default function AddBeverage() {
     clearBrandMessage,
     isBrandLoading,
     validateSubmitBrandForm,
-  } = useAddBeverageBrand(setRefreshData);
+  } = useAddBeverageBrand(handleRefreshData);
 
   // handle add beverage brand
   const {
